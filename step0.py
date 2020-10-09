@@ -157,11 +157,6 @@ def is_invariant_correct(code, invariant):
     return (True, )
 
 
-correct_invariant = LE(Symbol('x', INT), Plus(Symbol('y', INT), Int(16)))
-incorrect_invariant = LE(Symbol('x', INT), Plus(Symbol('y', INT), Int(9)))
-print(is_invariant_correct(code_1, incorrect_invariant))
-
-
 ###
 # Other
 ###
@@ -287,3 +282,11 @@ def activeLearn(SP):
         y = line(x) + random.randint(-20, 20)
         points.append((x, y))
     return (True, invariant, points)
+
+
+###
+# Test code
+###
+correct_invariant = LE(Symbol('x', INT), Plus(Symbol('y', INT), Int(16)))
+incorrect_invariant = LE(Symbol('x', INT), Plus(Symbol('y', INT), Int(9)))
+print(is_invariant_correct(code_1, incorrect_invariant))
