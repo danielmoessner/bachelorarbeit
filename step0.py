@@ -189,46 +189,63 @@ def evaluate_point(x, y):
     return ('POSITIVE', points)
 
 
+###
+# Verify function
+# Finds correct invariants
+###
 def verify():
     SP = {}
-    SP['UNKNOWN'] = [
-        (random.randint(SETTINGS['POINTS']['X']['START'], SETTINGS['POINTS']['X']['END']), random.randint(
-            SETTINGS['POINTS']['Y']['START'], SETTINGS['POINTS']['Y']['END']))
-        for _ in range(0, SETTINGS['POINTS']['GENERATE'])
-    ]
-    # SP['UNKNOWN'] += [(1, 2), (10, 1), (100, 0)]
-    SP['CE'], SP['NEGATIVE'], SP['NP'], SP['POSITIVE'] = ([], [], [], [])
+    SP['CE'], SP['NEGATIVE'], SP['NP'], SP['POSITIVE'], SP['UNKNOWN'] = (
+        [], [], [], [], []
+    )
+
+    # generate points
+    for _ in range(0, SETTINGS['POINTS']['GENERATE']):
+        x = random.randint(SETTINGS['POINTS']['X']['START'],
+                           SETTINGS['POINTS']['X']['END'])
+        y = random.randint(SETTINGS['POINTS']['Y']['START'],
+                           SETTINGS['POINTS']['Y']['END'])
+        point = (x, y)
+        SP['UNKNOWN'].append(point)
+
+    # find an invariant
     while True:
+        # evaluate points
         for point in SP['UNKNOWN']:
             evaluation = evaluate_point(*point)
             SP[evaluation[0]] += evaluation[1]
         SP['UNKNOWN'] = []
+
+        # get a possible invariant
         invariant = activeLearn(SP)
-        if invariant[0]:
-            # TODO
-            # proved = test_invariant(invariant[1])
-            proved = True  # TODO
-            if proved[0]:
-                return invariant[1]
-            else:
-                SP['UNKNOWN'] = invariant[2]
-        else:
+        if not invariant[0]:
             return 'DISPROVED'
+
+        # check if the invariant is actually correct
+        correct = is_invariant_correct(code_1, invariant[1])
+        if correct[0]:
+            return invariant[1]
+
+        # add points to sp
+        # point with which the invariant failed, this line actually does not have a big impact
+        SP['UNKNOWN'].append((correct[1]['x'], correct[1]['y']))
+        # points which are in the margin zone of the support vector machine
+        SP['UNKNOWN'] = invariant[2]
 
 
 def activeLearn(SP):
+    # safety check
     if len(SP['CE']) != 0:
         return (False,)
+
+    # shape the data for the support vector machine
     x = SP['POSITIVE'] + SP['NEGATIVE']
     y = len(SP['POSITIVE']) * [1] + len(SP['NEGATIVE']) * [0]
     x = np.array(x)
     clf = svm.SVC(kernel='linear', C=1000)
     clf.fit(x, y)
-    print(len(x))
-    # print(SP)
-    # print(x)
-    # print(y)
 
+    # draw a plot of the data; helps visualizing what is happening
     # plt.scatter(x[:, 0], x[:, 1], c=y, s=30)
     # # plot the` decision function
     # ax = plt.gca()
@@ -248,26 +265,32 @@ def activeLearn(SP):
     #            linewidth=1, facecolors='none', edgecolors='k')
     # plt.show()
 
+    # calculate the seperating line
     W = clf.coef_[0]
     I = clf.intercept_
-    # print('intercept', clf.intercept_)
-    a = -W[0] / W[1]
-    b = I[0] / W[1]
-    # print(a, b)
-    a = int(round(a))
-    b = int(round(b))
+    a = int(round(-W[0] / W[1]))
+    b = int(round(I[0] / W[1]))
     def line(x): return a*x - b
+
+    # comment TODO
     if clf.predict([(1, line(1) - 1)]) == 0:
-        invariant = LE(Minus(Times(Int(a), Symbol('x', INT)),
-                             Int(b)), Symbol('y', INT))
+        invariant = LE(
+            Minus(Times(Int(a), Symbol('x', INT)), Int(b)),
+            Symbol('y', INT)
+        )
     else:
-        invariant = GE(Minus(Times(Int(a), Symbol('x', INT)),
-                             Int(b)), Symbol('y', INT))
+        invariant = GE(
+            Minus(Times(Int(a), Symbol('x', INT)), Int(b)),
+            Symbol('y', INT)
+        )
+
     print(invariant)
+
+    # generate points in the seperation zone
     points = []
     for _ in range(0, 10):
-        x = random.randint(SETTINGS['POINTS']['X']
-                           ['START'], SETTINGS['POINTS']['Y']['END'])
+        x = random.randint(SETTINGS['POINTS']['X']['START'],
+                           SETTINGS['POINTS']['Y']['END'])
         y = line(x) + random.randint(-20, 20)
         points.append((x, y))
     return (True, invariant, points)
@@ -276,6 +299,9 @@ def activeLearn(SP):
 ###
 # Test code
 ###
-correct_invariant = LE(Symbol('x', INT), Plus(Symbol('y', INT), Int(16)))
-incorrect_invariant = LE(Symbol('x', INT), Plus(Symbol('y', INT), Int(9)))
-print(is_invariant_correct(code_1, incorrect_invariant))
+
+# correct_invariant = LE(Symbol('x', INT), Plus(Symbol('y', INT), Int(16)))
+# incorrect_invariant = LE(Symbol('x', INT), Plus(Symbol('y', INT), Int(9)))
+# print(is_invariant_correct(code_1, incorrect_invariant))
+
+verify()
