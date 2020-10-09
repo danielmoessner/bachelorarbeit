@@ -26,6 +26,15 @@ SETTINGS = {
 
 
 ###
+# Helper functions
+###
+def get_var(name, index=None):
+    if index is None:
+        return Symbol(name, INT)
+    return Symbol(name + str(index), INT)
+
+
+###
 # Example programs from the paper
 ###
 code_1 = {
@@ -74,15 +83,6 @@ code_1 = {
         }
     }
 }
-
-
-###
-# Helper functions
-###
-def get_var(name, index=None):
-    if index is None:
-        return Symbol(name, INT)
-    return Symbol(name + str(index), INT)
 
 
 ###
@@ -140,7 +140,7 @@ def is_invariant_correct(code, invariant):
 
 correct_invariant = LE(Symbol('x', INT), Plus(Symbol('y', INT), Int(16)))
 incorrect_invariant = LE(Symbol('x', INT), Plus(Symbol('y', INT), Int(19)))
-print(is_invariant_correct_2(code_1, correct_invariant))
+print(is_invariant_correct_2(code_1, incorrect_invariant))
 
 
 ###
