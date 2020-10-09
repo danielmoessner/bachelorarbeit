@@ -246,24 +246,24 @@ def activeLearn(SP):
     clf.fit(x, y)
 
     # draw a plot of the data; helps visualizing what is happening
-    # plt.scatter(x[:, 0], x[:, 1], c=y, s=30)
-    # # plot the` decision function
-    # ax = plt.gca()
-    # xlim = ax.get_xlim()
-    # ylim = ax.get_ylim()
-    # # create grid to evaluate model
-    # xx = np.linspace(xlim[0], xlim[1], 30)
-    # yy = np.linspace(ylim[0], ylim[1], 30)
-    # YY, XX = np.meshgrid(yy, xx)
-    # xy = np.vstack([XX.ravel(), YY.ravel()]).T
-    # Z = clf.decision_function(xy).reshape(XX.shape)
-    # # plot decision boundary and margins
-    # ax.contour(XX, YY, Z, colors='k', levels=[-1, 0, 1], alpha=0.5,
-    #            linestyles=['--', '-', '--'])
-    # # plot support vectors
-    # ax.scatter(clf.support_vectors_[:, 0], clf.support_vectors_[:, 1], s=100,
-    #            linewidth=1, facecolors='none', edgecolors='k')
-    # plt.show()
+    plt.scatter(x[:, 0], x[:, 1], c=y, s=30)
+    # plot the` decision function
+    ax = plt.gca()
+    xlim = ax.get_xlim()
+    ylim = ax.get_ylim()
+    # create grid to evaluate model
+    xx = np.linspace(xlim[0], xlim[1], 30)
+    yy = np.linspace(ylim[0], ylim[1], 30)
+    YY, XX = np.meshgrid(yy, xx)
+    xy = np.vstack([XX.ravel(), YY.ravel()]).T
+    Z = clf.decision_function(xy).reshape(XX.shape)
+    # plot decision boundary and margins
+    ax.contour(XX, YY, Z, colors='k', levels=[-1, 0, 1], alpha=0.5,
+               linestyles=['--', '-', '--'])
+    # plot support vectors
+    ax.scatter(clf.support_vectors_[:, 0], clf.support_vectors_[:, 1], s=100,
+               linewidth=1, facecolors='none', edgecolors='k')
+    plt.show()
 
     # calculate the seperating line
     W = clf.coef_[0]
@@ -271,6 +271,10 @@ def activeLearn(SP):
     a = int(round(-W[0] / W[1]))
     b = int(round(I[0] / W[1]))
     def line(x): return a*x - b
+
+    # margin calculation TODO seems to be wrong
+    vector = clf.support_vectors_[0]
+    margin = abs(int(round(vector[1] - a * vector[0])))
 
     # comment TODO
     if clf.predict([(1, line(1) - 1)]) == 0:
@@ -283,7 +287,6 @@ def activeLearn(SP):
             Minus(Times(Int(a), Symbol('x', INT)), Int(b)),
             Symbol('y', INT)
         )
-
     print(invariant)
 
     # generate points in the seperation zone
@@ -291,7 +294,7 @@ def activeLearn(SP):
     for _ in range(0, 10):
         x = random.randint(SETTINGS['POINTS']['X']['START'],
                            SETTINGS['POINTS']['Y']['END'])
-        y = line(x) + random.randint(-20, 20)
+        y = line(x) + random.randint(-margin, margin)
         points.append((x, y))
     return (True, invariant, points)
 
@@ -304,4 +307,4 @@ def activeLearn(SP):
 # incorrect_invariant = LE(Symbol('x', INT), Plus(Symbol('y', INT), Int(9)))
 # print(is_invariant_correct(code_1, incorrect_invariant))
 
-verify()
+print(verify())
