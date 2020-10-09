@@ -157,7 +157,7 @@ def is_invariant_correct(code, invariant):
 
 
 ###
-# Other
+# Evaluate points
 ###
 def evaluate_point(x, y):
     points = [(x, y)]
@@ -189,18 +189,6 @@ def evaluate_point(x, y):
     return ('POSITIVE', points)
 
 
-def test_invariant(invariant):
-    x = random.randint(-100, 100)
-    y = x + random.randint(1, 20)
-    try:
-        # TODO
-        # check_invariant(x, y, invariant)
-        pass
-    except:
-        return (False, (x, y))
-    return (True, )
-
-
 def verify():
     SP = {}
     SP['UNKNOWN'] = [
@@ -217,7 +205,9 @@ def verify():
         SP['UNKNOWN'] = []
         invariant = activeLearn(SP)
         if invariant[0]:
-            proved = test_invariant(invariant[1])
+            # TODO
+            # proved = test_invariant(invariant[1])
+            proved = True  # TODO
             if proved[0]:
                 return invariant[1]
             else:
