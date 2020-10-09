@@ -7,6 +7,9 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 
+###
+# Settings
+###
 SETTINGS = {
     'POINTS': {
         'GENERATE': 40,
@@ -22,12 +25,9 @@ SETTINGS = {
 }
 
 
-def get_var(name, index=None):
-    if index is None:
-        return Symbol(name, INT)
-    return Symbol(name + str(index), INT)
-
-
+###
+# Example programs from the paper
+###
 code_1 = {
     'pre': LT(get_var('x', 1), get_var('y', 1)),
     'cond': LT(get_var('x', 1), get_var('y', 1)),
@@ -43,14 +43,20 @@ code_1 = {
             )
         ),
         Or(
-            Equals(
-                get_var('y', 2),
-                Minus(get_var('y', 1), Int(10))
+            And(
+                Equals(
+                    get_var('y', 2),
+                    Minus(get_var('y', 1), Int(10))
+                ),
+                Equals(
+                    get_var('x', 2),
+                    Plus(get_var('x', 1), Int(7))
+                ),
             ),
             Equals(
                 get_var('y', 2),
                 Plus(get_var('y', 1), Int(3))
-            )
+            ),
         )
     ),
     'post': And(
@@ -70,20 +76,34 @@ code_1 = {
 }
 
 
+###
+# Helper functions
+###
+def get_var(name, index=None):
+    if index is None:
+        return Symbol(name, INT)
+    return Symbol(name + str(index), INT)
+
+
+###
+# Invariant check
+###
 def get_substitution(code, place='body', replace_index=False):
     substitution = {}
     for key in code['map'].keys():
         index = code['map'][key]['pre'] if replace_index else None
         if place == 'body':
-            substitution[get_var(key, index)] = get_var(key, code['map'][key]['body'])
+            substitution[get_var(key, index)] = get_var(
+                key, code['map'][key]['body'])
         elif place == 'pre':
-            substitution[get_var(key, index)] = get_var(key, code['map'][key]['pre'])
+            substitution[get_var(key, index)] = get_var(
+                key, code['map'][key]['pre'])
         else:
             raise Exception("Place needs to be 'body' or 'pre'.")
     return substitution
 
 
-def is_invariant_correct_2(code, invariant):
+def is_invariant_correct(code, invariant):
     # test (4)
     formula = And(
         code['pre'],
@@ -123,7 +143,10 @@ incorrect_invariant = LE(Symbol('x', INT), Plus(Symbol('y', INT), Int(19)))
 print(is_invariant_correct_2(code_1, correct_invariant))
 
 
-def is_invariant_correct(pre, cond, body, invariant):
+###
+# Other
+###
+def is_invariant_correct_2(pre, cond, body, invariant):
     X = Symbol('x', INT)
     Y = Symbol('y', INT)
 
