@@ -41,7 +41,7 @@ def func(x, y, X, Y, invariant):
             print("(5) holds (is a tautology) => invariant reestablished")
     post = And(LE(Y, X), LE(X, Plus(Y+Int(16))))  # (y <= x <= y + 16)
     formula = And(invariant, Not(start), Not(post))  # (6)
-    # print(formula.serialize())
+    print(formula.serialize())
     # print(get_model(Not(formula)))
     assert is_unsat(formula)
     if is_unsat(formula):

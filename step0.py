@@ -22,7 +22,108 @@ SETTINGS = {
 }
 
 
-def is_invariant_correct(invariant):
+def get_var(name, index=None):
+    if index is None:
+        return Symbol(name, INT)
+    return Symbol(name + str(index), INT)
+
+
+code_1 = {
+    'pre': LT(get_var('x', 1), get_var('y', 1)),
+    'cond': LT(get_var('x', 1), get_var('y', 1)),
+    'body': And(
+        Or(
+            Equals(
+                get_var('x', 2),
+                Plus(get_var('x', 1), Int(7))
+            ),
+            Equals(
+                get_var('x', 2),
+                Plus(get_var('x', 1), Int(10))
+            )
+        ),
+        Or(
+            Equals(
+                get_var('y', 2),
+                Minus(get_var('y', 1), Int(10))
+            ),
+            Equals(
+                get_var('y', 2),
+                Plus(get_var('y', 1), Int(3))
+            )
+        )
+    ),
+    'post': And(
+        LE(get_var('y', 2), get_var('x', 2)),
+        LE(get_var('x', 2), Plus(get_var('y', 2), Int(16)))
+    ),
+    'map': {
+        'x': {
+            'pre': 1,
+            'body': 2
+        },
+        'y': {
+            'pre': 1,
+            'body': 2
+        }
+    }
+}
+
+
+def get_substitution(code, place='body', replace_index=False):
+    substitution = {}
+    for key in code['map'].keys():
+        index = code['map'][key]['pre'] if replace_index else None
+        if place == 'body':
+            substitution[get_var(key, index)] = get_var(key, code['map'][key]['body'])
+        elif place == 'pre':
+            substitution[get_var(key, index)] = get_var(key, code['map'][key]['pre'])
+        else:
+            raise Exception("Place needs to be 'body' or 'pre'.")
+    return substitution
+
+
+def is_invariant_correct_2(code, invariant):
+    # test (4)
+    formula = And(
+        code['pre'],
+        Not(invariant.substitute(get_substitution(code, 'pre')))
+    )
+    if is_sat(formula):
+        return (False, formula.serialize())
+
+    # test (5)
+    sp = And(
+        code['cond'],
+        code['body'],
+        invariant.substitute(get_substitution(code, 'pre'))
+    )
+    formula = And(
+        sp,
+        Not(invariant.substitute(get_substitution(code, 'body')))
+    )
+    if is_sat(formula):
+        print(get_model(formula))
+        return (False, formula.serialize())
+
+    # test (6)
+    formula = And(
+        invariant.substitute(get_substitution(code, 'body')),
+        Not(code['cond'].substitute(get_substitution(code, 'body', True))),
+        Not(code['post'])
+    )
+    if is_sat(formula):
+        return (False, formula.serialize())
+
+    return True
+
+
+correct_invariant = LE(Symbol('x', INT), Plus(Symbol('y', INT), Int(16)))
+incorrect_invariant = LE(Symbol('x', INT), Plus(Symbol('y', INT), Int(19)))
+print(is_invariant_correct_2(code_1, correct_invariant))
+
+
+def is_invariant_correct(pre, cond, body, invariant):
     X = Symbol('x', INT)
     Y = Symbol('y', INT)
 
@@ -35,10 +136,39 @@ def is_invariant_correct(invariant):
 
     # test (5)
     cond = LT(X, Y)
+
+    X = Symbol('x', INT)
+    X1 = Plus(X, INT)
+
+    x1 = Symbol('x1', INT)
+    y1 = Symbol('y1', INT)
+    cond = LT(x1, y1)
+    invariant = LE(x1, Plus(y1, Int(16)))
+    body = And(Or(
+        Equals(Symbol('x2', INT), Plus(x1, Int(7))),
+        Equals(Symbol('x2', INT), Plus(x1, Int(10)))
+    ), Or(
+        Equals(Symbol('y2', INT), Minus(y1, Int(10))),
+        Equals(Symbol('y2', INT), Plus(y1, Int(3)))
+    ))
+    sp = And(cond, body, invariant)
+    invariant2 = LE(Symbol('x2', INT), Plus(Symbol('y2', INT), Int(16)))
+    formula = And(sp, Not(invariant2))
+    if not is_unsat(formula):
+        return False
+    # body = body = And(Or(Plus(Symbol('x', INT), Int(7)), Plus(Symbol('x', INT), Int(10), )
     X_new = Ite(LT(X, Int(0)), Plus(X, Int(7)), Plus(X, Int(10)))
     Y_new = Ite(LT(Y, Int(0)), Minus(Y, Int(10)), Plus(Y, Int(3)))
+
     invariant_new = invariant.substitute({X: X_new, Y: Y_new})
-    formula = And(Implies(And(cond, invariant), invariant_new), Not(invariant))
+    # (cond and invariant => invariant_new) and not(invariant)
+
+    # not(cond and invaraint => invariant_new)
+
+    formula = Not(Implies(And(invariant, cond), invariant_new))
+
+    # formula = And(Implies(And(cond, invariant), invariant_new), Not(invariant))
+
     print(formula.serialize())
     if is_sat(Not(formula)):
         return False
