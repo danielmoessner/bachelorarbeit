@@ -34,6 +34,25 @@ def get_var(name, index=None):
     return Symbol(name + str(index), INT)
 
 
+def get_lowest_variables(variables):
+    values = {}
+    for variable in variables:
+        name = variable[0].serialize()
+        key = name[0]
+        height = int(name[1:])
+        value = int(variable[1].serialize())
+        if key in values.keys() and values[key]['height'] < height:
+            continue
+        values[key] = {
+            'value': value,
+            'height': height
+        }
+    variables = {}
+    for key, value in values.items():
+        variables[key] = value['value']
+    return variables
+
+
 ###
 # Example programs from the paper
 ###
@@ -110,7 +129,7 @@ def is_invariant_correct(code, invariant):
         Not(invariant.substitute(get_substitution(code, 'pre')))
     )
     if is_sat(formula):
-        return (False, formula.serialize())
+        return (False, get_lowest_variables(get_model(formula).__iter__()))
 
     # test (5)
     sp = And(
@@ -123,8 +142,8 @@ def is_invariant_correct(code, invariant):
         Not(invariant.substitute(get_substitution(code, 'body')))
     )
     if is_sat(formula):
-        print(get_model(formula))
-        return (False, formula.serialize())
+        # print(get_model(formula).get_values(formula))
+        return (False, get_lowest_variables(get_model(formula).__iter__()))
 
     # test (6)
     formula = And(
@@ -133,14 +152,14 @@ def is_invariant_correct(code, invariant):
         Not(code['post'])
     )
     if is_sat(formula):
-        return (False, formula.serialize())
+        return (False, get_lowest_variables(get_model(formula).__iter__()))
 
-    return True
+    return (True, )
 
 
 correct_invariant = LE(Symbol('x', INT), Plus(Symbol('y', INT), Int(16)))
-incorrect_invariant = LE(Symbol('x', INT), Plus(Symbol('y', INT), Int(19)))
-print(is_invariant_correct_2(code_1, incorrect_invariant))
+incorrect_invariant = LE(Symbol('x', INT), Plus(Symbol('y', INT), Int(9)))
+print(is_invariant_correct(code_1, incorrect_invariant))
 
 
 ###
