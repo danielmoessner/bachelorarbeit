@@ -142,7 +142,6 @@ def is_invariant_correct(code, invariant):
         Not(invariant.substitute(get_substitution(code, 'body')))
     )
     if is_sat(formula):
-        # print(get_model(formula).get_values(formula))
         return (False, get_lowest_variables(get_model(formula).__iter__()))
 
     # test (6)
