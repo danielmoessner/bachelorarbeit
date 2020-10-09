@@ -165,145 +165,6 @@ print(is_invariant_correct(code_1, incorrect_invariant))
 ###
 # Other
 ###
-def is_invariant_correct_2(pre, cond, body, invariant):
-    X = Symbol('x', INT)
-    Y = Symbol('y', INT)
-
-    # test (4)
-    pre = LT(X, Y)
-    formula = And(pre, Not(invariant))
-    print(formula.serialize())
-    if is_sat(formula):
-        return False
-
-    # test (5)
-    cond = LT(X, Y)
-
-    X = Symbol('x', INT)
-    X1 = Plus(X, INT)
-
-    x1 = Symbol('x1', INT)
-    y1 = Symbol('y1', INT)
-    cond = LT(x1, y1)
-    invariant = LE(x1, Plus(y1, Int(16)))
-    body = And(Or(
-        Equals(Symbol('x2', INT), Plus(x1, Int(7))),
-        Equals(Symbol('x2', INT), Plus(x1, Int(10)))
-    ), Or(
-        Equals(Symbol('y2', INT), Minus(y1, Int(10))),
-        Equals(Symbol('y2', INT), Plus(y1, Int(3)))
-    ))
-    sp = And(cond, body, invariant)
-    invariant2 = LE(Symbol('x2', INT), Plus(Symbol('y2', INT), Int(16)))
-    formula = And(sp, Not(invariant2))
-    if not is_unsat(formula):
-        return False
-    # body = body = And(Or(Plus(Symbol('x', INT), Int(7)), Plus(Symbol('x', INT), Int(10), )
-    X_new = Ite(LT(X, Int(0)), Plus(X, Int(7)), Plus(X, Int(10)))
-    Y_new = Ite(LT(Y, Int(0)), Minus(Y, Int(10)), Plus(Y, Int(3)))
-
-    invariant_new = invariant.substitute({X: X_new, Y: Y_new})
-    # (cond and invariant => invariant_new) and not(invariant)
-
-    # not(cond and invaraint => invariant_new)
-
-    formula = Not(Implies(And(invariant, cond), invariant_new))
-
-    # formula = And(Implies(And(cond, invariant), invariant_new), Not(invariant))
-
-    print(formula.serialize())
-    if is_sat(Not(formula)):
-        return False
-
-    # test (6)
-    post = GE(X, Y)
-    formula = And(invariant, Not(cond), Not(post))
-    print(formula.serialize())
-    if is_sat(formula):
-        return False
-
-    return True
-
-
-# correct_invariant = LE(Symbol('x', INT), Plus(Symbol('y', INT), Int(16)))
-# incorrect_invariant = LE(Symbol('x', INT), Plus(Symbol('y', INT), Int(19)))
-# print(is_invariant_correct(incorrect_invariant))
-
-
-def check_invariant(x, y, invariant):
-    X = Symbol('x', INT)
-    Y = Symbol('y', INT)
-    assert x < y
-
-    # precondition
-    start = LT(X, Y)
-
-    # check invariant holds before the loop
-    formula = Implies(start, invariant)
-    assert is_unsat(Not(formula))
-
-    # check (4)
-    # assert is_unsat(And(start, Not(invariant)))
-    print(x, y)
-    print(evaluate_point(x, y))
-    while x < y:
-        # while loop condition
-        start = LT(X, Y)
-
-        # check invariant holds at the beginning of the loop
-        formula = Implies(
-            start,
-            invariant.substitute({Symbol('x', INT): X, Symbol('y', INT): Y})
-        )
-        assert is_unsat(Not(formula))
-
-        # while loop body
-        if x < 0:
-            x += 7
-        else:
-            x += 10
-        if y < 0:
-            y -= 10
-        else:
-            y += 3
-        X = Ite(LT(X, Int(0)), Plus(X, Int(7)), Plus(X, Int(10)))
-        Y = Ite(LT(Y, Int(0)), Minus(Y, Int(10)), Plus(Y, Int(3)))
-
-        # check invariant holds at the end of the loop
-        formula = Implies(
-            start,
-            invariant.substitute({Symbol('x', INT): X, Symbol('y', INT): Y})
-        )
-        assert is_unsat(Not(formula))
-
-        # check (5)
-        # assert is_unsat(
-        #     And(
-        #         And(
-        #             invariant.substitute(
-        #                 {Symbol('x', INT): X, Symbol('y', INT): Y}),
-        #             start
-        #         ),
-        #         Not(invariant)
-        #     )
-        # )
-
-    # check invariant holds after the loop
-    post = And(LE(Y, X), LE(X, Plus(Y, Int(16))))
-    formula = Implies(And(post, start), invariant.substitute(
-        {Symbol('x', INT): X, Symbol('y', INT): Y}))
-    assert is_unsat(Not(formula))
-
-    # check (6)
-    start = LT(Symbol('x', INT), Symbol('y', INT))
-    post = And(
-        LE(Symbol('y', INT), Symbol('x', INT)),
-        LE(Symbol('x', INT), Plus(Symbol('y', INT), Int(16)))
-    )
-    formula = And(invariant, Not(start), Not(post))
-    assert is_unsat(formula)
-
-
 def evaluate_point(x, y):
     points = [(x, y)]
 
@@ -338,7 +199,9 @@ def test_invariant(invariant):
     x = random.randint(-100, 100)
     y = x + random.randint(1, 20)
     try:
-        check_invariant(x, y, invariant)
+        # TODO
+        # check_invariant(x, y, invariant)
+        pass
     except:
         return (False, (x, y))
     return (True, )
@@ -424,33 +287,3 @@ def activeLearn(SP):
         y = line(x) + random.randint(-20, 20)
         points.append((x, y))
     return (True, invariant, points)
-
-
-# print(verify())
-
-
-###
-# Testing invariants
-###
-
-# inputs
-# X = Symbol('x', INT)
-# Y = Symbol('y', INT)
-
-# function to test invariant
-# def test_invariant(invariant):
-#     x = random.randint(-100, 100)
-#     y = x + random.randint(1, 20)
-#     print('\nTesting invariant: {}. Values: x={} and y={}'.format(invariant, x, y))
-#     func(x, y, X, Y, invariant=invariant)
-
-# this invariant seems to be correct
-correct_invariant = LE(Symbol('x', INT), Plus(Symbol('y', INT), Int(16)))
-# check_invariant(1, 10, correct_invariant)
-
-# this invariant fails after some tries
-incorrect_invariant = LE(Symbol('x', INT), Plus(Symbol('y', INT), Int(19)))
-
-# test invariant
-# test_invariant(incorrect_invariant)
-# print(is_invariant_correct(incorrect_invariant))
