@@ -12,7 +12,10 @@ import numpy as np
 ###
 SETTINGS = {
     'POINTS': {
-        'GENERATE': 40,
+        'GENERATE': {
+            'START': 40,
+            'ZONE': 100
+        },
         'X': {
             'START': -32,
             'END': 32
@@ -21,7 +24,7 @@ SETTINGS = {
             'START': -32,
             'END': 32
         },
-        'MARGIN': 5
+        'MARGIN_MULTIPLIER': 5
     }
 }
 
@@ -214,7 +217,7 @@ def evaluate_point(x, y):
         # now this function returns 'POSITIVE'
         # but the point (-5, -18) should not be positive
         # (-5, -18) is 'NEGATIVE'
-        
+
     post_violated = not (y <= x and x <= y + 16)
     if post_violated:
         if pre_violated:
@@ -237,7 +240,7 @@ def verify():
     )
 
     # generate points
-    for _ in range(0, SETTINGS['POINTS']['GENERATE']):
+    for _ in range(0, SETTINGS['POINTS']['GENERATE']['START']):
         x = random.randint(SETTINGS['POINTS']['X']['START'],
                            SETTINGS['POINTS']['X']['END'])
         y = random.randint(SETTINGS['POINTS']['Y']['START'],
@@ -286,7 +289,7 @@ def activeLearn(SP):
     clf.fit(x, y)
     print('POSITIVE', '(yellow)', len(y[y == 1]))
     print('NEGATIVE', '(purple)', len(y[y == 0]))
-    print('NP      ', '(blue)  ', len(SP['NP']), '\n')
+    print('NP      ', '(blue)  ', len(SP['NP']))
 
     # calculate the seperating line
     W = clf.coef_[0]
@@ -296,8 +299,8 @@ def activeLearn(SP):
     def line(x): return a*x - b
 
     # margin calculation
-    margin = int(round(1 / np.linalg.norm(clf.coef_)) +
-                 SETTINGS['POINTS']['MARGIN'])
+    margin = int(round(1 / np.linalg.norm(clf.coef_)) *
+                 SETTINGS['POINTS']['MARGIN_MULTIPLIER'])
 
     # check wheter <= or >= is correct
     if clf.predict([(1, line(1) - 1)]) == 0:
@@ -310,10 +313,11 @@ def activeLearn(SP):
             Minus(Times(Int(a), Symbol('x', INT)), Int(b)),
             Symbol('y', INT)
         )
+    print(invariant, '\n')
 
     # generate points in the seperation zone
     points = []
-    for _ in range(0, 10):
+    for _ in range(0, SETTINGS['POINTS']['GENERATE']['ZONE']):
         xp = random.randint(SETTINGS['POINTS']['X']['START'],
                             SETTINGS['POINTS']['Y']['END'])
         yp = line(xp) + random.randint(-margin, margin)
