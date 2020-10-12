@@ -201,7 +201,20 @@ def evaluate_point(x, y):
             y += 3
 
         # points.append((x, y))
-
+        # this is wrong
+        #
+        # example:
+        # x = -12, y = -8
+        # pre is satisfied, cond is satisfied
+        #
+        # x and y become:
+        # x = -5, y = -18
+        # cond is not satisfied, post is satisfied
+        #
+        # now this function returns 'POSITIVE'
+        # but the point (-5, -18) should not be positive
+        # (-5, -18) is 'NEGATIVE'
+        
     post_violated = not (y <= x and x <= y + 16)
     if post_violated:
         if pre_violated:
@@ -271,8 +284,9 @@ def activeLearn(SP):
     y = np.array(y)
     clf = svm.SVC(kernel='linear', C=1000)
     clf.fit(x, y)
-    print(len(y[y == 0]))
-    print(len(y[y == 1]))
+    print('POSITIVE', '(yellow)', len(y[y == 1]))
+    print('NEGATIVE', '(purple)', len(y[y == 0]))
+    print('NP      ', '(blue)  ', len(SP['NP']), '\n')
 
     # calculate the seperating line
     W = clf.coef_[0]
@@ -284,7 +298,6 @@ def activeLearn(SP):
     # margin calculation
     margin = int(round(1 / np.linalg.norm(clf.coef_)) +
                  SETTINGS['POINTS']['MARGIN'])
-    print(margin)
 
     # check wheter <= or >= is correct
     if clf.predict([(1, line(1) - 1)]) == 0:
@@ -297,7 +310,6 @@ def activeLearn(SP):
             Minus(Times(Int(a), Symbol('x', INT)), Int(b)),
             Symbol('y', INT)
         )
-    print(invariant)
 
     # generate points in the seperation zone
     points = []
@@ -306,7 +318,6 @@ def activeLearn(SP):
                             SETTINGS['POINTS']['Y']['END'])
         yp = line(xp) + random.randint(-margin, margin)
         points.append((xp, yp))
-    print(points)
 
     # draw a plot of the data; helps visualizing what is happening
     z = np.array(SP['NP'])
