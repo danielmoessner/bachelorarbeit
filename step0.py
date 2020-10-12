@@ -20,7 +20,8 @@ SETTINGS = {
         'Y': {
             'START': -32,
             'END': 32
-        }
+        },
+        'MARGIN': 5
     }
 }
 
@@ -156,6 +157,28 @@ def is_invariant_correct(code, invariant):
     return (True, )
 
 
+# def evaluate(code, variables):
+#     numbers = And()
+#     for key, item in variables.items():
+#         numbers = And(numbers, Equals(get_var(key), Int(item)))
+
+#     formula = And(code['pre'], numbers.substitute(get_substitution(code, 'pre')))
+#     print(formula.serialize())
+#     pre_violated = not is_sat(formula)
+
+#     formula = And(code['post'], numbers.substitute(get_substitution(code, 'body')))
+#     print(formula.serialize())
+#     post_violated = not is_sat(formula)
+
+#     if post_violated:
+#         if pre_violated:
+#             return 'NEGATIVE'
+#         return 'CE'
+#     if pre_violated:
+#         return 'NP'
+#     return 'POSITIVE'
+
+
 ###
 # Evaluate points
 ###
@@ -177,9 +200,10 @@ def evaluate_point(x, y):
         else:
             y += 3
 
-        points.append((x, y))
+        # points.append((x, y))
 
-    if not (y <= x and x <= y + 16):
+    post_violated = not (y <= x and x <= y + 16)
+    if post_violated:
         if pre_violated:
             return ('NEGATIVE', points)
         return ('CE', points)
@@ -237,15 +261,56 @@ def activeLearn(SP):
     # safety check
     if len(SP['CE']) != 0:
         return (False,)
+    for point in SP['NEGATIVE']:
+        assert evaluate_point(*point)[0] == 'NEGATIVE'
 
     # shape the data for the support vector machine
     x = SP['POSITIVE'] + SP['NEGATIVE']
     y = len(SP['POSITIVE']) * [1] + len(SP['NEGATIVE']) * [0]
     x = np.array(x)
+    y = np.array(y)
     clf = svm.SVC(kernel='linear', C=1000)
     clf.fit(x, y)
+    print(len(y[y == 0]))
+    print(len(y[y == 1]))
+
+    # calculate the seperating line
+    W = clf.coef_[0]
+    I = clf.intercept_
+    a = int(round(-W[0] / W[1]))
+    b = int(round(I[0] / W[1]))
+    def line(x): return a*x - b
+
+    # margin calculation
+    margin = int(round(1 / np.linalg.norm(clf.coef_)) +
+                 SETTINGS['POINTS']['MARGIN'])
+    print(margin)
+
+    # check wheter <= or >= is correct
+    if clf.predict([(1, line(1) - 1)]) == 0:
+        invariant = LE(
+            Minus(Times(Int(a), Symbol('x', INT)), Int(b)),
+            Symbol('y', INT)
+        )
+    else:
+        invariant = GE(
+            Minus(Times(Int(a), Symbol('x', INT)), Int(b)),
+            Symbol('y', INT)
+        )
+    print(invariant)
+
+    # generate points in the seperation zone
+    points = []
+    for _ in range(0, 10):
+        xp = random.randint(SETTINGS['POINTS']['X']['START'],
+                            SETTINGS['POINTS']['Y']['END'])
+        yp = line(xp) + random.randint(-margin, margin)
+        points.append((xp, yp))
+    print(points)
 
     # draw a plot of the data; helps visualizing what is happening
+    z = np.array(SP['NP'])
+    plt.scatter(z[:, 0], z[:, 1])
     plt.scatter(x[:, 0], x[:, 1], c=y, s=30)
     # plot the` decision function
     ax = plt.gca()
@@ -265,37 +330,7 @@ def activeLearn(SP):
                linewidth=1, facecolors='none', edgecolors='k')
     plt.show()
 
-    # calculate the seperating line
-    W = clf.coef_[0]
-    I = clf.intercept_
-    a = int(round(-W[0] / W[1]))
-    b = int(round(I[0] / W[1]))
-    def line(x): return a*x - b
-
-    # margin calculation TODO seems to be wrong
-    vector = clf.support_vectors_[0]
-    margin = abs(int(round(vector[1] - a * vector[0])))
-
-    # comment TODO
-    if clf.predict([(1, line(1) - 1)]) == 0:
-        invariant = LE(
-            Minus(Times(Int(a), Symbol('x', INT)), Int(b)),
-            Symbol('y', INT)
-        )
-    else:
-        invariant = GE(
-            Minus(Times(Int(a), Symbol('x', INT)), Int(b)),
-            Symbol('y', INT)
-        )
-    print(invariant)
-
-    # generate points in the seperation zone
-    points = []
-    for _ in range(0, 10):
-        x = random.randint(SETTINGS['POINTS']['X']['START'],
-                           SETTINGS['POINTS']['Y']['END'])
-        y = line(x) + random.randint(-margin, margin)
-        points.append((x, y))
+    # return found invariant and points in the seperation zone
     return (True, invariant, points)
 
 
@@ -308,3 +343,12 @@ def activeLearn(SP):
 # print(is_invariant_correct(code_1, incorrect_invariant))
 
 print(verify())
+
+# print(evaluate_point(-5, -18))
+# print(evaluate_point(-12, -10))
+
+# print(evaluate(code_1, {'x': 2, 'y': 5}))
+
+# print(evaluate_point(-18, -29))
+# print(evaluate_point(-19, -29))
+# print(evaluate_point(-19, -32))

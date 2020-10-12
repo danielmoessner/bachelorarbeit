@@ -25,6 +25,12 @@ YY, XX = np.meshgrid(yy, xx)
 xy = np.vstack([XX.ravel(), YY.ravel()]).T
 Z = clf.decision_function(xy).reshape(XX.shape)
 
+print(clf.support_vectors_)
+print(clf.n_support_)
+print(clf.coef_)
+margin = 1 / np.linalg.norm(clf.coef_)
+print(margin)
+
 # plot decision boundary and margins
 ax.contour(XX, YY, Z, colors='k', levels=[-1, 0, 1], alpha=0.5,
            linestyles=['--', '-', '--'])
