@@ -38,14 +38,18 @@ def get_var(name, index=None):
     return Symbol(name + str(index), INT)
 
 
-def get_lowest_variables(variables):
+def get_variables_from_formula(formula, index='lowest'):
+    assert index == 'lowest' or index == 'highest'
+    variables = get_model(formula).__iter__()
     values = {}
     for variable in variables:
         name = variable[0].serialize()
         key = name[0]
         height = int(name[1:])
         value = int(variable[1].serialize())
-        if key in values.keys() and values[key]['height'] < height:
+        if index == 'lowest' and key in values.keys() and values[key]['height'] < height:
+            continue
+        if index == 'highest' and key in values.keys() and values[key]['height'] > height:
             continue
         values[key] = {
             'value': value,
@@ -133,7 +137,7 @@ def is_invariant_correct(code, invariant):
         Not(invariant.substitute(get_substitution(code, 'pre')))
     )
     if is_sat(formula):
-        return (False, get_lowest_variables(get_model(formula).__iter__()))
+        return (False, get_variables_from_formula(formula))
 
     # test (5)
     sp = And(
@@ -146,7 +150,7 @@ def is_invariant_correct(code, invariant):
         Not(invariant.substitute(get_substitution(code, 'body')))
     )
     if is_sat(formula):
-        return (False, get_lowest_variables(get_model(formula).__iter__()))
+        return (False, get_variables_from_formula(formula))
 
     # test (6)
     formula = And(
@@ -155,31 +159,76 @@ def is_invariant_correct(code, invariant):
         Not(code['post'])
     )
     if is_sat(formula):
-        return (False, get_lowest_variables(get_model(formula).__iter__()))
+        return (False, get_variables_from_formula(formula))
 
     return (True, )
 
 
-# def evaluate(code, variables):
-#     numbers = And()
-#     for key, item in variables.items():
-#         numbers = And(numbers, Equals(get_var(key), Int(item)))
+def evaluate(code, variables):
+    # s := variables
+    numbers = And()
+    for key, item in variables.items():
+        numbers = And(numbers, Equals(get_var(key), Int(item)))
 
-#     formula = And(code['pre'], numbers.substitute(get_substitution(code, 'pre')))
-#     print(formula.serialize())
-#     pre_violated = not is_sat(formula)
+    # s ∈ pre
+    formula = And(
+        code['pre'],
+        numbers.substitute(get_substitution(code, 'pre'))
+    )
+    pre = is_sat(formula)
 
-#     formula = And(code['post'], numbers.substitute(get_substitution(code, 'body')))
-#     print(formula.serialize())
-#     post_violated = not is_sat(formula)
+    # s ⇒ s'
+    def body(variables):
+        numbers = And()
+        for key, item in variables.items():
+            numbers = And(numbers, Equals(get_var(key), Int(item)))
 
-#     if post_violated:
-#         if pre_violated:
-#             return 'NEGATIVE'
-#         return 'CE'
-#     if pre_violated:
-#         return 'NP'
-#     return 'POSITIVE'
+        cond = And(
+            code['cond'],
+            numbers.substitute(get_substitution(code, 'pre'))
+        )
+        if is_sat(cond):
+            formula = And(
+                code['body'],
+                numbers.substitute(get_substitution(code, 'pre'))
+            )
+            variables = get_variables_from_formula(formula, 'highest')
+            return body(variables)
+
+        return variables
+
+    # s' := variables
+    variables = body(variables)
+    numbers = And()
+    for key, item in variables.items():
+        numbers = And(numbers, Equals(get_var(key), Int(item)))
+
+    # s' ∈ cond
+    formula = And(
+        code['cond'],
+        numbers.substitute(get_substitution(code, 'pre'))
+    )
+    cond = is_sat(formula)
+
+    # s' ∈ post
+    formula = And(
+        code['post'],
+        numbers.substitute(get_substitution(code, 'body'))
+    )
+    post = is_sat(formula)
+
+    # evaluate
+    if pre and not cond and not post:
+        # CE = { s ∈ SP | s ∈ Pre ∧ s ⇒ s' ∧ s' !∈ Cond ∧ s' !∈ Post }
+        return 'CE'
+    if pre and not cond and post:
+        # POSITIVE = { s ∈ SP | s ∈ Pre ∧ s ⇒ s' ∧ s' !∈ Cond ∧ s' ∈ Post }
+        return 'POSITIVE'
+    if not pre and not cond and not post:
+        # NEGATIVE = { s ∈ SP | s !∈ Pre ∧ s ⇒ s' ∧ s' !∈ Cond ∧ s' !∈ Post }
+        return 'NEGATIVE'
+    # NP = SP - CE - POSITIVE - NEGATIVE
+    return 'NP'
 
 
 ###
@@ -233,7 +282,7 @@ def evaluate_point(x, y):
 # Verify function
 # Finds correct invariants
 ###
-def verify():
+def verify(code):
     SP = {}
     SP['CE'], SP['NEGATIVE'], SP['NP'], SP['POSITIVE'], SP['UNKNOWN'] = (
         [], [], [], [], []
@@ -252,8 +301,8 @@ def verify():
     while True:
         # evaluate points
         for point in SP['UNKNOWN']:
-            evaluation = evaluate_point(*point)
-            SP[evaluation[0]] += evaluation[1]
+            evaluation = evaluate(code, {'x': point[0], 'y': point[1]})
+            SP[evaluation].append(point)
         SP['UNKNOWN'] = []
 
         # get a possible invariant
@@ -277,8 +326,6 @@ def activeLearn(SP):
     # safety check
     if len(SP['CE']) != 0:
         return (False,)
-    for point in SP['NEGATIVE']:
-        assert evaluate_point(*point)[0] == 'NEGATIVE'
 
     # shape the data for the support vector machine
     x = SP['POSITIVE'] + SP['NEGATIVE']
@@ -343,7 +390,7 @@ def activeLearn(SP):
     # plot support vectors
     ax.scatter(clf.support_vectors_[:, 0], clf.support_vectors_[:, 1], s=100,
                linewidth=1, facecolors='none', edgecolors='k')
-    plt.show()
+    # plt.show()
 
     # return found invariant and points in the seperation zone
     return (True, invariant, points)
@@ -357,12 +404,25 @@ def activeLearn(SP):
 # incorrect_invariant = LE(Symbol('x', INT), Plus(Symbol('y', INT), Int(9)))
 # print(is_invariant_correct(code_1, incorrect_invariant))
 
-print(verify())
+print(verify(code_1))
 
 # print(evaluate_point(-5, -18))
 # print(evaluate_point(-12, -10))
+# SP = {}
+# SP['UNKNOWN'] = []
+# for _ in range(0, SETTINGS['POINTS']['GENERATE']['START']):
+#     x = random.randint(SETTINGS['POINTS']['X']['START'],
+#                        SETTINGS['POINTS']['X']['END'])
+#     y = random.randint(SETTINGS['POINTS']['Y']['START'],
+#                        SETTINGS['POINTS']['Y']['END'])
+#     point = (x, y)
+#     SP['UNKNOWN'].append(point)
 
-# print(evaluate(code_1, {'x': 2, 'y': 5}))
+# for point in SP['UNKNOWN']:
+#     print(evaluate_point(*point),
+#           evaluate(code_1, {'x': point[0], 'y': point[1]}))
+
+# print(evaluate(code_1, {'x': -18, 'y': 24}))
 
 # print(evaluate_point(-18, -29))
 # print(evaluate_point(-19, -29))
