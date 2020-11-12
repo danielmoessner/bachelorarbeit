@@ -13,18 +13,18 @@ import numpy as np
 SETTINGS = {
     'POINTS': {
         'GENERATE': {
-            'START': 40,
-            'ZONE': 100
+            'START': 5,
+            'ZONE': 5
         },
         'X': {
-            'START': -32,
-            'END': 32
+            'START': -20,
+            'END': 20
         },
         'Y': {
-            'START': -32,
-            'END': 32
+            'START': -20,
+            'END': 20
         },
-        'MARGIN_MULTIPLIER': 5
+        'MARGIN_MULTIPLIER': 10
     }
 }
 
@@ -178,7 +178,29 @@ def evaluate(code, variables):
     pre = is_sat(formula)
 
     # s ⇒ s'
+    # def body(variables):
+    #     numbers = And()
+    #     for key, item in variables.items():
+    #         numbers = And(numbers, Equals(get_var(key), Int(item)))
+
+    #     cond = And(
+    #         code['cond'],
+    #         numbers.substitute(get_substitution(code, 'pre'))
+    #     )
+    #     if is_sat(cond):
+    #         formula = And(
+    #             code['body'],
+    #             numbers.substitute(get_substitution(code, 'pre'))
+    #         )
+    #         variables = get_variables_from_formula(formula, 'highest')
+    #         return body(variables)
+
+    #     return variables
+
+    # new
     def body(variables):
+        variables_list = [variables]
+
         numbers = And()
         for key, item in variables.items():
             numbers = And(numbers, Equals(get_var(key), Int(item)))
@@ -193,14 +215,20 @@ def evaluate(code, variables):
                 numbers.substitute(get_substitution(code, 'pre'))
             )
             variables = get_variables_from_formula(formula, 'highest')
-            return body(variables)
+            variables_list += body(variables)
 
-        return variables
+        return variables_list
 
     # s' := variables
-    variables = body(variables)
+    # variables = body(variables)
+    # numbers = And()
+    # for key, item in variables.items():
+    #     numbers = And(numbers, Equals(get_var(key), Int(item)))
+
+    # s' := last point in variables list
+    variables_list = body(variables)
     numbers = And()
-    for key, item in variables.items():
+    for key, item in variables_list[-1].items():
         numbers = And(numbers, Equals(get_var(key), Int(item)))
 
     # s' ∈ cond
@@ -218,17 +246,32 @@ def evaluate(code, variables):
     post = is_sat(formula)
 
     # evaluate
+    # if pre and not cond and not post:
+    #     # CE = { s ∈ SP | s ∈ Pre ∧ s ⇒ s' ∧ s' !∈ Cond ∧ s' !∈ Post }
+    #     return 'CE' 
+    # if pre and not cond and post:
+    #     # POSITIVE = { s ∈ SP | s ∈ Pre ∧ s ⇒ s' ∧ s' !∈ Cond ∧ s' ∈ Post }
+    #     return 'POSITIVE'
+    # if not pre and not cond and not post:
+    #     # NEGATIVE = { s ∈ SP | s !∈ Pre ∧ s ⇒ s' ∧ s' !∈ Cond ∧ s' !∈ Post }
+    #     return 'NEGATIVE'
+    # # NP = SP - CE - POSITIVE - NEGATIVE
+    # return 'NP'
+
+    # new
     if pre and not cond and not post:
         # CE = { s ∈ SP | s ∈ Pre ∧ s ⇒ s' ∧ s' !∈ Cond ∧ s' !∈ Post }
-        return 'CE'
-    if pre and not cond and post:
+        evaluation = 'CE' 
+    elif pre and not cond and post:
         # POSITIVE = { s ∈ SP | s ∈ Pre ∧ s ⇒ s' ∧ s' !∈ Cond ∧ s' ∈ Post }
-        return 'POSITIVE'
-    if not pre and not cond and not post:
+        evaluation = 'POSITIVE'
+    elif not pre and not cond and not post:
         # NEGATIVE = { s ∈ SP | s !∈ Pre ∧ s ⇒ s' ∧ s' !∈ Cond ∧ s' !∈ Post }
-        return 'NEGATIVE'
-    # NP = SP - CE - POSITIVE - NEGATIVE
-    return 'NP'
+        evaluation = 'NEGATIVE'
+    else:
+        # NP = SP - CE - POSITIVE - NEGATIVE
+        evaluation = 'NP'
+    return (evaluation, variables_list)
 
 
 ###
@@ -302,7 +345,7 @@ def verify(code):
         # evaluate points
         for point in SP['UNKNOWN']:
             evaluation = evaluate(code, {'x': point[0], 'y': point[1]})
-            SP[evaluation].append(point)
+            SP[evaluation[0]] += list(map(lambda point: (point['x'], point['y']), evaluation[1]))
         SP['UNKNOWN'] = []
 
         # get a possible invariant
@@ -372,7 +415,8 @@ def activeLearn(SP):
 
     # draw a plot of the data; helps visualizing what is happening
     z = np.array(SP['NP'])
-    plt.scatter(z[:, 0], z[:, 1])
+    if len(z) != 0:
+        plt.scatter(z[:, 0], z[:, 1])
     plt.scatter(x[:, 0], x[:, 1], c=y, s=30)
     # plot the` decision function
     ax = plt.gca()
@@ -390,7 +434,7 @@ def activeLearn(SP):
     # plot support vectors
     ax.scatter(clf.support_vectors_[:, 0], clf.support_vectors_[:, 1], s=100,
                linewidth=1, facecolors='none', edgecolors='k')
-    # plt.show()
+    plt.show()
 
     # return found invariant and points in the seperation zone
     return (True, invariant, points)
@@ -404,7 +448,8 @@ def activeLearn(SP):
 # incorrect_invariant = LE(Symbol('x', INT), Plus(Symbol('y', INT), Int(9)))
 # print(is_invariant_correct(code_1, incorrect_invariant))
 
-print(verify(code_1))
+# print(verify(code_1))
+print(evaluate(code_1, {'x': -2, 'y': -1}))
 
 # print(evaluate_point(-5, -18))
 # print(evaluate_point(-12, -10))
