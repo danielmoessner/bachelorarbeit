@@ -68,7 +68,8 @@ code_1 = {
     'pre': LT(get_var('x', 1), get_var('y', 1)),
     'cond': LT(get_var('x', 1), get_var('y', 1)),
     'body': And(
-        Or(
+        Ite(
+            LT(get_var('x', 1), Int(0)),
             Equals(
                 get_var('x', 2),
                 Plus(get_var('x', 1), Int(7))
@@ -78,16 +79,11 @@ code_1 = {
                 Plus(get_var('x', 1), Int(10))
             )
         ),
-        Or(
-            And(
-                Equals(
-                    get_var('y', 2),
-                    Minus(get_var('y', 1), Int(10))
-                ),
-                Equals(
-                    get_var('x', 2),
-                    Plus(get_var('x', 1), Int(7))
-                ),
+        Ite(
+            LT(get_var('y', 1), Int(0)),
+            Equals(
+                get_var('y', 2),
+                Minus(get_var('y', 1), Int(10))
             ),
             Equals(
                 get_var('y', 2),
