@@ -13,16 +13,16 @@ import numpy as np
 SETTINGS = {
     'POINTS': {
         'GENERATE': {
-            'START': 5,
-            'ZONE': 5
+            'START': 20,
+            'ZONE': 20
         },
         'X': {
-            'START': -20,
-            'END': 20
+            'START': -50,
+            'END': 50
         },
         'Y': {
-            'START': -20,
-            'END': 20
+            'START': -50,
+            'END': 50
         },
         'MARGIN_MULTIPLIER': 10
     }
@@ -128,6 +128,7 @@ def get_substitution(code, place='body', replace_index=False):
 
 def is_invariant_correct(code, invariant):
     # test (4)
+    # pre ∧ ¬invariant
     formula = And(
         code['pre'],
         Not(invariant.substitute(get_substitution(code, 'pre')))
@@ -136,6 +137,7 @@ def is_invariant_correct(code, invariant):
         return (False, get_variables_from_formula(formula))
 
     # test (5)
+    # sp(invariant ∧ cond, body) ∧ ¬invariant
     sp = And(
         code['cond'],
         code['body'],
@@ -149,6 +151,7 @@ def is_invariant_correct(code, invariant):
         return (False, get_variables_from_formula(formula))
 
     # test (6)
+    # invariant ∧ ¬cond ∧ ¬post
     formula = And(
         invariant.substitute(get_substitution(code, 'body')),
         Not(code['cond'].substitute(get_substitution(code, 'body', True))),
@@ -174,26 +177,7 @@ def evaluate(code, variables):
     pre = is_sat(formula)
 
     # s ⇒ s'
-    # def body(variables):
-    #     numbers = And()
-    #     for key, item in variables.items():
-    #         numbers = And(numbers, Equals(get_var(key), Int(item)))
-
-    #     cond = And(
-    #         code['cond'],
-    #         numbers.substitute(get_substitution(code, 'pre'))
-    #     )
-    #     if is_sat(cond):
-    #         formula = And(
-    #             code['body'],
-    #             numbers.substitute(get_substitution(code, 'pre'))
-    #         )
-    #         variables = get_variables_from_formula(formula, 'highest')
-    #         return body(variables)
-
-    #     return variables
-
-    # new
+    # return all s and s'
     def body(variables):
         variables_list = [variables]
 
@@ -214,12 +198,6 @@ def evaluate(code, variables):
             variables_list += body(variables)
 
         return variables_list
-
-    # s' := variables
-    # variables = body(variables)
-    # numbers = And()
-    # for key, item in variables.items():
-    #     numbers = And(numbers, Equals(get_var(key), Int(item)))
 
     # s' := last point in variables list
     variables_list = body(variables)
@@ -242,19 +220,6 @@ def evaluate(code, variables):
     post = is_sat(formula)
 
     # evaluate
-    # if pre and not cond and not post:
-    #     # CE = { s ∈ SP | s ∈ Pre ∧ s ⇒ s' ∧ s' !∈ Cond ∧ s' !∈ Post }
-    #     return 'CE' 
-    # if pre and not cond and post:
-    #     # POSITIVE = { s ∈ SP | s ∈ Pre ∧ s ⇒ s' ∧ s' !∈ Cond ∧ s' ∈ Post }
-    #     return 'POSITIVE'
-    # if not pre and not cond and not post:
-    #     # NEGATIVE = { s ∈ SP | s !∈ Pre ∧ s ⇒ s' ∧ s' !∈ Cond ∧ s' !∈ Post }
-    #     return 'NEGATIVE'
-    # # NP = SP - CE - POSITIVE - NEGATIVE
-    # return 'NP'
-
-    # new
     if pre and not cond and not post:
         # CE = { s ∈ SP | s ∈ Pre ∧ s ⇒ s' ∧ s' !∈ Cond ∧ s' !∈ Post }
         evaluation = 'CE' 
@@ -268,53 +233,6 @@ def evaluate(code, variables):
         # NP = SP - CE - POSITIVE - NEGATIVE
         evaluation = 'NP'
     return (evaluation, variables_list)
-
-
-###
-# Evaluate points
-###
-def evaluate_point(x, y):
-    points = [(x, y)]
-
-    pre_violated = False
-    if not (x < y):
-        pre_violated = True
-
-    while x < y:
-
-        if x < 0:
-            x += 7
-        else:
-            x += 10
-        if y < 0:
-            y -= 10
-        else:
-            y += 3
-
-        # points.append((x, y))
-        # this is wrong
-        #
-        # example:
-        # x = -12, y = -8
-        # pre is satisfied, cond is satisfied
-        #
-        # x and y become:
-        # x = -5, y = -18
-        # cond is not satisfied, post is satisfied
-        #
-        # now this function returns 'POSITIVE'
-        # but the point (-5, -18) should not be positive
-        # (-5, -18) is 'NEGATIVE'
-
-    post_violated = not (y <= x and x <= y + 16)
-    if post_violated:
-        if pre_violated:
-            return ('NEGATIVE', points)
-        return ('CE', points)
-    if pre_violated:
-        # return ('NEGATIVE', points)
-        return ('NP', points)
-    return ('POSITIVE', points)
 
 
 ###
@@ -444,11 +362,9 @@ def activeLearn(SP):
 # incorrect_invariant = LE(Symbol('x', INT), Plus(Symbol('y', INT), Int(9)))
 # print(is_invariant_correct(code_1, incorrect_invariant))
 
-# print(verify(code_1))
-print(evaluate(code_1, {'x': -2, 'y': -1}))
+print(verify(code_1))
+# print(evaluate(code_1, {'x': -2, 'y': -1}))
 
-# print(evaluate_point(-5, -18))
-# print(evaluate_point(-12, -10))
 # SP = {}
 # SP['UNKNOWN'] = []
 # for _ in range(0, SETTINGS['POINTS']['GENERATE']['START']):
@@ -459,12 +375,4 @@ print(evaluate(code_1, {'x': -2, 'y': -1}))
 #     point = (x, y)
 #     SP['UNKNOWN'].append(point)
 
-# for point in SP['UNKNOWN']:
-#     print(evaluate_point(*point),
-#           evaluate(code_1, {'x': point[0], 'y': point[1]}))
-
 # print(evaluate(code_1, {'x': -18, 'y': 24}))
-
-# print(evaluate_point(-18, -29))
-# print(evaluate_point(-19, -29))
-# print(evaluate_point(-19, -32))
