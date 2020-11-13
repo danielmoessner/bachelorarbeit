@@ -13,16 +13,16 @@ import numpy as np
 SETTINGS = {
     'POINTS': {
         'GENERATE': {
-            'START': 20,
+            'START': 100,
             'ZONE': 20
         },
         'X': {
-            'START': -50,
-            'END': 50
+            'START': -100,
+            'END': 100
         },
         'Y': {
-            'START': -50,
-            'END': 50
+            'START': -100,
+            'END': 100
         },
         'MARGIN_MULTIPLIER': 10
     }
@@ -107,6 +107,67 @@ code_1 = {
     }
 }
 
+code_2 = {
+    'pre': Or(
+        GT(get_var('x', 1), Int(0)), 
+        GT(get_var('y', 1), Int(0))
+    ),
+    'cond': LE(
+        Plus(get_var('x', 1), get_var('y', 1)), 
+        Int(-2)
+    ),
+    'body': Ite(
+        GT(get_var('x', 1), Int(0)),
+        And(
+            Equals(get_var('x', 2), Plus(get_var('x', 1), Int(1))),
+            Equals(get_var('y', 2), get_var('y', 1))
+        ),
+        And(
+            Equals(get_var('y', 2), Plus(get_var('y', 1), Int(1))),
+            Equals(get_var('x', 2), get_var('x', 1))
+        )
+    ),
+    'post': Or(
+        GT(get_var('x', 2), Int(0)), 
+        GT(get_var('y', 2), Int(0))
+    ),
+    'map': {
+        'x': {
+            'pre': 1,
+            'body': 2
+        },
+        'y': {
+            'pre': 1,
+            'body': 2
+        }
+    }
+}
+
+code_4 = {
+    'pre': LT(get_var('x', 1), Int(0)),
+    'cond': LT(get_var('x', 1), Int(0)),
+    'body': And(
+        Equals(
+            get_var('x', 2),
+            Plus(get_var('x', 1), get_var('y', 1))
+        ),
+        Equals(
+            get_var('y', 2),
+            Plus(get_var('y', 1), Int(1))
+        )
+    ),
+    'post': GT(get_var('y', 2), Int(0)),
+    'map': {
+        'x': {
+            'pre': 1,
+            'body': 2
+        },
+        'y': {
+            'pre': 1,
+            'body': 2
+        }
+    }
+}
 
 ###
 # Invariant check
@@ -362,8 +423,8 @@ def activeLearn(SP):
 # incorrect_invariant = LE(Symbol('x', INT), Plus(Symbol('y', INT), Int(9)))
 # print(is_invariant_correct(code_1, incorrect_invariant))
 
-print(verify(code_1))
-# print(evaluate(code_1, {'x': -2, 'y': -1}))
+print(verify(code_4))
+# print(evaluate(code_2, {'x': 0, 'y': -1}))
 
 # SP = {}
 # SP['UNKNOWN'] = []
