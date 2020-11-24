@@ -13,16 +13,16 @@ import numpy as np
 SETTINGS = {
     'POINTS': {
         'GENERATE': {
-            'START': 100,
+            'START': 50,
             'ZONE': 20
         },
         'X': {
-            'START': -100,
-            'END': 100
+            'START': -10,
+            'END': 10
         },
         'Y': {
-            'START': -100,
-            'END': 100
+            'START': -10,
+            'END': 10
         },
         'MARGIN_MULTIPLIER': 10
     }
@@ -423,7 +423,7 @@ def activeLearn(SP):
 # incorrect_invariant = LE(Symbol('x', INT), Plus(Symbol('y', INT), Int(9)))
 # print(is_invariant_correct(code_1, incorrect_invariant))
 
-print(verify(code_4))
+print(verify(code_1))
 # print(evaluate(code_2, {'x': 0, 'y': -1}))
 
 # SP = {}

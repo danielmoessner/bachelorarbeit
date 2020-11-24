@@ -135,3 +135,27 @@ class CFACreator(ast.NodeVisitor):
         exitNode = CFANode()
         edge = CFAEdge(entryNode, exitNode, Instruction.statement(node))
         self.nodestack.append(exitNode)
+
+
+
+program = """
+def mybody(x,y):
+  while True:
+    if x>0:
+      x+=1
+    else:
+      y = (y + 1)*2
+    if y>0:
+      y-=10
+    else:
+      x-=100
+"""
+
+tree = ast.parse(program)
+tree2 = ast.parse('x = 10 + y * 5')
+
+cfaCreator = CFACreator()
+cfaCreator.visit(tree)
+cfaRoot = cfaCreator.root
+
+print(cfaRoot.leavingEdges[1].instruction.expression)

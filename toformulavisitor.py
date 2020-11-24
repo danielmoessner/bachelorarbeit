@@ -1,5 +1,5 @@
 from collections import defaultdict
-
+import ast
 import copy
 from pysmt.shortcuts import (
     Symbol,
@@ -75,15 +75,31 @@ class ToFormulaVisitor(ast.NodeVisitor):
         self.newssamap[varname] += 1
         return Symbol("%s@%d" % (varname, self.newssamap[varname]), INT)
 
-    def update(self, othervaluation):
-        for lhs, rhs in zip(self.lstack, self.rstack):
-            if rhs == Value.getTop():
-                othervaluation.pop(lhs, None)
-            else:
-                othervaluation[lhs] = rhs.actual
+    # def update(self, othervaluation):
+    #     for lhs, rhs in zip(self.lstack, self.rstack):
+    #         if rhs == Value.getTop():
+    #             othervaluation.pop(lhs, None)
+    #         else:
+    #             othervaluation[lhs] = rhs.actual
 
+
+program = """
+def mybody(x,y):
+  while True:
+    if x>0:
+      x+=1
+    else:
+      y = (y + 1)*2
+    if y>0:
+      y-=10
+    else:
+      x-=100
+"""
+
+tree = ast.parse(program)
+tree2 = ast.parse('x = 10 + y * 5')
 
 tfv = ToFormulaVisitor(None)
-tfv.visit(tree4)
+tfv.visit(tree)
 print(tfv.lstack)
 print(tfv.rstack)
