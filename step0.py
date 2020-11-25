@@ -13,7 +13,7 @@ import numpy as np
 SETTINGS = {
     'POINTS': {
         'GENERATE': {
-            'START': 50,
+            'START': 80,
             'ZONE': 20
         },
         'X': {
@@ -32,6 +32,35 @@ SETTINGS = {
 ###
 # Helper functions
 ###
+def plot_sp(SP, clf=None):
+    # draw a plot of the data; helps visualizing what is happening
+    POSITIVE = np.array(SP['POSITIVE'])
+    NEGATIVE = np.array(SP['NEGATIVE'])
+    NP = np.array(SP['NP'])
+    plt.scatter(NP[:, 0], NP[:, 1], s=30)
+    plt.scatter(NEGATIVE[:, 0], NEGATIVE[:, 1], s=30)
+    plt.scatter(POSITIVE[:, 0], POSITIVE[:, 1], s=30)
+    # plot the` decision function
+    ax = plt.gca()
+    xlim = ax.get_xlim()
+    ylim = ax.get_ylim()
+    # plot margin if clf exists
+    if clf is not None:
+        # create grid to evaluate model
+        xx = np.linspace(xlim[0], xlim[1], 30)
+        yy = np.linspace(ylim[0], ylim[1], 30)
+        YY, XX = np.meshgrid(yy, xx)
+        xy = np.vstack([XX.ravel(), YY.ravel()]).T
+        Z = clf.decision_function(xy).reshape(XX.shape)
+        # plot decision boundary and margins
+        ax.contour(XX, YY, Z, colors='k', levels=[-1, 0, 1], alpha=0.5,
+                    linestyles=['--', '-', '--'])
+        # plot support vectors
+        ax.scatter(clf.support_vectors_[:, 0], clf.support_vectors_[:, 1], s=100,
+                    linewidth=1, facecolors='none', edgecolors='k')
+    plt.show()
+
+
 def get_var(name, index=None):
     if index is None:
         return Symbol(name, INT)
@@ -59,6 +88,14 @@ def get_variables_from_formula(formula, index='lowest'):
     for key, value in values.items():
         variables[key] = value['value']
     return variables
+
+
+def find_points_from_formula(formula, n_points=20):
+    points = []
+    while (len(points) < n_points):
+        print(get_model(formula))
+        raise Exception()
+    return points
 
 
 ###
@@ -139,6 +176,29 @@ code_2 = {
         'y': {
             'pre': 1,
             'body': 2
+        }
+    }
+}
+
+code_3 = {
+    'pre': And(
+        Equals(get_var('x', 1), Int(1)), 
+        Equals(get_var('y', 1), Int(0))
+    ),
+    'cond': LT(get_var('x', 1), Int(3)),  # while(*)
+    'body': And(
+        Equals(get_var('x', 2), Plus(get_var('x', 1), get_var('y', 1))),
+        Equals(get_var('y', 2), Plus(get_var('y', 1), Int(1)))
+    ),
+    'post': GE(get_var('x', 2), get_var('y', 2)),
+    'map': {
+        'x': {
+            'pre': 1,
+            'body': 2,
+        },
+        'y': {
+            'pre': 1,
+            'body': 2,
         }
     }
 }
@@ -303,7 +363,7 @@ def evaluate(code, variables):
 def verify(code):
     SP = {}
     SP['CE'], SP['NEGATIVE'], SP['NP'], SP['POSITIVE'], SP['UNKNOWN'] = (
-        [], [], [], [], []
+        [], [], [], [], [(1, 0)]
     )
 
     # generate points
@@ -345,71 +405,68 @@ def activeLearn(SP):
     if len(SP['CE']) != 0:
         return (False,)
 
-    # shape the data for the support vector machine
-    x = SP['POSITIVE'] + SP['NEGATIVE']
-    y = len(SP['POSITIVE']) * [1] + len(SP['NEGATIVE']) * [0]
-    x = np.array(x)
-    y = np.array(y)
-    clf = svm.SVC(kernel='linear', C=1000)
-    clf.fit(x, y)
-    print('POSITIVE', '(yellow)', len(y[y == 1]))
-    print('NEGATIVE', '(purple)', len(y[y == 0]))
+    print('POSITIVE', '(green) ', len(SP['POSITIVE']))
+    print('NEGATIVE', '(orange)', len(SP['NEGATIVE']))
     print('NP      ', '(blue)  ', len(SP['NP']))
+    plot_sp(SP)
 
-    # calculate the seperating line
-    W = clf.coef_[0]
-    I = clf.intercept_
-    a = int(round(-W[0] / W[1]))
-    b = int(round(I[0] / W[1]))
-    def line(x): return a*x - b
+    complete_invariant = And()
+    NEGATIVE = np.array(SP['NEGATIVE'])
+    lines = []
 
-    # margin calculation
-    margin = int(round(1 / np.linalg.norm(clf.coef_)) *
-                 SETTINGS['POINTS']['MARGIN_MULTIPLIER'])
+    while(len(NEGATIVE) != 0):
 
-    # check wheter <= or >= is correct
-    if clf.predict([(1, line(1) - 1)]) == 0:
-        invariant = LE(
-            Minus(Times(Int(a), Symbol('x', INT)), Int(b)),
-            Symbol('y', INT)
-        )
-    else:
-        invariant = GE(
-            Minus(Times(Int(a), Symbol('x', INT)), Int(b)),
-            Symbol('y', INT)
-        )
-    print(invariant, '\n')
+        # shape the data for the support vector machine
+        x = SP['POSITIVE'] + [NEGATIVE[random.randint(0, len(NEGATIVE) - 1)]]
+        y = len(SP['POSITIVE']) * [1] + [0]
+        x = np.array(x)
+        y = np.array(y)
+        clf = svm.SVC(kernel='linear', C=1000)
+        clf.fit(x, y)
 
+        # calculate the seperating line
+        W = clf.coef_[0]
+        I = clf.intercept_
+        a = int(round(-W[0] / W[1]))
+        b = int(round(I[0] / W[1]))
+        def line(x): return a * x - b
+        lines.append(line)
+
+        # margin calculation
+        margin = int(round(1 / np.linalg.norm(clf.coef_)) *
+                    SETTINGS['POINTS']['MARGIN_MULTIPLIER'])
+
+        # check wheter <= or >= is correct
+        left = Minus(Times(Int(a), Symbol('x', INT)), Int(b))
+        right = Symbol('y', INT)
+        if clf.predict([(1, line(1) - 1)]) == 0:
+            invariant = LE(left, right)
+        else:
+            invariant = GE(left, right)
+        # print(invariant, '\n')
+
+        # remove successfully classified from negative
+        prediction = clf.predict(NEGATIVE)
+        print(NEGATIVE[0])
+        print(NEGATIVE)
+        print(prediction)
+        plot_sp(SP, clf)
+        NEGATIVE = NEGATIVE[prediction > 0]
+        complete_invariant = And(complete_invariant, invariant)
+
+    invariant = complete_invariant
+    print(invariant.serialize(), '\n')
     # generate points in the seperation zone
     points = []
     for _ in range(0, SETTINGS['POINTS']['GENERATE']['ZONE']):
         xp = random.randint(SETTINGS['POINTS']['X']['START'],
                             SETTINGS['POINTS']['Y']['END'])
-        yp = line(xp) + random.randint(-margin, margin)
+        yp = lines[random.randint(0, len(lines) - 1)](xp) + random.randint(-margin, margin)
         points.append((xp, yp))
+    print(points)
 
-    # draw a plot of the data; helps visualizing what is happening
-    z = np.array(SP['NP'])
-    if len(z) != 0:
-        plt.scatter(z[:, 0], z[:, 1])
-    plt.scatter(x[:, 0], x[:, 1], c=y, s=30)
-    # plot the` decision function
-    ax = plt.gca()
-    xlim = ax.get_xlim()
-    ylim = ax.get_ylim()
-    # create grid to evaluate model
-    xx = np.linspace(xlim[0], xlim[1], 30)
-    yy = np.linspace(ylim[0], ylim[1], 30)
-    YY, XX = np.meshgrid(yy, xx)
-    xy = np.vstack([XX.ravel(), YY.ravel()]).T
-    Z = clf.decision_function(xy).reshape(XX.shape)
-    # plot decision boundary and margins
-    ax.contour(XX, YY, Z, colors='k', levels=[-1, 0, 1], alpha=0.5,
-               linestyles=['--', '-', '--'])
-    # plot support vectors
-    ax.scatter(clf.support_vectors_[:, 0], clf.support_vectors_[:, 1], s=100,
-               linewidth=1, facecolors='none', edgecolors='k')
-    plt.show()
+    # plot
+    # plot_svm(SP, clf)
 
     # return found invariant and points in the seperation zone
     return (True, invariant, points)
@@ -437,3 +494,7 @@ print(verify(code_1))
 #     SP['UNKNOWN'].append(point)
 
 # print(evaluate(code_1, {'x': -18, 'y': 24}))
+# left = Minus(Times(Int(1), Symbol('x', INT)), Int(18))
+# right = Symbol('y', INT)
+# formula = LE(left, right)
+# find_points_from_formula(formula)
