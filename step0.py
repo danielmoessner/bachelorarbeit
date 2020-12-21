@@ -32,11 +32,11 @@ SETTINGS = {
 ###
 # Helper functions
 ###
-def mirror_point( a, b, c, x1, y1): 
+def mirror_point(a, b, c, x1, y1): 
     temp = -2 * (a * x1 + b * y1 + c) /(a * a + b * b) 
     x = temp * a + x1 
     y = temp * b + y1  
-    return (x, y) 
+    return (x, y)
 
 
 def plot_sp(SP, clf=None):
@@ -550,3 +550,7 @@ def find_disjunctive_invariant(SP):
 # right = Symbol('y', INT)
 # formula = LE(left, right)
 # find_points_from_formula(formula)
+
+
+# print(mirror_point(1, -1, 0, 0, 0))
+# print(mirror_point(0, 1, -10, 0, 0))
