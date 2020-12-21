@@ -5,6 +5,7 @@ from pysmt.typing import INT, STRING, BOOL, REAL
 from sklearn import svm
 import matplotlib.pyplot as plt
 import numpy as np
+import math
 
 
 ###
@@ -24,18 +25,31 @@ SETTINGS = {
             'START': -10,
             'END': 10
         },
-        'MARGIN_MULTIPLIER': 10
-    }
+        'MARGIN_MULTIPLIER': 10,
+    },
+    'HESSE_FORM_MULTIPLIER': 10,
+    'PRINT': True, 
+    'PLOT': True
 }
 
 
 ###
 # Helper functions
 ###
-def mirror_point(a, b, c, x1, y1): 
-    temp = -2 * (a * x1 + b * y1 + c) /(a * a + b * b) 
-    x = temp * a + x1 
-    y = temp * b + y1  
+def get_mirror_point(a, b, c, x1, y1): 
+    x1 -= 5
+    y1 -= 5
+    try:
+        temp = -2 * (a * x1 + b * y1 + c) / (a * a + b * b) 
+    except ZeroDivisionError:
+        print(a, b, c, x1, y1)
+        raise ZeroDivisionError
+    x = temp * a + x1
+    y = temp * b + y1
+    x = math.ceil(x) if x > x1 else math.floor(x)
+    y = math.ceil(y) if y > y1 else math.floor(y)
+    x = int(x)
+    y = int(y)
     return (x, y)
 
 
@@ -44,7 +58,6 @@ def plot_sp(SP, clf=None):
     POSITIVE = np.array(SP['POSITIVE'])
     NEGATIVE = np.array(SP['NEGATIVE'])
     NP = np.array(SP['NP'])
-    plt.scatter([17], [0], s=60, c=[9])
     plt.scatter(NP[:, 0], NP[:, 1], s=30)
     plt.scatter(NEGATIVE[:, 0], NEGATIVE[:, 1], s=30)
     plt.scatter(POSITIVE[:, 0], POSITIVE[:, 1], s=30)
@@ -296,10 +309,10 @@ def is_invariant_correct(code, invariant):
     if is_sat(formula):
         return (False, get_variables_from_formula(formula))
 
-    return (True, )
+    return (True, ())
 
 
-def evaluate(code, variables):
+def evaluate_point(code, variables):
     # s := variables
     numbers = And()
     for key, item in variables.items():
@@ -394,41 +407,57 @@ def verify(code):
     while True:
         # evaluate points
         for point in SP['UNKNOWN']:
-            evaluation = evaluate(code, {'x': point[0], 'y': point[1]})
+            evaluation = evaluate_point(code, {'x': point[0], 'y': point[1]})
             SP[evaluation[0]] += list(map(lambda point: (point['x'], point['y']), evaluation[1]))
         SP['UNKNOWN'] = []
 
         # get a possible invariant
-        invariant = find_conjunctive_invariant(SP)
-        if not invariant[0]:
+        disproved, invariant, hesse_normal_forms = find_conjunctive_invariant(SP)
+        
+        # break if disproved
+        if disproved:
             return 'DISPROVED'
 
         # check if the invariant is actually correct
-        correct = is_invariant_correct(code, invariant[1])
+        invariant_correct, error_point = is_invariant_correct(code, invariant)
         
-        if correct[0]:
-            return invariant[1]
-        else:
-            print('####################')
-            print('point', correct[1])
+        # return invariant if correct
+        if invariant_correct:
+            return invariant
+        
+        # calculate mirror points to hesse forms and add to sp
+        error_point = (error_point['x'], error_point['y'])
+        error_points = [error_point]
+        for form in hesse_normal_forms:
+            error_points.append(get_mirror_point(*form, *error_point))
+        
+        # print
+        if SETTINGS['PRINT']:
+            print('#################### 432')
+            print('[error_point, mirror_points]:', error_points)
             print('####################')
         
-        # add points to sp
-        # point with which the invariant failed, this line actually does not have a big impact
-        SP['UNKNOWN'].append((correct[1]['x'], correct[1]['y']))
-        # points which are in the margin zone of the support vector machine
-        SP['UNKNOWN'] += invariant[2]
-
+        # add the error points
+        SP['UNKNOWN'] += error_points
+        
 
 def find_conjunctive_invariant(SP):
-    # safety check
+    # if a counter example is found no invariant can be found
     if len(SP['CE']) != 0:
-        return (False,)
+        return (True, (), ())
 
-    print('POSITIVE', '(green) ', len(SP['POSITIVE']))
-    print('NEGATIVE', '(orange)', len(SP['NEGATIVE']))
-    print('NP      ', '(blue)  ', len(SP['NP']))
-    plot_sp(SP)
+    # print
+    if SETTINGS['PRINT']:
+        print('#################### 447')
+        print('POSITIVE', '(green) ', len(SP['POSITIVE']))
+        print('NEGATIVE', '(orange)', len(SP['NEGATIVE']))
+        print('NP      ', '(blue)  ', len(SP['NP']))
+        print('TOTAL            ', len(SP['POSITIVE']) + len(SP['NEGATIVE']) + len(SP['NP']))
+        print('####################')
+    
+    # plot
+    if SETTINGS['PLOT']:
+        plot_sp(SP)
 
     complete_invariant = And()
     NEGATIVE = np.array(SP['NEGATIVE'])
@@ -441,83 +470,58 @@ def find_conjunctive_invariant(SP):
         y = len(SP['POSITIVE']) * [1] + [0]
         x = np.array(x)
         y = np.array(y)
-        clf = svm.SVC(kernel='linear')
+
+        # run the support vector machine
+        clf = svm.SVC(kernel='linear', C=1000)
         clf.fit(x, y)
 
-        # calculate the seperating line
-        print(clf.coef_)
-        print(clf.intercept_)
+        # print
+        if SETTINGS['PRINT']:
+            print('#################### 476')
+            print('coef', clf.coef_)
+            print('intercept', clf.intercept_)
+            print('####################')
 
-        hesse_normal_forms.append((clf.coef_[0], clf.intercept_[0]))
-        ax = int(round(clf.coef_[0][0] * 10))
-        ay = int(round(clf.coef_[0][1] * 10))
-        b = int(round(clf.intercept_[0] * 10))
+        # calculate the hesse normal form
+        a = int(round(clf.coef_[0][0] * SETTINGS['HESSE_FORM_MULTIPLIER']))
+        b = int(round(clf.coef_[0][1] * SETTINGS['HESSE_FORM_MULTIPLIER']))
+        c = int(round(clf.intercept_[0] * SETTINGS['HESSE_FORM_MULTIPLIER']))
+        
+        # save the hesse normal form for later
+        hesse_normal_forms.append((a, b, c))
+
+        # set the invariant that correctly classifies positive points
         invariant = GT(
             Plus(
-                Times(Int(ax), get_var('x')),
-                Times(Int(ay), get_var('y')), 
-                Int(b)
+                Times(Int(a), get_var('x')),
+                Times(Int(b), get_var('y')), 
+                Int(c)
             ), 
             Int(0)
         )
 
-        # W = clf.coef_[0]
-        # I = clf.intercept_
-        # print(W[0], W[1])
-        # try:
-        #     a = int(round(-W[0] / W[1]))
-        # except OverflowError:
-        #     a = 999999999999999999
-        #     print('OVERFLOW A')
-        # try:
-        #     b = int(round(I[0] / W[1]))
-        # except OverflowError:
-        #     b = 999999999999999999
-        #     print('OVERFLOW B')
-        # def line(x): return a * x - b
-        # lines.append(line)
-
-        # margin calculation
-        # margin = int(round(1 / np.linalg.norm(clf.coef_)) *
-        #             SETTINGS['POINTS']['MARGIN_MULTIPLIER'])
-
-        # check wheter <= or >= is correct
-        # left: a * x - b
-        # left = Minus(Times(Int(a), Symbol('x', INT)), Int(b))
-        # right: y
-        # right = Symbol('y', INT)
-        # if clf.predict([(1, line(1) - 1)]) == 0:
-        #     invariant = LT(left, right)
-        # else:
-        #     invariant = GT(left, right)
-        # invariant: a * x - b < y
-        # print(invariant, '\n')
-
         # remove successfully classified from negative
         prediction = clf.predict(NEGATIVE)
-        # print(NEGATIVE[0])
-        # print(NEGATIVE)
-        # print(prediction)
-        plot_sp(SP, clf)
         NEGATIVE = NEGATIVE[prediction > 0]
+        
+        # plot
+        if SETTINGS['PLOT']:
+            plot_sp(SP, clf)
+        
+        # combine all invariants
         complete_invariant = And(complete_invariant, invariant)
 
-    invariant = complete_invariant
-    print(invariant.serialize(), '\n')
-    # generate points in the seperation zone
-    points = []
-    # for _ in range(0, SETTINGS['POINTS']['GENERATE']['ZONE']):
-    #     xp = random.randint(SETTINGS['POINTS']['X']['START'],
-    #                         SETTINGS['POINTS']['Y']['END'])
-    #     yp = lines[random.randint(0, len(lines) - 1)](xp) + random.randint(-margin, margin)
-    #     points.append((xp, yp))
-    # print(points)
-
-    # plot
-    # plot_svm(SP, clf)
-
+    # set the final invariant
+    final_invariant = complete_invariant
+    
+    # print
+    if SETTINGS['PRINT']:
+        print('#################### 528')
+        print('final_invariant', final_invariant.serialize())
+        print('####################')
+    
     # return found invariant and points in the seperation zone
-    return (True, invariant, points)
+    return (False, final_invariant, hesse_normal_forms)
 
 
 def find_disjunctive_invariant(SP):
@@ -532,7 +536,7 @@ def find_disjunctive_invariant(SP):
 # incorrect_invariant = LE(Symbol('x', INT), Plus(Symbol('y', INT), Int(9)))
 # print(is_invariant_correct(code_1, incorrect_invariant))
 
-# print(verify(code_1))
+print(verify(code_3).serialize())
 # print(evaluate(code_2, {'x': 0, 'y': -1}))
 
 # SP = {}
