@@ -1,0 +1,16 @@
+# This creates a Docker container that should allow building our papers.
+#
+# Commands for updating the image:
+# docker build --pull -t registry.gitlab.com/sosy-lab/admin/tex/texlive-full:ubuntu16.04 - < Dockerfile.texlive-full
+# docker push registry.gitlab.com/sosy-lab/admin/tex/texlive-full
+
+FROM registry.gitlab.com/sosy-lab/admin/tex/texlive:ubuntu16.04
+
+ARG DEBIAN_FRONTEND=noninteractive
+RUN apt-get update && apt-get install -y \
+  texlive-full
+
+# increase main memory of TeX for large tikz plots
+RUN echo "main_memory = 10000000" > /etc/texmf/texmf.d/99memory.cnf
+RUN update-texmf
+RUN fmtutil-sys --all

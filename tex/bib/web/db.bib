@@ -1,0 +1,3240 @@
+
+% Refereed Conference Papers
+
+%% This is db's personal bibliography.
+%% Publication web page is generated from this file.
+
+
+% The 'keyword' field contains always the basic research interest,
+%   which the paper falls into, must be one of the following:
+%   - Interfaces for Component-Based Design
+%   - Software Model Checking
+%   - Structural Analysis and Comprehension
+%   - Formal Verification of Real-Time Systems
+
+% Usage of fields:
+% pdf: (mandatory) URL of a free copy (e.g., under https://www.sosy-lab.org/research/pub/)
+% url: (mandatory) URL of supplementary material
+
+% Sponsor should go as keyword with prefix DFG- etc.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% 2020
+
+
+@InProceedings{FSE20,
+  author    = {Dirk Beyer and Karlheinz Friedberger},
+  title     = {Domain-Independent Interprocedural Program Analysis using Block-Abstraction Memoization},
+  booktitle = {Proceedings of the 28th ACM Joint European Software Engineering Conference and
+               Symposium on the Foundations of Software Engineering (ESEC/FSE~2020, Virtual Event, USA, November 8-13)},
+  editor    = {P.~Devanbu, M.~Cohen, and T.~Zimmermann},
+  publisher = {ACM},
+  pages     = {50-62},
+  year      = {2020},
+  doi       = {10.1145/3368089.3409718},
+  pdf       = {https://doi.org/10.1145/3368089.3409718},
+  url       = {},
+  keyword   = {DFG-CONVEY,CPAchecker,Software Model Checking},
+}
+
+@inproceedings{ISoLA20c,
+  author    = {Dirk Beyer and Heike Wehrheim},
+  title     = {Verification Artifacts in Cooperative Verification: Survey and Unifying Component Framework},
+  booktitle = {Proceedings of the 9th International Symposium on
+                   Leveraging Applications of Formal Methods, Verification, and Validation
+                   (ISoLA~2020, Part~1, Rhodos, Greece, October 26-30)},
+  editor    = {T.~Margaria and B.~Steffen},
+  publisher = {Springer},
+  series    = {LNCS~12476},
+  pages     = {143-167},
+  year      = {2020},
+  doi       = {10.1007/978-3-030-61362-4_8},
+  pdf       = {https://doi.org/10.1007/978-3-030-61362-4_8},
+  postscript= {},
+  url       = {},
+  keyword   = {DFG-COOP,CPAchecker,Software Model Checking},
+  abstract = {
+    
+  },
+}
+
+@inproceedings{ISoLA20b,
+  author    = {Dirk Beyer and Sudeep Kanav},
+  title     = {An Interface Theory for Program Verification},
+  booktitle = {Proceedings of the 9th International Symposium on
+                   Leveraging Applications of Formal Methods, Verification, and Validation
+                   (ISoLA~2020, Part~1, Rhodos, Greece, October 26-30)},
+  editor    = {T.~Margaria and B.~Steffen},
+  publisher = {Springer},
+  series    = {LNCS~12476},
+  pages     = {168-186},
+  year      = {2020},
+  doi       = {10.1007/978-3-030-61362-4_9},
+  pdf       = {https://doi.org/10.1007/978-3-030-61362-4_9},
+  postscript= {},
+  url       = {},
+  keyword   = {DFG-CONVEY,CPAchecker,Software Model Checking,Interfaces for Component-Based Design},
+  abstract = {
+    
+  },
+}
+
+@inproceedings{ISoLA20a,
+  author    = {Dirk Beyer and Karlheinz Friedberger},
+  title     = {Violation Witnesses and Result Validation for Multi-Threaded Programs},
+  booktitle = {Proceedings of the 9th International Symposium on
+                   Leveraging Applications of Formal Methods, Verification, and Validation
+                   (ISoLA~2020, Part~1, Rhodos, Greece, October 26-30)},
+  editor    = {T.~Margaria and B.~Steffen},
+  publisher = {Springer},
+  series    = {LNCS~12476},
+  pages     = {449-470},
+  year      = {2020},
+  doi       = {10.1007/978-3-030-61362-4_26},
+  pdf       = {https://doi.org/10.1007/978-3-030-61362-4_26},
+  postscript= {},
+  url       = {https://www.sosy-lab.org/research/witnesses-concurrency/},
+  keyword   = {DFG-CONVEY,CPAchecker,Software Model Checking,Witness-Based Validation,Witness-Based Validation (main)},
+  abstract = {
+    
+  },
+}
+
+@InProceedings{SEFM20b,
+  author    = {Dirk Beyer and Marie-Christine Jakobs and Thomas Lemberger},
+  title     = {Difference Verification with Conditions},
+  booktitle = {Proceedings of the 18th International Conference on
+               Software Engineering and Formal Methods (SEFM~2020, Virtual, Netherlands, September 14-18)},
+  editor    = {F.~d.~Boer and A.~Cerone},
+  series    = {LNCS~12310},
+  pages     = {133--154},
+  year      = {2020},
+  publisher = {Springer},
+  doi       = {10.1007/978-3-030-58768-0_8},
+  pdf       = {https://doi.org/10.1007/978-3-030-58768-0_8},
+  url       = {https://www.sosy-lab.org/research/difference/},
+  postscript = {https://www.sosy-lab.org/research/prs/2020-09-17_SEFM20_DifferenceVerificationWithConditions_Thomas.pdf},
+  isbnnote  = {},
+  keyword   = {DFG-CONVEY,DFG-COOP,CPAchecker,Software Model Checking},
+  abstract  = {
+    Modern software-verification tools need to support development processes that involve frequent changes.
+    Existing approaches for incremental verification hard-code specific verification techniques.
+    Some of the approaches must be tightly intertwined with the development process.
+    To solve this open problem, we present the concept of difference verification with conditions.
+    Difference verification with conditions is independent from any specific verification technique
+    and can be integrated in software projects at any time.
+    It first applies a change analysis that detects which parts of a software were changed
+    between revisions and encodes that information in a condition.
+    Based on this condition, an off-the-shelf verifier is used to verify only those parts
+    of the software that are influenced by the changes.
+    As a proof of concept, we propose a simple, syntax-based change analysis
+    and use difference verification with conditions with three off-the-shelf verifiers.
+    An extensive evaluation shows the competitiveness of difference verification with conditions.
+  },
+}
+
+@InProceedings{SEFM20a,
+  author    = {Dirk Beyer and Marie-Christine Jakobs},
+  title     = {{{\sc FRed}}: {C}onditional Model Checking via Reducers and Folders},
+  booktitle = {Proceedings of the 18th International Conference on
+               Software Engineering and Formal Methods (SEFM~2020, Virtual, Netherlands, September 14-18)},
+  editor    = {F.~d.~Boer and A.~Cerone},
+  series    = {LNCS~12310},
+  pages     = {113--132},
+  year      = {2020},
+  publisher = {Springer},
+  doi       = {10.1007/978-3-030-58768-0_7},
+  pdf       = {https://doi.org/10.1007/978-3-030-58768-0_7},
+  url       = {https://www.sosy-lab.org/research/fred/},
+  isbnnote  = {},
+  keyword   = {DFG-COOP,CPAchecker,Software Model Checking},
+  abstract  = {
+  },
+}
+
+@InProceedings{CAV20,
+  author    = {Dirk Beyer and Martin Spiessl},
+  title     = {MetaVal: {W}itness Validation via Verification},
+  booktitle = {Proceedings of the 32nd International Conference on
+               Computer Aided Verification (CAV~2020, Virtual, USA, July 21-24), part 2},
+  editor    = {S.~K.~Lahiri and C.~Wang},
+  series    = {LNCS~12225},
+  publisher = {Springer},
+  pages     = {165-177},
+  year      = {2020},
+  doi       = {10.1007/978-3-030-53291-8_10},
+  pdf       = {https://doi.org/10.1007/978-3-030-53291-8_10},
+  url       = {https://gitlab.com/sosy-lab/software/metaval},
+  isbnnote  = {978-3-030-53290-1},
+  keyword   = {DFG-CONVEY,CPAchecker,Software Model Checking,Witness-Based Validation,Witness-Based Validation (main)},
+  abstract  = {
+  },
+}
+
+%%155 TACAS-SV-COMP
+@InProceedings{TACAS20c,
+  author    = {Dirk Beyer},
+  title     = {Advances in Automatic Software Verification: SV-COMP 2020},
+  booktitle = {Proceedings of the 26th International Conference on
+                 Tools and Algorithms for the Construction and Analysis of Systems (TACAS~2020, Dublin, Ireland, April 25-30), part 2},
+  series    = {LNCS~12079},
+  publisher = {Springer},
+  pages     = {347-367},
+  year      = {2020},
+  doi       = {10.1007/978-3-030-45237-7_21},
+  pdf       = {https://doi.org/10.1007/978-3-030-45237-7_21},
+  url       = {https://sv-comp.sosy-lab.org/},
+  keyword   = {Competition on Software Verification (SV-COMP),Competition on Software Verification (SV-COMP Report),Software Model Checking},
+  abstract  = {
+  },
+}
+
+%%154 TACAS-Energy
+@InProceedings{TACAS20b,
+  author    = {Dirk Beyer and Philipp Wendler},
+  title     = {CPU Energy Meter: A Tool for Energy-Aware Algorithms Engineering},
+  booktitle = {Proceedings of the 26th International Conference on
+                 Tools and Algorithms for the Construction and Analysis of Systems (TACAS~2020, Dublin, Ireland, April 25-30), part 2},
+  series    = {LNCS~12079},
+  publisher = {Springer},
+  pages     = {126-133},
+  year      = {2020},
+  doi       = {10.1007/978-3-030-45237-7_8},
+  pdf       = {https://doi.org/10.1007/978-3-030-45237-7_8},
+  url       = {https://www.sosy-lab.org/research/energy-measurement/},
+  keyword   = {Benchmarking},
+  abstract  = {
+    Verification algorithms are among the most resource-intensive computation tasks.
+    Saving energy is important for our living environment and
+    to save cost in data centers.
+    Yet, researchers compare the efficiency of algorithms
+    still in terms of consumption of CPU time (or even wall time).
+    Perhaps one reason for this is that measuring energy consumption of computational
+    processes is not as convenient as measuring the consumed time
+    and there is no sufficient tool support.
+    To close this gap, we contribute CPU Energy Meter,
+    a small tool that takes care of reading the energy values
+    that Intel CPUs track inside the chip.
+    In order to make energy measurements as easy as possible,
+    we integrated CPU Energy Meter into BenchExec,
+    a benchmarking tool that is already used by many researchers
+    and competitions in the domain of formal methods.
+    As evidence for usefulness, we explored the energy consumption of some state-of-the-art verifiers
+    and report some interesting insights, for example, that
+    energy consumption is not necessarily correlated with CPU time.
+  },
+}
+
+%%153 TACAS-PDR
+@InProceedings{TACAS20a,
+  author    = {Dirk Beyer and Matthias Dangl},
+  title     = {Software Verification with PDR: An Implementation of the State of the Art},
+  booktitle = {Proceedings of the 26th International Conference on
+                 Tools and Algorithms for the Construction and Analysis of Systems (TACAS~2020, Dublin, Ireland, April 25-30), part 1},
+  series    = {LNCS~12078},
+  publisher = {Springer},
+  pages     = {3-21},
+  year      = {2020},
+  doi       = {10.1007/978-3-030-45190-5_1},
+  pdf       = {https://doi.org/10.1007/978-3-030-45190-5_1},
+  url       = {https://www.sosy-lab.org/research/pdr-compare/},
+  keyword   = {Software Model Checking},
+  abstract  = {
+  },
+}
+
+%%152 FASE-Test-Comp
+@InProceedings{FASE20,
+  author    = {Dirk Beyer},
+  title     = {Second Competition on Software Testing: Test-Comp 2020},
+  booktitle = {Proceedings of the 22nd International Conference on
+                 Fundamental Approaches to Software Engineering (FASE~2020, Dublin, Ireland, April 25-30)},
+  series    = {LNCS~12076},
+  publisher = {Springer},
+  pages     = {505-519},
+  year      = {2020},
+  doi       = {10.1007/978-3-030-45234-6_25},
+  pdf       = {https://doi.org/10.1007/978-3-030-45234-6_25},
+  url       = {https://test-comp.sosy-lab.org/},
+  keyword   = {Competition on Software Testing (Test-Comp),Competition on Software Testing (Test-Comp Report),Software Testing},
+  abstract  = {
+  },
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% 2019
+
+%%149 ASE-TestCov
+@InProceedings{ASE19,
+  author    = {Dirk Beyer and Thomas Lemberger},
+  title     = {{T}est{C}ov: Robust Test-Suite Execution and Coverage Measurement},
+  booktitle = {Proceedings of the 34th IEEE/ACM International Conference on Automated Software Engineering (ASE 2019, San Diego, CA, USA, November 11-15)},
+  publisher = {IEEE},
+  pages     = {1074-1077},
+  year      = {2019},
+  doi       = {10.1109/ASE.2019.00105},
+  pdf       = {https://www.sosy-lab.org/research/pub/2019-ASE.TestCov_Robust_Test-Suite_Execution_and_Coverage_Measurement.pdf},
+  postscript = {https://www.sosy-lab.org/research/prs/2019-11-12_ASE19_TestCov_Lemberger.pdf},
+  keyword   = {DFG-COOP,Software Testing},
+  isbnnote  = {978-1-7281-2508-4},
+}
+
+%%148 ATVA-Conditional-Testing
+@InProceedings{ATVA19,
+  author    = {Dirk Beyer and Thomas Lemberger},
+  editor    = {Yu{-}Fang Chen and Chih{-}Hong Cheng and Javier Esparza},
+  title     = {Conditional Testing - Off-the-Shelf Combination of Test-Case Generators},
+  booktitle = {Proceedings of the 17th International Symposium on
+                 Automated Technology for Verification and Analysis (ATVA~2019, Taipei, Taiwan, October 28-31)},
+  series    = {LNCS~11781},
+  pages     = {189--208},
+  publisher = {Springer},
+  year      = {2019},
+  doi       = {10.1007/978-3-030-31784-3\_11},
+  pdf       = {https://www.sosy-lab.org/research/pub/2019-ATVA.Conditional_Testing_Off-the-Shelf_Combination_of_Test-Case_Generators.pdf},
+  url       = {https://www.sosy-lab.org/research/conditional-testing/},
+  postscript = {https://www.sosy-lab.org/research/prs/2019-10-29_ATVA19_Conditional_Testing_Lemberger.pdf},
+  keyword   = {DFG-COOP,Software Testing},
+}
+
+%%145 MSR19-DataSet
+@InProceedings{MSR19,
+  author    = {Dirk Beyer},
+  title     = {A Data Set of Program Invariants and Error Paths},
+  booktitle = {Proceedings of the 2019 IEEE/ACM 16th International Conference on
+                 Mining Software Repositories (MSR~2019, Montreal, Canada, May 26-27)},
+  publisher = {IEEE},
+  pages     = {111-115},
+  year      = {2019},
+  doi       = {10.1109/MSR.2019.00026},
+  pdf       = {https://www.sosy-lab.org/research/pub/2019-MSR.A_Data_Set_of_Program_Invariants_and_Error_Paths.pdf},
+  url       = {https://doi.org/10.5281/zenodo.2559175}
+}
+
+%%143 TACAS19-Test-Comp
+@InProceedings{TACAS19c,
+  author    = {Dirk Beyer},
+  title     = {International Competition on Software Testing (Test-Comp)},
+  booktitle = {Proceedings of the 25th International Conference on
+                 Tools and Algorithms for the Construction and Analysis of Systems (TACAS~2019, Prague, Czech Republic, April 6-11), part 3},
+  series    = {LNCS~11429},
+  publisher = {Springer},
+  pages     = {167-175},
+  year      = {2019},
+  doi       = {10.1007/978-3-030-17502-3\_11},
+  pdf       = {https://doi.org/10.1007/978-3-030-17502-3\_11},
+  url       = {https://test-comp.sosy-lab.org/},
+  keyword   = {Competition on Software Testing (Test-Comp),Competition on Software Testing (Test-Comp Report),Software Testing},
+}
+
+%%142 TACAS19-SV-COMP
+@InProceedings{TACAS19b,
+  author    = {Dirk Beyer},
+  title     = {Automatic Verification of {C} and Java Programs: {SV-COMP} 2019},
+  booktitle = {Proceedings of the 25th International Conference on
+                 Tools and Algorithms for the Construction and Analysis of Systems (TACAS~2019, Prague, Czech Republic, April 6-11), part 3},
+  series    = {LNCS~11429},
+  publisher = {Springer},
+  pages     = {133-155},
+  year      = {2019},
+  doi       = {10.1007/978-3-030-17502-3\_9},
+  pdf       = {https://doi.org/10.1007/978-3-030-17502-3\_9},
+  url       = {https://sv-comp.sosy-lab.org/2019/},
+  keyword   = {Competition on Software Verification (SV-COMP),Competition on Software Verification (SV-COMP Report),Software Model Checking}
+}
+
+%%141 TACAS19-CompOverview
+@InProceedings{TACAS19a,
+  author    = {E.~Bartocci and D.~Beyer and P.~E.~Black and G.~Fedyukovich and H.~Garavel and A.~Hartmanns and
+               M.~Huisman and F.~Kordon and J.~Nagele and M.~Sighireanu and B.~Steffen and M.~Suda and
+               G.~Sutcliffe and T.~Weber and A.~Yamada},
+  title     = {{TOOLympics} 2019: An Overview of Competitions in Formal Methods},
+  booktitle = {Proceedings of the 25th International Conference on
+                 Tools and Algorithms for the Construction and Analysis of Systems (TACAS~2019, Prague, Czech Republic, April 6-11), part 3},
+  series    = {LNCS~11429},
+  publisher = {Springer},
+  pages     = {3-24},
+  year      = {2019},
+  doi       = {10.1007/978-3-030-17502-3\_1},
+  pdf       = {https://doi.org/10.1007/978-3-030-17502-3\_1},
+  url       = {https://tacas.info/toolympics.php}
+}
+
+%%139 FASE19-CoVeriTest
+@InProceedings{FASE19,
+  author    = {Dirk Beyer and Marie-Christine Jakobs},
+  title     = {CoVeriTest: Cooperative Verifier-Based Testing},
+  booktitle = {Proceedings of the 22nd International Conference on
+                 Fundamental Approaches to Software Engineering (FASE~2019, Prague, Czech Republic, April 6-11)},
+  series    = {LNCS~11424},
+  publisher = {Springer},
+  pages     = {389-408},
+  year      = {2019},
+  doi       = {10.1007/978-3-030-16722-6\_23},
+  pdf       = {https://doi.org/10.1007/978-3-030-16722-6\_23},
+  url       = {https://www.sosy-lab.org/research/coop-testgen/},
+  keyword   = {CPAchecker,Software Model Checking,Software Testing},
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% 2018
+
+%%137 ISOLA137-BAM-CoW
+@inproceedings{ISoLA18b,
+  author    = {Dirk Beyer and Karlheinz Friedberger},
+  title     = {In-Place vs. Copy-on-Write CEGAR Refinement for Block Summarization with Caching},
+  booktitle = {Proceedings of the 8th International Symposium on
+                   Leveraging Applications of Formal Methods, Verification, and Validation
+                   (ISoLA~2018, Part~2, Limassol, Cyprus, November 5-9)},
+  editor    = {T.~Margaria and B.~Steffen},
+  publisher = {Springer},
+  series    = {LNCS~11245},
+  pages     = {197-215},
+  year      = {2018},
+  doi       = {10.1007/978-3-030-03421-4_14},
+  pdf       = {https://www.sosy-lab.org/research/pub/2018-ISoLA.In-Place_vs_Copy-on-Write_CEGAR_Refinement_for_Block_Summarization_with_Caching.pdf},
+  postscript= {https://www.sosy-lab.org/research/prs/2018-11-06_ISoLA18_BAM-CoW-Refinement_Dirk.pdf},
+  url       = {https://www.sosy-lab.org/research/bam-cow-refinement/},
+  keyword   = {CPAchecker,Software Model Checking,BAM},
+  abstract = {
+    Block summarization is an efficient technique in software
+    verification to decompose a verification problem into separate tasks and
+    to avoid repeated exploration of reusable parts of a program. In order to
+    benefit from abstraction at the same time, block summarization can be
+    combined with counterexample-guided abstraction refinement (CEGAR).
+    This causes the following problem: whenever CEGAR instructs the model
+    checker to refine the abstraction along a path, several block summaries
+    are affected and need to be updated. There exist two different refinement
+    strategies: a destructive in-place approach that modifies the existing
+    block abstractions and a constructive copy-on-write approach that does
+    not change existing data. While the in-place approach is used in the
+    field for several years, our new approach of copy-on-write refinement
+    has the following important advantage: A complete exportable proof
+    of the program is available after the analysis has finished. Due to the
+    benefit from avoiding recomputations of missing information as necessary
+    for in-place updates, the new approach causes almost no computational
+    overhead overall. We perform a large experimental evaluation to compare
+    the new approach with the previous one to show that full proofs can be
+    achieved without overhead.
+  },
+}
+
+%%136 ISOLA18-StrategySelection
+@inproceedings{ISoLA18a,
+  author    = {Dirk Beyer and Matthias Dangl},
+  title     = {Strategy Selection for Software Verification Based on Boolean Features: A Simple but Effective Approach},
+  booktitle = {Proceedings of the 8th International Symposium on
+                   Leveraging Applications of Formal Methods, Verification, and Validation
+                   (ISoLA~2018, Part~2, Limassol, Cyprus, November 5-9)},
+  editor    = {T.~Margaria and B.~Steffen},
+  publisher = {Springer},
+  series    = {LNCS~11245},
+  pages     = {144-159},
+  year      = {2018},
+  doi       = {10.1007/978-3-030-03421-4_11},
+  pdf       = {https://www.sosy-lab.org/research/pub/2018-ISoLA.Strategy_Selection_for_Software_Verification_Based_on_Boolean_Features.pdf},
+  postscript= {https://www.sosy-lab.org/research/prs/2018-11-05_ISoLA18_StrategySelection_Dirk.pdf},
+  keyword   = {CPAchecker,Software Model Checking},
+}
+
+%%134 ASE19 SymExec-Tool
+@inproceedings{ASE18b,
+  author    = {Dirk Beyer and Thomas Lemberger},
+  title     = {{CPA-SymExec}: Efficient Symbolic Execution in {CPAchecker}},
+  booktitle = {Proceedings of the 33rd {ACM/IEEE} International Conference on Automated
+               Software Engineering ({ASE}~2018, Montpellier, France, September 3-7)},
+  editor    = {Marianne Huchard and
+               Christian K{\"{a}}stner and
+               Gordon Fraser},
+  publisher = {ACM},
+  pages     = {900-903},
+  year      = {2018},
+  doi       = {10.1145/3238147.3240478},
+  pdf       = {https://www.sosy-lab.org/research/pub/2018-ASE.CPA-SymExec_Efficient_Symbolic_Execution_in_CPAchecker.pdf},
+  postscript = {https://www.sosy-lab.org/research/prs/2018-09-07_ASE18_CPASymExec_Thomas.pdf},
+  keyword   = {CPAchecker,Software Model Checking},
+  url       = {https://www.sosy-lab.org/research/cpa-symexec-tool/},
+  abstract  = {
+    We present CPA-SymExec, a tool for symbolic execution that is implemented
+    in the open-source, configurable verification framework
+    CPAchecker. Our implementation automatically detects which symbolic
+    facts to track, in order to obtain a small set of constraints that
+    are necessary to decide reachability of a program area of interest.
+    CPA-SymExec is based on abstraction and counterexample-guided abstraction
+    refinement (CEGAR), and uses a constraint-interpolation
+    approach to detect symbolic facts. We show that our implementation
+    can better mitigate the path-explosion problem than symbolic
+    execution without abstraction, by comparing the performance to
+    the state-of-the-art Klee-based symbolic-execution engine Symbiotic
+    and to Klee itself. For the experiments we use two kinds of
+    analysis tasks: one for finding an executable path to a specific
+    location of interest (e.g., if a test vector is desired to show that
+    a certain behavior occurs), and one for confirming that no executable
+    path to a specific location exists (e.g., if it is desired to show
+    that a certain behavior never occurs). CPA-SymExec is released under
+    the Apache 2 license and available (inclusive source code) at
+    https://cpachecker.sosy-lab.org. A demonstration video is available
+    at https://youtu.be/qoBHtvPKtnw.
+  },
+}
+
+%%133 ASE18-BAM-parallel
+@InProceedings{ASE18a,
+  author    = {Dirk Beyer and Karlheinz Friedberger},
+  title     = {Domain-Independent Multi-threaded Software Model Checking},
+  booktitle = {Proceedings of the 33rd {ACM/IEEE} International Conference on Automated
+               Software Engineering, {ASE} 2018, Montpellier, France, September 3-7,
+               2018},
+  editor    = {Marianne Huchard and
+               Christian K{\"{a}}stner and
+               Gordon Fraser},
+  publisher = {ACM},
+  pages     = {634-644},
+  year      = {2018},
+  doi       = {10.1145/3238147.3238195},
+  pdf       = {https://www.sosy-lab.org/research/pub/2018-ASE.Domain-Independent_Multi-threaded_Software_Model_Checking.pdf},
+  postscript = {https://www.sosy-lab.org/research/prs/2018-09-07_ASE18_ParallelBAM_Karlheinz.pdf},
+  url       = {https://www.sosy-lab.org/research/bam-parallel/},
+  keyword   = {CPAchecker,Software Model Checking,BAM},
+  abstract = {
+    Recent development of software aims at massively parallel execution,
+    because of the trend to increase the number of processing
+    units per CPU socket. But many approaches for program analysis
+    are not designed to benefit from a multi-threaded execution
+    and lack support to utilize multi-core computers. Rewriting existing
+    algorithms is difficult and error-prone, and the design of new
+    parallel algorithms also has limitations. An orthogonal problem is
+    the granularity: computing each successor state in parallel seems
+    too fine-grained, so the open question is to find the right structural
+    level for parallel execution. We propose an elegant solution to
+    these problems: Block summaries should be computed in parallel.
+    Many successful approaches to software verification are based on
+    summaries of control-flow blocks, large blocks, or function bodies.
+    Block-abstraction memoization is a successful domain-independent
+    approach for summary-based program analysis. We redesigned the
+    verification approach of block-abstraction memoization starting
+    from its original recursive definition, such that it can run in a parallel
+    manner for utilizing the available computation resources without
+    losing its advantages of being independent from a certain abstract
+    domain. We present an implementation of our new approach for
+    multi-core shared-memory machines. The experimental evaluation
+    shows that our summary-based approach has no significant overhead
+    compared to the existing sequential approach and that it has
+    a significant speedup when using multi-threading.
+  },
+}
+
+%%132 Execution-Based Validation
+@InProceedings{TAP18,
+  author    = {Dirk Beyer and Matthias Dangl and Thomas Lemberger and Michael Tautschnig},
+  title     = {Tests from Witnesses: Execution-Based Validation of Verification Results},
+  booktitle = {Proceedings of the 12th International Conference on
+                   Tests and Proofs (TAP~2018, Toulouse, France, June 27-29)},
+  series    = {LNCS~10889},
+  editor    = {Catherine Dubois and Burkhart Wolff},
+  publisher = {Springer},
+  pages     = {3-23},
+  year      = {2018},
+  doi       = {10.1007/978-3-319-92994-1_1},
+  pdf       = {https://www.sosy-lab.org/research/pub/2018-TAP.Tests_from_Witnesses_Execution-Based_Validation_of_Verification_Results.pdf},
+  url       = {https://www.sosy-lab.org/research/tests-from-witnesses/},
+  postscript= {https://www.sosy-lab.org/research/prs/2018-06-27_TAP18-Keynote-CooperativeVerification_Dirk.pdf},
+  keyword   = {CPAchecker,Software Model Checking,Witness-Based Validation,Witness-Based Validation (main)},
+  abstract  = {
+        The research community made enormous progress in the past years
+        in developing algorithms for verifying software, as shown by
+        verification competitions (SV-COMP). However, the ultimate goal
+        is to design certifying algorithms, which produce for a given input
+        not only the output but in addition a witness. This makes it possible
+        to validate that the output is a correct solution for the
+        input problem. The advantage of certifying algorithms is that the
+        validation of the result is —thanks to the witness— easier than the
+        computation of the result. Unfortunately, the transfer to industry
+        is slow, one of the reasons being that some verifiers report a
+        considerable number of false alarms. The verification community
+        works towards this ultimate goal using exchangeable violation
+        witnesses, i.e., an independent validator can be used to check
+        whether the produced witness indeed represents a bug. This reduces
+        the required trust base from the complex verification tool to a
+        validator that may be less complex, and thus, more easily trustable.
+        But existing witness validators are based on model-checking
+        technology — which does not solve the problem of reducing the trust
+        base. To close this gap, we present a simple concept that is based
+        on program execution: We extend witness validation by generating
+        a test vector from an error path that is reconstructed from
+        the witness. Then, we generate a test harness
+        (similar to unit-test code) that can be compiled and linked
+        together with the original program. We then run the executable
+        program in an isolating container. If the execution violates the
+        specification (similar to runtime verification) we confirm that the
+        witness indeed represents a bug. This method reduces the trust
+        base to the execution system, which seems appropriate for avoiding
+        false alarms. To show feasibility and practicality, we implemented
+        execution-based witness validation in two completely independent
+        analysis frameworks, and performed a large experimental study.
+  },
+}
+
+%%130 ICSE18-Reducers
+@InProceedings{ICSE18,
+  author    = {Dirk Beyer and Marie-Christine Jakobs and Thomas Lemberger and Heike Wehrheim},
+  title     = {Reducer-Based Construction of Conditional Verifiers},
+  booktitle = {Proceedings of the 40th International Conference on 
+                   Software Engineering (ICSE~2018, Gothenburg, Sweden, May 27 - June 3)},
+  publisher = {ACM},
+  pages     = {1182-1193},
+  year      = {2018},
+  isbn      = {978-1-4503-5638-1},
+  doi       = {10.1145/3180155.3180259},
+  pdf       = {https://www.sosy-lab.org/research/pub/2018-ICSE.Reducer-Based_Construction_of_Conditional_Verifiers.pdf},
+  url       = {https://www.sosy-lab.org/research/reducer/},
+  postscript = {https://www.sosy-lab.org/research/prs/2018-06-01_ICSE18_ReducerBasedConstructionOfConditionalVerifiers_Marie.pdf},
+  keyword   = {CPAchecker,Software Model Checking},
+  abstract  = {
+      Despite recent advances, software verification remains challenging.
+      To solve hard verification tasks, we need to leverage not just one
+      but several different verifiers employing different technologies.
+      To this end, we need to exchange information between verifiers.
+      Conditional model checking was proposed as a solution to exactly
+      this problem: The idea is to let the first verifier output a condition
+      which describes the state space that it successfully verified and to
+      instruct the second verifier to verify the yet unverified state space
+      using this condition. However, most verifiers do not understand
+      conditions as input.
+      In this paper, we propose the usage of an off-the-shelf construction of
+      a conditional verifier from a given traditional verifier and a reducer.
+      The reducer takes as input the program to be verified and the condition,
+      and outputs a residual program whose paths cover the unverified
+      state space described by the condition.
+      As a proof of concept, we designed and implemented one
+      particular reducer and composed three conditional model checkers
+      from the three best verifiers at SV-COMP 2017.
+      We defined a set of claims and experimentally evaluated their validity.
+      All experimental data and results are available for replication.
+  },
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% 2017
+
+%%126 Test-Study
+@inproceedings{HVC17,
+  author    = {Dirk Beyer and Thomas Lemberger},
+  title     = {Software Verification: Testing vs. Model Checking},
+  booktitle = {Proceedings of the 13th Haifa Verification Conference (HVC~2017, Haifa, Israel, November 13-25)},
+  editor    = {O.~Strichman and R.~Tzoref-Brill},
+  series    = {LNCS~10629},
+  pages     = {99-114},
+  year      = {2017},
+  publisher = {Springer},
+  isbn      = {978-3-319-70389-3},
+  doi       = {https://doi.org/10.1007/978-3-319-70389-3_7},
+  pdf       = {https://www.sosy-lab.org/research/pub/2017-HVC.Software_Verification_Testing_vs_Model_Checking.pdf},
+  postscript = {https://www.sosy-lab.org/research/prs/2017-11-15_HVC17_TestStudy_Thomas.pdf},
+  url       = {https://www.sosy-lab.org/research/test-study/},
+  annote    = {Won the HVC 2017 Best Paper Award},
+  abstract  = {
+    In practice, software testing has been the established method for
+    finding bugs in programs for a long time. But in the last 15 years,
+    software model checking has received a lot of attention,
+    and many successful tools for software model checking exist today.
+    We believe it is time for a careful comparative evaluation
+    of automatic software testing against automatic software model checking.
+    We chose six existing tools for automatic test-case generation,
+    namely AFL-fuzz, CPATiger, Crest-ppc, FShell, Klee, and PRtest,
+    and four tools for software model checking, namely CBMC, CPA-Seq,
+    ESBMC-incr, and ESBMC-kInd,
+    for the task of finding specification violations in a large benchmark suite
+    consisting of 5693 C programs. In order to perform such an evaluation,
+    we have implemented a framework for test-based falsification (TBF)
+    that executes and validates test cases produced by test-case generation
+    tools in order to find errors in programs.
+    The conclusion of our experiments is that software model checkers can
+    (i) find a substantially larger number of bugs (ii) in less time,
+    and (iii) require less adjustment to the input programs.
+  },
+  keyword   = {CPAchecker,Software Model Checking},
+}
+
+%%123 SV-COMP
+@inproceedings{TACAS17,
+  author    = {Dirk Beyer},
+  title     = {Software Verification with Validation of Results ({R}eport on {SV-COMP} 2017)},
+  booktitle = {Proceedings of the 23rd International Conference on
+                 Tools and Algorithms for the Construction and Analysis of Systems (TACAS~2017, Uppsala, Sweden, April 22-29)},
+  editor    = {A.~Legay and T.~Margaria},
+  series    = {LNCS~10206},
+  pages     = {331-349},
+  year      = {2017},
+  publisher = {Springer-Verlag, Heidelberg},
+  isbn      = {978-3-662-54579-9},
+  doi       = {10.1007/978-3-662-54580-5_20},
+  pdf       = {https://www.sosy-lab.org/research/pub/2017-TACAS.Software_Verification_with_Validation_of_Results.pdf},
+  url       = {http://sv-comp.sosy-lab.org/},
+  keyword   = {Competition on Software Verification (SV-COMP),Competition on Software Verification (SV-COMP Report),Software Model Checking,Witness-Based Validation},
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% 2016
+
+%%120 Correctness-Witnesses
+@InProceedings{FSE16b,
+  author    = {Dirk Beyer and Matthias Dangl and Daniel Dietsch and Matthias Heizmann},
+  title     = {Correctness Witnesses: {E}xchanging Verification Results Between Verifiers},
+  booktitle = {Proceedings of the 24th ACM SIGSOFT International Symposium on
+                   Foundations of Software Engineering (FSE~2016, Seattle, WA, USA, November 13-18)},
+  editor    = {T.~Zimmermann and J.~Cleland-Huang and Z.~Su},
+  publisher = {ACM},
+  pages     = {326-337},
+  year      = {2016},
+  doi       = {10.1145/2950290.2950351},
+  pdf       = {https://www.sosy-lab.org/research/pub/2016-FSE.Correctness_Witnesses_Exchanging_Verification_Results_between_Verifiers.pdf},
+  url       = {},
+  keyword   = {CPAchecker,Software Model Checking,Witness-Based Validation,Witness-Based Validation (main)},
+}
+
+%%119 OnTheFlyDecomposition
+@InProceedings{FSE16a,
+  author    = {Sven Apel and Dirk Beyer and Vitaly Mordan and Vadim Mutilin and and Andreas Stahlbauer},
+  title     = {On-the-Fly Decomposition of Specifications in Software Model Checking},
+  booktitle = {Proceedings of the 24th ACM SIGSOFT International Symposium on
+                   Foundations of Software Engineering (FSE~2016, Seattle, WA, USA, November 13-18)},
+  editor    = {T.~Zimmermann and J.~Cleland-Huang and Z.~Su},
+  publisher = {ACM},
+  pages     = {349-361},
+  year      = {2016},
+  isbn      = {978-3-319-47165-5},
+  doi       = {10.1145/2950290.2950349},
+  pdf       = {https://www.sosy-lab.org/research/pub/2016-FSE.On-the-Fly_Decomposition_of_Specifications_in_Software_Model_Checking.pdf},
+}
+
+%%118 ISoLA16_Combinations
+@inproceedings{ISOLA16b,
+  author    = {Dirk Beyer},
+  title     = {Partial Verification and Intermediate Results as a Solution to 
+               Combine Automatic and Interactive Verification Techniques},
+  booktitle = {7th International Symposium on
+                   Leveraging Applications of Formal Methods, Verification, and Validation
+                   (ISoLA~2016, Part~1, Imperial, Corfu, Greece, October 10-14)},
+  editor    = {T.~Margaria and B.~Steffen},
+  publisher = {Springer},
+  series    = {LNCS~9952},
+  pages     = {874-880},
+  year      = {2016},
+  isbn      = {978-3-319-47165-5},
+  doi       = {10.1007/978-3-319-47166-2},
+  pdf       = {https://www.sosy-lab.org/research/pub/2016-ISoLA.Partial_Verification_and_Intermediate_Results_as_a_Solution_to_Combine_Automatic_and_Interactive_Verification_Techniques.pdf},
+  keyword   = {Software Model Checking},
+  abstract  = {
+    Many of the current verification approaches can be classified
+    into automatic and interactive techniques, each having different strengths
+    and weaknesses. Thus, one of the current open problems is to design
+    solutions to combine the two approaches and accelerate technology transfer.
+    We outline four existing techniques that might be able to contribute
+    to combination solutions:
+    (1) Conditional model checking is a technique that gives detailed information
+    (in form of a condition) about the verified state space, i.e.,
+    informs the user (or tools later in a tool chain) of the outcome.
+    Also, it accepts as input detailed information (again as condition)
+    about what the conditional model checker has to do.
+    (2) Correctness witnesses, stored in a machine-readable exchange format,
+    contain (partial) invariants that can be used to prove the correctness of a system.
+    For example, tools that usually expect invariants from the user can read
+    the invariants from such correctness witnesses and ask the user only for
+    the remaining invariants.
+    (3) Abstraction-refinement based approaches that use a dynamically
+    adjustable precision (such as in lazy CEGAR approaches) can be provided
+    with invariants from the user or from other tools, e.g., from deductive methods.
+    This way, the approach can succeed in constructing a proof even if it was
+    not able to come up with the required invariant.
+    (4) The technique of path invariants extracts (in a CEGAR method)
+    a path program that represents an interesting part of
+    the program for which an invariant is needed. Such a path program can
+    be given to an expensive (or interactive) method for computing
+    invariants that can then be fed back to a CEGAR method to continue verifying
+    the large program. While the existing techniques originate from software
+    verification, we believe that the new combination ideas are useful for
+    verifying general systems.
+  },
+}
+
+%%117 ISoLA16_SymExec
+@inproceedings{ISOLA16a,
+  author    = {Dirk Beyer and Thomas Lemberger},
+  title     = {Symbolic Execution with {CEGAR}},
+  booktitle = {7th International Symposium on
+                   Leveraging Applications of Formal Methods, Verification, and Validation
+                   (ISoLA~2016, Part~1, Imperial, Corfu, Greece, October 10-14)},
+  editor    = {T.~Margaria and B.~Steffen},
+  publisher = {Springer},
+  series    = {LNCS~9952},
+  pages     = {195-211},
+  year      = {2016},
+  doi       = {10.1007/978-3-319-47166-2_14},
+  pdf       = {https://www.sosy-lab.org/research/pub/2016-ISoLA.Symbolic_Execution_with_CEGAR.pdf},
+  url       = {https://www.sosy-lab.org/research/cpa-symexec/},
+  postscript = {https://www.sosy-lab.org/research/prs/2016-10-10_ISoLA16_SymbolicExecutionWithCegar_Dirk.pdf},
+  keyword   = {CPAchecker,Software Model Checking},
+  abstract  = {
+    Symbolic execution, a standard technique in program analysis,
+    is a particularly successful and popular component in systems for
+    test-case generation. One of the open research problems is that the approach
+    suffers from the path-explosion problem. We apply abstraction to
+    symbolic execution, and refine the abstract model using counterexampleguided
+    abstraction refinement (CEGAR), a standard technique from model
+    checking. We also use refinement selection with existing and new heuristics
+    to influence the behavior and further improve the performance of our
+    refinement procedure. We implemented our new technique in the open-source
+    software-verification framework CPAchecker. Our experimental
+    results show that the implementation is highly competitive.
+  },
+}
+
+%%115 CAV16-Verification-Aided Debugging
+@inproceedings{CAV16,
+  author    = {Dirk Beyer and Matthias Dangl},
+  title     = {Verification-Aided Debugging: {A}n Interactive Web-Service for Exploring Error Witnesses},
+  booktitle = {28th International Conference on
+                   Computer Aided Verification (CAV~2016, Part~2, Toronto, ON, Canada, July 17-23)},
+  editor    = {S.~Chaudhuri and A.~Farzan},
+  pages     = {502-509},
+  year      = {2016},
+  series    = {LNCS~9780},
+  publisher = {Springer},
+  doi       = {10.1007/978-3-319-41540-6_28},
+  pdf       = {https://www.sosy-lab.org/research/pub/2016-CAV.Verification-Aided_Debugging_An_Interactive_Web-Service_for_Exploring_Error_Witnesses.pdf},
+  keyword   = {Cloud-Based Software Verification,Witness-Based Validation,Witness-Based Validation (main)},
+}
+
+%%112 TACAS16-SVCOMP
+@inproceedings{TACAS16,
+  author    = {Dirk Beyer},
+  title     = {Reliable and Reproducible Competition Results with {{\sc BenchExec}} and Witnesses ({R}eport on {SV-COMP} 2016)},
+  booktitle = {Proceedings of the 22nd International Conference on
+                 Tools and Algorithms for the Construction and Analysis of Systems (TACAS~2016, Eindhoven, The Netherlands, April 2-8)},
+  editor    = {M.~Chechik and J.-F.~Raskin},
+  series    = {LNCS~9636},
+  year      = {2016},
+  publisher = {Springer-Verlag, Heidelberg},
+  pages     = {887-904},
+  isbn      = {978-3-662-49674-9},
+  doi       = {10.1007/978-3-662-49674-9_55},
+  pdf       = {https://doi.org/10.1007/978-3-662-49674-9_55},
+  url       = {http://sv-comp.sosy-lab.org/},
+  keyword   = {Competition on Software Verification (SV-COMP),Competition on Software Verification (SV-COMP Report),Software Model Checking,Witness-Based Validation},
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% 2015
+
+%%109  FSE
+@InProceedings{FSE15,
+  author =     {Dirk Beyer and Matthias Dangl and Daniel Dietsch and Matthias Heizmann and Andreas Stahlbauer},
+  title =      {Witness Validation and Stepwise Testification across Software Verifiers},
+  booktitle =  {Proceedings of the 2015 10th Joint Meeting of the European Software Engineering Conference and the ACM SIGSOFT Symposium on 
+                   Foundations of Software Engineering (ESEC/FSE 2015, Bergamo, Italy, August 31 - September 4)},
+  publisher =  {ACM, New York},
+  editor =     {E.~Di~Nitto and M.~Harman and P.~Heymans},
+  pages =      {721-733},
+  year =       {2015},
+  isbn =       {978-1-4503-3675-8},
+  keyword =    {CPAchecker,Software Model Checking,Witness-Based Validation,Witness-Based Validation (main)},
+  pdf =        {https://www.sosy-lab.org/research/pub/2015-FSE15.Witness_Validation_and_Stepwise_Testification_across_Software_Verifiers.pdf},
+  url =        {},
+  doi =        {10.1145/2786805.2786867},
+}
+
+%%108  SPIN
+@InProceedings{SPIN15b,
+  author =     {Dirk Beyer and Stefan L{\"o}we and Philipp Wendler},
+  title =      {Refinement Selection},
+  booktitle =  {Proceedings of the 22nd International Symposium on
+                   Model Checking of Software (SPIN~2015, Stellenbosch, South Africa, August 24-26)},
+  publisher =  {Springer-Verlag, Heidelberg},
+  editor =     {B.~Fischer and J.~Geldenhuys},
+  series =     {LNCS~9232},
+  pages =      {20-38},
+  year =       {2015},
+  isbn =       {978-3-319-23403-8},
+  keyword =    {CPAchecker,Software Model Checking},
+  pdf =        {https://www.sosy-lab.org/research/pub/2015-SPIN.Refinement_Selection.pdf},
+  url =        {https://www.sosy-lab.org/research/cpa-ref-sel/},
+  doi =        {10.1007/978-3-319-23404-5_3},
+  abstract =   {
+    Counterexample-guided abstraction refinement
+    is a property-directed approach for the automatic construction
+    of an abstract model for a given system.
+    The approach learns information from infeasible error paths
+    in order to refine the abstract model.
+    We address the problem of selecting which information to learn from
+    a given infeasible error path.
+    In previous work, we presented a method that
+    enables refinement selection by extracting a set of sliced prefixes
+    from a given infeasible error path,
+    each of which represents a different reason for infeasibility of the error path and thus,
+    a possible way to refine the abstract model.
+    In this work, we
+    (1) define and investigate several promising heuristics
+       for selecting an appropriate precision for refinement, and
+    (2) propose a new combination of a value analysis and a predicate analysis
+       that does not only find out which information to learn from an infeasible error path,
+       but automatically decides which analysis should be preferred for a refinement.
+    These contributions allow a more systematic refinement strategy
+    for CEGAR-based analyses.
+    We evaluated the idea on software verification.
+    We provide an implementation of the new concepts
+    in the verification framework CPAchecker
+    and make it publicly available.
+    In a thorough experimental study,
+    we show that refinement selection
+    often avoids state-space explosion
+    where existing approaches diverge,
+    and that it can be even more powerful
+    if applied on a higher level,
+    where it decides which analysis
+    of a combination should be favored for a refinement.
+  },
+}
+
+%%107  SPIN
+@InProceedings{SPIN15a,
+  author =     {Dirk Beyer and Stefan L{\"o}we and Philipp Wendler},
+  title =      {Benchmarking and Resource Measurement},
+  booktitle =  {Proceedings of the 22nd International Symposium on
+                   Model Checking of Software (SPIN~2015, Stellenbosch, South Africa, August 24-26)},
+  publisher =  {Springer-Verlag, Heidelberg},
+  editor =     {B.~Fischer and J.~Geldenhuys},
+  series =     {LNCS~9232},
+  pages =      {160-178},
+  year =       {2015},
+  isbn =       {978-3-319-23403-8},
+  keyword =    {Benchmarking},
+  pdf =        {https://www.sosy-lab.org/research/pub/2015-SPIN.Benchmarking_and_Resource_Measurement.pdf},
+  url =        {https://www.sosy-lab.org/research/benchmarking/},
+  doi =        {10.1007/978-3-319-23404-5_12},
+  annote =     {An <a href="https://www.sosy-lab.org/research/bib/Year/2017.complete.html#Benchmarking-STTT">extended version</a> of this article appeared in STTT.},
+  abstract =   {
+    Proper benchmarking and resource measurement is an important topic,
+    because benchmarking is a widely-used method
+    for the comparative evaluation of tools and algorithms in many research areas.
+    It is essential for researchers, tool developers, and users,
+    as well as for competitions.
+    We formulate a set of requirements that are indispensable
+    for reproducible benchmarking and reliable resource measurement
+    of automatic solvers, verifiers, and similar tools,
+    and discuss limitations of existing methods and benchmarking tools.
+    Fulfilling these requirements in a benchmarking framework
+    is complex and can (on Linux) currently only be done by using the cgroups feature of the kernel.
+    We provide BenchExec, a ready-to-use, tool-independent, and free implementation
+    of a benchmarking framework that fulfills all presented requirements,
+    making reproducible benchmarking and reliable resource measurement easy.
+    Our framework is
+    able to work with a wide range of different tools
+    and has proven its reliability and usefulness in
+    the International Competition on Software Verification.
+  },
+}
+
+%%106  CAV
+@InProceedings{CAV15,
+  author =     {Dirk Beyer and Matthias Dangl and Philipp Wendler},
+  title =      {Boosting k-Induction with Continuously-Refined Invariants},
+  booktitle =  {Proceedings of the 27th International Conference on
+                   Computer Aided Verification (CAV~2015, San Francisco, CA, USA, July 18-24)},
+  publisher =  {Springer-Verlag, Heidelberg},
+  editor =     {D.~Kr{\"o}ning and C.~S.~Pasareanu},
+  series =     {LNCS~9206},
+  pages =      {622-640},
+  year =       {2015},
+  isbn =       {978-3-319-21689-8},
+  keyword =    {CPAchecker,Software Model Checking},
+  pdf =        {https://doi.org/10.1007/978-3-319-21690-4_42},
+  url =        {https://www.sosy-lab.org/research/cpa-k-induction/},
+  doi =        {10.1007/978-3-319-21690-4_42},
+  abstract =   {
+    k-Induction is a promising technique to extend bounded model checking from falsification to verification.
+    In software verification, k-induction works only if auxiliary invariants are used to strengthen the induction hypothesis.
+    The problem that we address is to generate such invariants
+    (1) automatically without user-interaction,
+    (2) efficiently such that little verification time is spent on the invariant generation, and
+    (3) that are sufficiently strong for a k-induction proof.
+    We boost the k-induction approach to significantly increase effectiveness and efficiency
+    in the following way:
+    We start in parallel to k-induction a data-flow-based invariant generator that supports dynamic precision adjustment
+    and refine the precision of the invariant generator continuously during the analysis,
+    such that the invariants become increasingly stronger.
+    The k-induction engine is extended such that
+    the invariants from the invariant generator are injected in each iteration to strengthen the hypothesis.
+    The new method solves the above-mentioned problem because it
+    (1) automatically chooses an invariant by step-wise refinement,
+    (2) starts always with a lightweight invariant generation that is computationally inexpensive, and
+    (3) refines the invariant precision more and more to inject stronger and stronger invariants
+    into the induction system.
+    We present and evaluate an implementation
+    of our approach, as well as all other existing approaches,
+    in the open-source verification-framework CPAchecker.
+    Our experiments show that
+    combining k-induction with continuously-refined invariants
+    significantly increases effectiveness and efficiency,
+    and outperforms all existing implementations of
+    k-induction-based verification of C programs
+    in terms of successful results.
+  },
+}
+
+%%105  FORTE
+@InProceedings{FORTE15,
+  author =     {Dirk Beyer and Stefan L{\"o}we and Philipp Wendler},
+  title =      {Sliced Path Prefixes: An Effective Method to Enable Refinement Selection},
+  booktitle =  {Proceedings of the 35th IFIP WG 6.1 International Conference on 
+                   Formal Techniques for Distributed Objects, Components, and Systems (FORTE~2015, Grenoble, France, June 2-4)},
+  publisher =  {Springer-Verlag, Heidelberg},
+  editor =     {S.~Graf and M.~Viswanathan},
+  series =     {LNCS~9039},
+  pages =      {228-243},
+  year =       {2015},
+  isbn =       {978-3-319-19194-2},
+  keyword =    {CPAchecker,Software Model Checking},
+  pdf =        {https://doi.org/10.1007/978-3-319-19195-9_15},
+  url =        {https://www.sosy-lab.org/research/cpa-ref-sel/#FORTE15},
+  doi =        {10.1007/978-3-319-19195-9_15},
+  abstract =   {
+    Automatic software verification relies on constructing, for a given program,
+    an abstract model
+    that is (1) abstract enough to avoid state-space explosion and
+    (2) precise enough to reason about the specification.
+    Counterexample-guided abstraction refinement is a standard technique
+    that suggests to extract information from infeasible error paths,
+    in order to refine the abstract model if it is too imprecise.
+    Existing approaches ---including our previous work---
+    do not choose the refinement for a given path systematically.
+    We present a method that
+    generates alternative refinements
+    and allows to systematically choose a suited one.
+    The method takes as input one given infeasible error path and applies a slicing technique to obtain
+    a set of new error paths that are more abstract than the original error path
+    but still infeasible, each for a different reason.
+    The (more abstract) constraints of the new paths can be passed to a standard refinement procedure,
+    in order to obtain a set of possible refinements, one for each new path.
+    Our technique is completely independent from the abstract domain that is used
+    in the program analysis, and does not rely on a certain proof technique, such as SMT solving.
+    We implemented the new algorithm in the verification framework CPAchecker
+    and made our extension publicly available.
+    The experimental evaluation of our technique
+    indicates that there is a wide range of possibilities on how to
+    refine the abstract model for a given error path,
+    and we demonstrate that the choice of which refinement to apply to the abstract model
+    has a significant impact on the verification effectiveness and efficiency.
+  },
+}
+
+%%104  ICSE
+@InProceedings{ICSE15,
+  author =     {Alexander von Rhein and Alexander Grebhahn and Sven Apel and Norbert Siegmund and Dirk Beyer and Thorsten Berger},
+  title =      {Presence-Condition Simplification in Highly Configurable Systems},
+  booktitle =  {Proceedings of the 37th International Conference on 
+                   Software Engineering (ICSE~2015, Florence, Italy, May 16-24)},
+  publisher =  {IEEE},
+  editor =     {A.~Bertolino and G.~Canfora and S.~Elbaum},
+  pages =      {178-188},
+  year =       {2015},
+  isbn =       {978-1-4799-1934-5},
+  keyword =    {Software Model Checking},
+  pdf =        {https://www.sosy-lab.org/research/pub/2015-ICSE.Presence-Condition_Simplification_in_Highly_Configurable_Systems.pdf},
+  url =        {},
+  doi =        {10.1109/ICSE.2015.39},
+}
+
+%%103  FASE
+@InProceedings{FASE15,
+  author =     {Johannes B{\"u}rdek and Malte Lochau and Stefan Bauregger and Andreas Holzer and
+                Alexander von Rhein and Sven Apel and Dirk Beyer},
+  title =      {Facilitating Reuse in Multi-Goal Test-Suite Generation for Software Product Lines},
+  booktitle =  {Proceedings of the 18th International Conference on
+                  Fundamental Approaches to Software Engineering (FASE~2015, London, UK, April 13-15)},
+  publisher =  {Springer-Verlag, Heidelberg},
+  editor =     {A.~Egyed and I.~Schaefer},
+  series =     {LNCS~9033},
+  pages =      {84-99},
+  year =       {2015},
+  isbn =       {978-3-662-46674-2},
+  keyword =    {CPAchecker,Software Model Checking,Software Testing},
+  pdf =        {https://doi.org/10.1007/978-3-662-46675-9_6},
+  url =        {http://forsyte.at/software/cpatiger/},
+  doi =        {10.1007/978-3-662-46675-9_6},
+}
+
+%%102  TACAS
+@InProceedings{TACAS15,
+  author =    {Dirk Beyer},
+  title =     {Software Verification and Verifiable Witnesses (Report on {SV-COMP} 2015)},
+  booktitle = {Proceedings of the 21st International Conference on
+                 Tools and Algorithms for the Construction and Analysis of Systems (TACAS~2015, London, UK, April 13-17)},
+  publisher = {Springer-Verlag, Heidelberg},
+  editor =    {C.~Baier and C.~Tinelli},
+  series =    {LNCS~9035},
+  pages =     {401-416},
+  year =      {2015},
+  isbn =      {978-3-662-46680-3},
+  keyword =   {Competition on Software Verification (SV-COMP),Competition on Software Verification (SV-COMP Report),Software Model Checking,Witness-Based Validation},
+  pdf =       {https://doi.org/10.1007/978-3-662-46681-0_31},
+  doi =       {10.1007/978-3-662-46681-0_31},
+  url =       {http://sv-comp.sosy-lab.org/},
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% 2014
+
+%%94  CAV
+@InProceedings{CAV14,
+  author =     {Dirk Beyer and Georg Dresler and Philipp Wendler},
+  title =      {Software Verification in the {Google} {App-Engine} Cloud},
+  booktitle =  {Proceedings of the 26th International Conference on
+                  Computer-Aided Verification (CAV~2014, Vienna, Austria, July 18-22)},
+  publisher =  {Springer-Verlag, Heidelberg},
+  editor =     {A.~Biere and R.~Bloem},
+  series =     {LNCS~8559},
+  pages =      {327-333},
+  year =       {2014},
+  isbn =       {978-3-319-08866-2},
+  keyword =    {CPAchecker,Software Model Checking,Cloud-Based Software Verification},
+  pdf =        {https://doi.org/10.1007/978-3-319-08867-9_21},
+  url =        {http://www.sosy-lab.org/~dbeyer/cpa-appengine},
+  doi =        {10.1007/978-3-319-08867-9_21},
+  abstract =   { Software verification often requires a large amount
+                  of computing resources.  In the last years, cloud
+                  services emerged as an inexpensive, flexible, and
+                  energy-efficient source of computing power.  We have
+                  investigated if such cloud resources can be used
+                  effectively for verification.  We chose the
+                  platform-as-a-service offer Google App Engine and
+                  ported the open-source verification framework
+                  CPAchecker to it.  We provide our new verification
+                  service as a web front-end to users who wish to
+                  solve single verification tasks (tutorial usage),
+                  and an API for integrating the service into existing
+                  verification infrastructures (massively parallel
+                  bulk usage).  We experimentally evaluate the
+                  effectiveness of this service and show that it can
+                  be successfully used to offload verification work to
+                  the cloud, considerably sparing local verification
+                  resources.  },
+}
+
+%%93  ICPC
+@InProceedings{ICPC14,
+  author =     {Dirk Beyer and Peter H{\"a}ring},
+  title =      {A Formal Evaluation of {DepDegree} Based on {Weyuker}'s Properties},
+  booktitle =  {Proceedings of the 22nd International Conference on
+                  Program Comprehension (ICPC~2014, Hyderabad, India, June 2-3)},
+  publisher =  {ACM},
+  editor =     {C.~Roy and A.~Begel and L.~Moonen},
+  pages =      {258-261},
+  year =       {2014},
+  isbn =       {978-1-4503-2879-1},
+  keyword =    {Structural Analysis and Comprehension},
+  pdf =        {https://www.sosy-lab.org/research/pub/2014-ICPC.A_Formal_Evaluation_of_DepDegree_Based_on_Weyukers_Properties.pdf},
+  url =        {http://www.sosy-lab.org/~dbeyer/DepDegreeProperties},
+  doi =        {10.1145/2597008.2597794},
+  abstract =   { Complexity of source code is an important
+                  characteristic that software engineers aim to
+                  quantify using static software measurement.  Several
+                  measures used in practice as indicators for software
+                  complexity have theoretical flaws.  In order to
+                  assess the quality of a software measure, Weyuker
+                  established a set of properties that an indicator
+                  for program-code complexity should satisfy.  It is
+                  known that several well-established complexity
+                  indicators do not fulfill Weyuker's properties.  We
+                  show that DepDegree, a measure for data-flow
+                  dependencies, satisfies all of Weyuker's properties.
+                  },
+}
+
+%%92  TACAS
+@InProceedings{TACAS14,
+  author =     {Dirk Beyer},
+  title =      {Status Report on Software Verification (Competition Summary {SV-COMP} 2014)},
+  booktitle =  {Proceedings of the 20th International Conference on
+                  Tools and Algorithms for the Construction and Analysis of Systems (TACAS~2014, Grenoble, France, April 5-13)},
+  publisher =  {Springer-Verlag, Heidelberg},
+  editor =     {E.~Abraham and K. Havelund},
+  series =     {LNCS~8413},
+  pages =      {373-388},
+  year =       {2014},
+  isbn =       {978-3-642-54861-1},
+  keyword =    {Competition on Software Verification (SV-COMP),Competition on Software Verification (SV-COMP Report),Software Model Checking},
+  pdf =        {https://www.sosy-lab.org/research/pub/2014-TACAS.Status_Report_on_Software_Verification.pdf},
+  url =        {http://sv-comp.sosy-lab.org/},
+  doi =        {10.1007/978-3-642-54862-8_25},
+  abstract =   { This report describes the 3rd International
+                  Competition on Software Verification (SV-COMP 2014),
+                  which is the third edition of a thorough comparative
+                  evaluation of fully automatic software verifiers.
+                  The reported results represent the state of the art
+                  in automatic software verification, in terms of
+                  effectiveness and efficiency.  The verification
+                  tasks of the competition consist of nine categories
+                  containing a total of 2868 C programs, covering
+                  bit-vector operations, concurrent execution,
+                  control-flow and integer data-flow, device-drivers,
+                  heap data structures, memory manipulation via
+                  pointers, recursive functions, and sequentialized
+                  concurrency.  The specifications include
+                  reachability of program labels and memory safety.
+                  The competition is organized as a satellite event at
+                  TACAS 2014 in Grenoble, France.  },
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% 2013
+
+%%89  HVC
+@InProceedings{HVC13,
+  author =     {Sven Apel and Dirk Beyer and Karlheinz Friedberger and Franco Raimondi and Alexander von Rhein},
+  title =      {Domain Types: Abstract-Domain Selection Based on Variable Usage},
+  booktitle =  {Proceedings of the 9th Haifa Verification Conference (HVC 2013, Haifa, Israel, November 5-7)},
+  publisher =  {Springer-Verlag, Heidelberg},
+  editor =     {V.~Bertacco and A.~Legay},
+  series =     {LNCS~8244},
+  pages =      {262-278},
+  year =       {2013},
+  isbn =       {978-3-319-03076-0},
+  keyword =    {CPAchecker,Software Model Checking},
+  pdf =        {https://www.sosy-lab.org/research/pub/2013-HVC.Domain_Types_Abstract-Domain_Selection_Based_on_Variable_Usage.pdf},
+  url =        {},
+  doi =        {10.1007/978-3-319-03077-7_18},
+  abstract =   { The success of software model checking depends on
+                  finding an appropriate abstraction of the program to
+                  verify.  The choice of the abstract domain and the
+                  analysis configuration is currently left to the
+                  user, who may not be familiar with the tradeoffs and
+                  performance details of the available abstract
+                  domains.  We introduce the concept of domain
+                  types, which classify the program variables into
+                  types that are more fine-grained than standard
+                  declared types (e.g., `int' and `long') to guide the
+                  selection of an appropriate abstract domain for a
+                  model checker.  Our implementation on top of an
+                  existing verification framework determines the
+                  domain type for each variable in a pre-analysis
+                  step, based on the usage of variables in the
+                  program, and then assigns each variable to an
+                  abstract domain.  Based on a series of experiments
+                  on a comprehensive set of verification tasks from
+                  international verification competitions, we
+                  demonstrate that the choice of the abstract domain
+                  per variable (we consider one explicit and one
+                  symbolic domain) can substantially improve the
+                  verification in terms of performance and precision.
+                  },
+}
+
+%%88  FSE
+@InProceedings{FSE13,
+  author =     {Dirk Beyer and Stefan L{\"o}we and Evgeny Novikov and Andreas Stahlbauer and Philipp Wendler},
+  title =      {Precision Reuse for Efficient Regression Verification},
+  booktitle =  {Proceedings of the 9th Joint Meeting of the European Software Engineering Conference and 
+                               the ACM SIGSOFT Symposium on Foundations of Software Engineering (ESEC/FSE 2013, St. Petersburg, Russia, August 18-26)},
+  publisher =  {ACM},
+  editor =     {B.~Meyer and L.~Baresi and M.~Mezini},
+  pages =      {389-399},
+  year =       {2013},
+  isbn =       {},
+  keyword =    {CPAchecker,Software Model Checking},
+  pdf =        {https://www.sosy-lab.org/research/pub/2013-FSE.Precision_Reuse_for_Efficient_Regression_Verification.pdf},
+  url =        {https://www.sosy-lab.org/research/cpa-reuse/},
+  doi =        {10.1145/2491411.2491429},
+  abstract =   { Continuous testing during development is a
+                  well-established technique for software-quality
+                  assurance.  Continuous model checking from revision
+                  to revision is not yet established as a standard
+                  practice, because the enormous resource consumption
+                  makes its application impractical.  Model checkers
+                  compute a large number of verification facts that
+                  are necessary for verifying if a given specification
+                  holds.  We have identified a category of such
+                  intermediate results that are easy to store and
+                  efficient to reuse: abstraction precisions.
+                  The precision of an abstract domain specifies the
+                  level of abstraction that the analysis works on.
+                  Precisions are thus a precious result of the
+                  verification effort and it is a waste of resources
+                  to throw them away after each verification run.  In
+                  particular, precisions are reasonably small and thus
+                  easy to store; they are easy to process and have a
+                  large impact on resource consumption.  We
+                  experimentally show the impact of precision reuse on
+                  industrial verification problems created from 62
+                  Linux kernel device drivers with 1119 revisions.  },
+}
+
+%%87  SPIN
+@InProceedings{SPIN13,
+  author =     {Dirk Beyer and Philipp Wendler},
+  title =      {Reuse of Verification Results: Conditional Model Checking, Precision Reuse, and Verification Witnesses},
+  booktitle =  {Proceedings of the 2013 International Symposium
+                   on Model Checking of Software (SPIN~2013, Stony Brook, NY, USA, July 8-9)},
+  publisher =  {Springer-Verlag, Heidelberg},
+  editor =     {E.~Bartocci and C.~R.~Ramakrishnan},
+  series =     {LNCS~7976},
+  pages =      {1-17},
+  year =       {2013},
+  isbn =       {},
+  keyword =    {Software Model Checking,Witness-Based Validation,Witness-Based Validation (main)},
+  pdf =        {https://www.sosy-lab.org/research/pub/2013-SPIN.Reuse_of_Verification_Results.pdf},
+  url =        {http://sv-comp.sosy-lab.org/},
+  doi        = {10.1007/978-3-642-39176-7_1},
+  abstract =   {  Verification is a complex algorithmic task, requiring
+                  large amounts of computing resources.  One approach
+                  to reduce the resource consumption is to reuse
+                  information from previous verification runs.  This
+                  paper gives an overview of three techniques for such
+                  information reuse.  Conditional model checking
+                  outputs a condition that describes the state space
+                  that was successfully verified, and accepts as input
+                  a condition that instructs the model checker which
+                  parts of the system should be verified; thus, later
+                  verification runs can use the output condition of
+                  previous runs in order to not verify again parts of
+                  the state space that were already verified.
+                  Precision reuse is a technique to use intermediate
+                  results from previous verification runs to
+                  accelerate further verification runs of the system;
+                  information about the level of abstraction in the
+                  abstract model can be reused in later verification
+                  runs.  Typical model checkers provide an error path
+                  through the system as witness for having proved that
+                  a system violates a property, and a few model
+                  checkers provide some kind of proof certificate as a
+                  witness for the correctness of the system; these
+                  witnesses should be such that the verifiers can read
+                  them and ---with less computational effort---
+                  (re-) verify that the witness is valid.  },
+}
+
+%%83  ICSE
+@InProceedings{ICSE13,
+  author =     {Sven Apel and Alexander von Rhein and Philipp Wendler and Armin Gr{\"o}{\ss}linger and Dirk Beyer},
+  title =      {Strategies for Product-Line Verification: Case Studies and Experiments},
+  booktitle =  {Proceedings of the 35th International Conference on 
+                   Software Engineering (ICSE~2013, San Francisco, CA, USA, May 18-26)},
+  publisher =  {IEEE},
+  editor =     {D.~Notkin and B.~H.~C.~Cheng and K.~Pohl},
+  pages =      {482-491},
+  year =       {2013},
+  isbn =       {978-1-4673-3076-3},
+  keyword =    {Software Model Checking},
+  pdf =        {https://www.sosy-lab.org/research/pub/2013-ICSE.Strategies_for_Product-Line_Verification.pdf},
+  url =        {http://fosd.net/FAV},
+  abstract =   { Product-line technology is increasingly used in
+                  mission-critical and safety-critical applications.
+                  Hence, researchers are developing verification
+                  approaches that follow different strategies to cope
+                  with the specific properties of product lines.
+                  While the research community is discussing the
+                  mutual strengths and weaknesses of the different
+                  strategies---mostly at a conceptual level---there is
+                  a lack of evidence in terms of case studies, tool
+                  implementations, and experiments.  We have collected
+                  and prepared six product lines as subject systems
+                  for experimentation.  Furthermore, we have developed
+                  a model-checking tool chain for C-based and
+                  Java-based product lines, called SPLverifier, which
+                  we use to compare sample-based and family-based
+                  strategies with regard to verification performance
+                  and the ability to find defects.  Based on the
+                  experimental results and an analytical model, we
+                  revisit the discussion of the strengths and
+                  weaknesses of product-line--verification strategies.
+                  },
+}
+
+%%82  TACAS
+@InProceedings{TACAS13,
+  author =     {Dirk Beyer},
+  title =      {Second Competition on Software Verification ({S}ummary of {SV-COMP} 2013)},
+  booktitle =  {Proceedings of the 19th International Conference on
+                  Tools and Algorithms for the Construction and Analysis of Systems (TACAS~2013, Rome, Italy, March 16-24)},
+  publisher =  {Springer-Verlag, Heidelberg},
+  editor =     {N.~Piterman and S.~Smolka},
+  series =     {LNCS~7795},
+  pages =      {594-609},
+  year =       {2013},
+  isbn =       {978-3-642-36741-0},
+  keyword =    {Competition on Software Verification (SV-COMP),Competition on Software Verification (SV-COMP Report),Software Model Checking},
+  pdf =        {https://www.sosy-lab.org/research/pub/2013-TACAS.Second_Competition_on_Software_Verification.pdf},
+  url =        {http://sv-comp.sosy-lab.org/},
+  abstract =   { This report describes the 2nd International
+                  Competition on Software Verification (SV-COMP 2013),
+                  which is the second edition of this thorough
+                  evaluation of fully automatic verifiers for software
+                  programs.  The reported results represent the 2012
+                  state-of-the-art in automatic software verification,
+                  in terms of effectiveness and efficiency.  The
+                  benchmark set of verification tasks consists of
+                  eleven categories containing a total of 2315
+                  programs, written in C, and exposing features of
+                  integers, heap-data structures, bit-vector
+                  operations, and concurrency; the properties include
+                  reachability and memory safety.  The competition is
+                  again organized as a satellite event of TACAS.  },
+}
+
+%%81  ESOP
+@InProceedings{ESOP13,
+  author =     {Dirk Beyer and Andreas Holzer and Michael Tautschnig and Helmut Veith},
+  title =      {Information Reuse for Multi-goal Reachability Analyses},
+  booktitle =  {Proceedings of the 22nd European Symposium on Programming
+                  (ESOP~2013, Rome, Italy, March 19-22)},
+  publisher =  {Springer-Verlag, Heidelberg},
+  editor =     {M.~Felleisen and P.~Gardner},
+  series =     {LNCS~7792},
+  pages =      {472-491},
+  year =       {2013},
+  isbn =       {978-3-642-37035-9},
+  keyword =    {CPAchecker,Software Model Checking},
+  doi        = {10.1007/978-3-642-37036-6_26},
+  pdf =        {https://doi.org/10.1007/978-3-642-37036-6_26},
+  url =        {},
+  postscript = {https://www.sosy-lab.org/research/prs/2013-03-21_ESOP13_InformationReuse_Andreas.pdf},
+  abstract =   { It is known that model checkers can generate test
+                  inputs as witnesses for reachability specifications
+                  (or, equivalently, as counterexamples for safety
+                  properties).  While this use of model checkers for
+                  testing yields a theoretically sound test-generation
+                  procedure, it scales poorly for computing complex
+                  test suites for large sets of test goals, because
+                  each test goal requires an expensive run of the
+                  model checker.  We represent test goals as automata
+                  and exploit relations between automata in order to
+                  reuse existing reachability information for the
+                  analysis of subsequent test goals.  Exploiting the
+                  sharing of sub-automata in a series of reachability
+                  queries, we achieve considerable performance
+                  improvements over the standard approach.  We show
+                  the practical use of our multi-goal reachability
+                  analysis in a predicate-abstraction-based test-input
+                  generator for the test-specification language FQL.
+                  },
+}
+
+%%80  FASE
+@InProceedings{FASE13,
+  author =     {Dirk Beyer and Stefan L{\"o}we},
+  title =      {Explicit-State Software Model Checking Based on {CEGAR} and Interpolation},
+  booktitle =  {Proceedings of the 16th International Conference on
+                  Fundamental Approaches to Software Engineering (FASE~2013, Rome, Italy, March 20-22)},
+  publisher =  {Springer-Verlag, Heidelberg},
+  editor =     {V.~Cortellessa and D.~Varro},
+  series =     {LNCS~7793},
+  pages =      {146-162},
+  year =       {2013},
+  isbn =       {978-3-642-37056-4},
+  keyword =    {CPAchecker,Software Model Checking},
+  doi        = {10.1007/978-3-642-37057-1_11},
+  pdf =        {https://doi.org/10.1007/978-3-642-37057-1_11},
+  url =        {},
+  abstract =   { Abstraction, counterexample-guided refinement, and
+                  interpolation are techniques that are essential to
+                  the success of predicate-based program analysis.
+                  These techniques have not yet been applied together
+                  to explicit-value program analysis.  We present an
+                  approach that integrates abstraction and
+                  interpolation-based refinement into an
+                  explicit-value analysis, i.e., a program analysis
+                  that tracks explicit values for a specified set of
+                  variables (the precision).  The algorithm uses an
+                  abstract reachability graph as central data
+                  structure and a path-sensitive dynamic approach for
+                  precision adjustment.  We evaluate our algorithm on
+                  the benchmark set of the Competition on Software
+                  Verification 2012 (SV-COMP'12) to show that our new
+                  approach is highly competitive.  We also show that
+                  combining our new approach with an auxiliary
+                  predicate analysis scores significantly higher than
+                  the SV-COMP'12 winner.  },
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% 2012
+
+%%78
+@InProceedings{FSE12,
+  author =     {Dirk Beyer and Thomas A. Henzinger and M. Erkan Keremoglu and Philipp Wendler},
+  title =      {Conditional Model Checking: {A} Technique to Pass Information between Verifiers},
+  booktitle =  {Proceedings of the 20th ACM SIGSOFT International Symposium on the
+                  Foundations of Software Engineering (FSE~2012, Cary, NC, November 10-17)},
+  publisher =  {ACM},
+  editor =     {Tevfik Bultan and Martin Robillard},
+  pages =      {},
+  year =       {2012},
+  isbn =       {978-1-4503-1614-9},
+  keyword =    {CPAchecker,Software Model Checking},
+  pdf =        {https://www.sosy-lab.org/research/pub/2012-FSE.Conditional_Model_Checking.pdf},
+  url =        {https://www.sosy-lab.org/research/cpa-cmc/},
+  abstract =   { Software model checking, as an undecidable problem,
+                  has three possible outcomes: (1) the program
+                  satisfies the specification, (2) the program does
+                  not satisfy the specification, and (3) the model
+                  checker fails.  The third outcome usually manifests
+                  itself in a space-out, time-out, or one component of
+                  the verification tool giving up; in all of these
+                  failing cases, significant computation is performed
+                  by the verification tool before the failure, but no
+                  result is reported.  We propose to reformulate the
+                  model-checking problem as follows, in order to have
+                  the verification tool report a summary of the
+                  performed work even in case of failure: given a
+                  program and a specification, the model checker
+                  returns a condition P ---usually a state
+                  predicate--- such that the program satisfies the
+                  specification under the condition P ---that is, as
+                  long as the program does not leave the states in
+                  which P is satisfied.  In our experiments, we
+                  investigated as one major application of conditional
+                  model checking the sequential combination of model
+                  checkers with information passing.  We give the
+                  condition that one model checker produces, as input
+                  to a second conditional model checker, such that the
+                  verification problem for the second is restricted to
+                  the part of the state space that is not covered by
+                  the condition, i.e., the second model checker works
+                  on the problems that the first model checker could
+                  not solve.  Our experiments demonstrate that
+                  repeated application of conditional model checkers,
+                  passing information from one model checker to the
+                  next, can significantly improve the verification
+                  results and performance, i.e., we can now verify
+                  programs that we could not verify before.  },
+}
+
+%%76
+@InProceedings{FMCAD12,
+  author =     {Dirk Beyer and Philipp Wendler},
+  title =      {Algorithms for Software Model Checking: Predicate Abstraction vs. {IMPACT}},
+  booktitle =  {Proceedings of the 12th International Conference on
+                  Formal Methods in Computer-Aided Design
+                  (FMCAD~2012, Cambrige, UK, October 22-25)},
+  publisher =  {FMCAD},
+  editor =     {Gianpiero Cabodi and Satnam Singh},
+  pages =      {106-113},
+  year =       {2012},
+  isbn =       {978-1-4673-4831-7},
+  keyword =    {CPAchecker,Software Model Checking},
+  pdf =        {https://www.sosy-lab.org/research/pub/2012-FMCAD.Algorithms_for_Software_Model_Checking.pdf},
+  url =        {https://www.sosy-lab.org/research/cpa-uni/},
+  abstract =   { CEGAR, SMT solving, and Craig interpolation are
+                  successful approaches for software model checking.
+                  We compare two of the most important algorithms that
+                  are based on these techniques: lazy predicate
+                  abstraction (as in BLAST) and lazy abstraction with
+                  interpolants (as in IMPACT).  We unify the
+                  algorithms formally (by expressing both in the CPA
+                  framework) as well as in practice (by implementing
+                  them in the same tool).  This allows us to flexibly
+                  experiment with new configurations and gain new
+                  insights, both about their most important
+                  differences and commonalities, as well as about
+                  their performance characteristics.  We show that the
+                  essential contribution of the IMPACT algorithm is
+                  the reduction of the number of refinements, and
+                  compare this to another approach for reducing
+                  refinement effort: adjustable-block encoding (ABE).
+                  },
+}
+
+%%72
+@InProceedings{TACAS12,
+  author =     {Dirk Beyer},
+  title =      {Competition on Software Verification ({SV-COMP})},
+  booktitle =  {Proceedings of the 18th International Conference on
+                  Tools and Algorithms for the Construction and Analysis of Systems (TACAS~2012, Tallinn, Estonia, March 27-30)},
+  publisher =  {Springer-Verlag, Heidelberg},
+  editor =     {C.~Flanagan and B.~K{\"o}nig},
+  series =     {LNCS~7214},
+  pages =      {504--524},
+  year =       {2012},
+  isbn =       {},
+  keyword =    {Competition on Software Verification (SV-COMP),Competition on Software Verification (SV-COMP Report),Software Model Checking},
+  doi        = {10.1007/978-3-642-28756-5_38},
+  pdf =        {https://doi.org/10.1007/978-3-642-28756-5_38},
+  url =        {http://sv-comp.sosy-lab.org/},
+  abstract =   { This report describes the definitions, rules, setup,
+                  procedure, and results of the 1st International
+                  Competition on Software Verification.  The
+                  verification community has performed competitions in
+                  various areas in the past, and SV-COMP'12 is the
+                  first competition of verification tools that take
+                  software programs as input and run a fully automatic
+                  verification of a given safety property.  This
+                  year's competition is organized as a satellite event
+                  of the International Conference on Tools and
+                  Algorithms for the Construction and Analysis of
+                  Systems (TACAS).  },
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% 2011
+
+%%71
+@InProceedings{ASE11,
+  author =     {Sven Apel and Hendrik Speidel and Philipp Wendler and Alexander von Rhein and Dirk Beyer},
+  title =      {Detection of Feature Interactions using Feature-Aware Verification},
+  booktitle =  {Proceedings of the 26th International Conference on
+                  Automated Software Engineering (ASE~2011, Lawrence, KS, November 6-10)},
+  publisher =  {IEEE},
+  pages =      {372-375},
+  year =       {2011},
+  isbn =       {978-1-4577-1639-3},
+  keyword =    {Software Model Checking},
+  pdf =        {https://www.sosy-lab.org/research/pub/2011-ASE.Detection_of_Feature_Interactions_using_Feature-Aware_Verification.pdf},
+  url =        {http://fosd.net/FAV},
+  abstract =   {  A software product line is a set of software products
+                  that are distinguished in terms of features (i.e.,
+                  end-user--visible units of behavior).  Feature
+                  interactions ---situations in which the combination
+                  of features leads to emergent and possibly critical
+                  behavior--- are a major source of failures in
+                  software product lines.  We explore how
+                  feature-aware verification can improve the automatic
+                  detection of feature interactions in software
+                  product lines.  Feature-aware verification uses
+                  product-line--verification techniques and supports
+                  the specification of feature properties along with
+                  the features in separate and composable units.  It
+                  integrates the technique of variability encoding to
+                  verify a product line without generating and
+                  checking a possibly exponential number of feature
+                  combinations.  We developed the tool suite
+                  SPLverifier for feature-aware verification, which is
+                  based on standard model-checking technology.  We
+                  applied it to an e-mail system that incorporates
+                  domain knowledge of AT&T.  We found that feature
+                  interactions can be detected automatically based on
+                  specifications that have only local knowledge.
+               },
+}
+
+
+%%68
+@InProceedings{CAV11,
+  author =     {Dirk Beyer and M. Erkan Keremoglu},
+  title =      {{{\sc CPAchecker}}: A Tool for Configurable Software Verification},
+  booktitle =  {Proceedings of the 23rd International Conference on
+                  Computer Aided Verification (CAV~2011, Snowbird, UT, July 14-20)},
+  publisher =  {Springer-Verlag, Heidelberg},
+  editor =     {G.~Gopalakrishnan and S.~Qadeer},
+  series =     {LNCS~6806},
+  pages =      {184-190},
+  year =       {2011},
+  isbn =       {978-3-642-22109-5},
+  keyword =    {CPAchecker,Software Model Checking},
+  doi        = {10.1007/978-3-642-22110-1_16},
+  pdf =        {https://doi.org/10.1007/978-3-642-22110-1_16},
+  url =        {https://cpachecker.sosy-lab.org},
+  doi =        {10.1007/978-3-642-22110-1_16},
+  abstract =   { Configurable software verification is a recent
+                 concept for expressing different program analysis
+                 and model checking approaches in one single
+                 formalism.  This paper presents CPAchecker, a tool
+                 and framework that aims at easy integration of new
+                 verification components.  Every abstract domain,
+                 together with the corresponding operations,
+                 implements the interface of configurable program
+                 analysis (CPA).  The main algorithm is configurable
+                 to perform a reachability analysis on arbitrary
+                 combinations of existing CPAs.  In software
+                 verification, it takes a considerable amount of
+                 effort to convert a verification idea into actual
+                 experimental results --- we aim at accelerating this
+                 process.  We hope that researchers find it
+                 convenient and productive to implement new
+                 verification ideas and algorithms using this
+                 flexible and easy-to-extend platform, and that it
+                 advances the field by making it easier to perform
+                 practical experiments.  The tool is implemented in
+                 Java and runs as command-line tool or as Eclipse
+                 plug-in.  CPAchecker implements CPAs for several
+                 abstract domains.  We evaluate the efficiency of the
+                 current version of our tool on software-verification
+                 benchmarks from the literature, and compare it with
+                 other state-of-the-art model checkers.  CPAchecker
+                 is an open-source toolkit and publicly available. },
+}
+
+%%67
+@InProceedings{ICSE11,
+  author =     {Sven Apel and Dirk Beyer},
+  title =      {Feature Cohesion in Software Product Lines: An Exploratory Study},
+  booktitle =  {Proceedings of the 33rd International Conference on
+                  Software Engineering
+                  (ICSE~2011, Honolulu, HI, May 21-28)},
+  publisher =  {ACM Press, New York (NY)},
+  pages =      {421-430},
+  year =       {2011},
+  isbn =       {978-1-4503-0445-0},
+  keyword =    {Structural Analysis and Comprehension},
+  pdf =        {https://www.sosy-lab.org/research/pub/2011-ICSE.Feature_Cohesion_in_Software_Product_Lines_An_Exploratory_Study.pdf},
+  url =        {},
+  abstract =   { Software product lines gain momentum in research and
+                 industry.  Many product-line approaches use features
+                 as a central abstraction mechanism.
+                 Feature-oriented software development aims at
+                 encapsulating features in cohesive units to support
+                 program comprehension, variability, and reuse.
+                 Surprisingly, not much is known about the
+                 characteristics of cohesion in feature-oriented
+                 product lines, although proper cohesion is of
+                 special interest in product-line engineering due to
+                 its focus on variability and reuse.  To fill this
+                 gap, we conduct an exploratory study on forty
+                 software product lines of different sizes and
+                 domains.  A distinguishing property of our approach
+                 is that we use both classic software measures and
+                 novel measures that are based on distances in
+                 clustering layouts, which can be used also for
+                 visual exploration of product-line architectures.
+                 This way, we can draw a holistic picture of feature
+                 cohesion.  In our exploratory study, we found
+                 several interesting correlations (e.g., between
+                 development process and feature cohesion) and we
+                 discuss insights and perspectives of investigating
+                 feature cohesion (e.g., regarding feature interfaces
+                 and programming style). },
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% 2010
+
+%%66
+@InProceedings{FMCAD10,
+  author =     {Dirk Beyer and M.~Erkan Keremoglu and Philipp Wendler},
+  title =      {Predicate Abstraction with Adjustable-Block Encoding},
+  booktitle =  {Proceedings of the 10th International Conference on
+                  Formal Methods in Computer-Aided Design
+                  (FMCAD~2010, Lugano, October 20-23)},
+  publisher =  {FMCAD},
+  pages =      {189-197},
+  year =       {2010},
+  isbn =       {},
+  keyword =    {CPAchecker,Software Model Checking},
+  pdf =        {https://www.sosy-lab.org/research/pub/2010-FMCAD.Predicate_Abstraction_with_Adjustable-Block_Encoding.pdf},
+  url =        {http://www.sosy-lab.org/~dbeyer/cpa-abe/},
+  abstract =   { Several successful software model checkers are based
+                 on a technique called single-block encoding (SBE),
+                 which computes costly predicate abstractions after
+                 every single program operation.  Large-block
+                 encoding (LBE) computes abstractions only after a
+                 large number of operations, and it was shown that
+                 this significantly improves the verification
+                 performance.  In this work, we present
+                 adjustable-block encoding (ABE), a unifying
+                 framework that allows to express both previous
+                 approaches.  In addition, it provides the
+                 flexibility to specify any block size between SBE
+                 and LBE, and also beyond LBE, through the adjustment
+                 of one single parameter.  Such a unification of
+                 different concepts makes it easier to understand the
+                 fundamental properties of the analysis, and makes
+                 the differences of the variants more explicit.  We
+                 evaluate different configurations on example C
+                 programs, and identify one that is currently the best.  },
+  annote =     {Won the NRW Young Scientist Award 2010 in Dynamic Intelligent Systems},
+}
+
+%%65
+@InProceedings{ICPC10c,
+  author =     {Dirk Beyer and Ashgan Fararooy},
+  title =      {{{\sc CheckDep}}: A Tool for Tracking Software Dependencies},
+  booktitle =  {Proceedings of the 18th IEEE International Conference on
+                  Program Comprehension (ICPC~2010, Braga, June 30 - July 2)},
+  publisher =  {IEEE Computer Society Press, Los Alamitos~(CA)},
+  pages =      {42-43},
+  year =       {2010},
+  isbn =       {978-0-7695-4113-6},
+  keyword =    {Structural Analysis and Comprehension},
+  pdf =        {https://www.sosy-lab.org/research/pub/2010-ICPC.CheckDep_A_Tool_for_Tracking_Software_Dependencies.pdf},
+  url =        {},
+  abstract =   { Many software developers use a syntactical `diff' in
+                 order to perform a quick review before committing
+                 changes to the repository.  Others are notified of
+                 the change by e-mail (containing diffs or change
+                 logs), and they review the received information to
+                 determine if their work is affected.  We lift this
+                 simple process from the code level to the more
+                 abstract level of dependencies: a software developer
+                 can use CheckDep to inspect introduced and removed
+                 dependencies before committing new versions, and
+                 other developers receive summaries of the changed
+                 dependencies via e-mail.  We find the tool useful in
+                 our software-development activities and now make the
+                 tool publicly available.  },
+}
+
+%%64
+@InProceedings{ICPC10b,
+  author =     {Dirk Beyer and Ashgan Fararooy},
+  title =      {{{\sc DepDigger}}: A Tool for Detecting Complex Low-Level Dependencies},
+  booktitle =  {Proceedings of the 18th IEEE International Conference on
+                  Program Comprehension (ICPC~2010, Braga, June 30 - July 2)},
+  publisher =  {IEEE Computer Society Press, Los Alamitos~(CA)},
+  pages =      {40-41},
+  year =       {2010},
+  isbn =       {978-0-7695-4113-6},
+  keyword =    {Structural Analysis and Comprehension},
+  pdf =        {https://www.sosy-lab.org/research/pub/2010-ICPC.DepDigger_A_Tool_for_Detecting_Complex_Low-Level_Dependencies.pdf},
+  url =        {},
+  abstract =   { We present a tool that identifies complex data-flow
+                 dependencies on code-level, based on the measure
+                 dep-degree.  Low-level dependencies between program
+                 operations are modeled by the use-def graph, which
+                 is generated from reaching definitions of variables.
+                 The tool annotates program operations with their
+                 dep-degree values, such that `difficult' program
+                 operations are easy to locate.  We hope that this
+                 tool helps detecting and preventing code
+                 degeneration, which is often a challenge in today's
+                 software projects, due to the high refactoring and
+                 restructuring frequency.  },
+}
+
+%%63
+@InProceedings{ICPC10a,
+  author =     {Dirk Beyer and Ashgan Fararooy},
+  title =      {A Simple and Effective Measure for Complex Low-Level Dependencies},
+  booktitle =  {Proceedings of the 18th IEEE International Conference on
+                  Program Comprehension (ICPC~2010, Braga, June 30 - July 2)},
+  publisher =  {IEEE Computer Society Press, Los Alamitos~(CA)},
+  pages =      {80-83},
+  year =       {2010},
+  isbn =       {978-0-7695-4113-6},
+  keyword =    {Structural Analysis and Comprehension},
+  pdf =        {https://www.sosy-lab.org/research/pub/2010-ICPC.A_Simple_and_Effective_Measure_for_Complex_Low-Level_Dependencies.pdf},
+  postscript = {https://www.sosy-lab.org/research/prs/2010-06_DepDegree.pdf},
+  url =        {},
+  abstract =   { The measure dep-degree is a simple indicator for
+                 structural problems and complex dependencies on
+                 code-level.  We model low-level dependencies between
+                 program operations as use-def graph, which is
+                 generated from reaching definitions of variables.
+                 The more dependencies a program operation has, the
+                 more different program states have to be considered
+                 and the more difficult it is to understand the
+                 operation.  Dep-degree is simple to compute and
+                 interpret, flexible and scalable in its application,
+                 and independently complementing other indicators.
+                 Preliminary experiments suggest that the measure
+                 dep-degree, which simply counts the number of
+                 dependency edges in the use-def graph, is a good
+                 indicator for readability and understandablity.  },
+}
+
+%%62
+@InProceedings{FASE10,
+  author =     {Dirk Beyer and Thomas A.~Henzinger and 
+                Gr{\'e}gory Th{\'e}oduloz and Damien Zufferey},
+  title =      {Shape Refinement through Explicit Heap Analysis},
+  booktitle =  {Proceedings of the 13th International Conference on
+                  Fundamental Approaches to Software Engineering (FASE~2010, Paphos, Cyprus, March 22-26)},
+  publisher =  {Springer-Verlag, Heidelberg},
+  editor =     {D.S.~Rosenblum and G.~Taentzer},
+  series =     {LNCS~6013},
+  pages =      {263-277},
+  year =       {2010},
+  isbn =       {978-3-642-12028-2},
+  keyword   =  {BLAST,Software Model Checking},
+  pdf =        {https://www.sosy-lab.org/research/pub/2010-FASE.Shape_Refinement_through_Explicit_Heap_Analysis.pdf},
+  url =        {},
+  abstract =   { Shape analysis is a promising technique to prove
+                 program properties about recursive data structures.
+                 The challenge is to automatically determine the
+                 data-structure type, and to supply the shape
+                 analysis with the necessary information about the
+                 data structure.  We present a stepwise approach to
+                 the selection of instrumentation predicates for a
+                 TVLA-based shape analysis, which takes us a step
+                 closer towards the fully automatic verification of
+                 data structures.  The approach uses two techniques
+                 to guide the refinement of shape abstractions:
+                 (1) during program exploration, an explicit heap
+                 analysis collects sample instances of the heap
+                 structures, which are used to identify the data
+                 structures that are manipulated by the program; and
+                 (2) during abstraction refinement along an
+                 infeasible error path, we consider different
+                 possible heap abstractions and choose the coarsest
+                 one that eliminates the infeasible path.  We have
+                 implemented this combined approach for automatic
+                 shape refinement as an extension of the software
+                 model checker BLAST.  Example programs from a
+                 data-structure library that manipulate doubly-linked
+                 lists and trees were successfully verified by our tool. },
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% 2009
+
+%%61
+@InProceedings{FMCAD09,
+  author =     {Dirk Beyer and Alessandro Cimatti and Alberto Griggio and 
+                M.~Erkan Keremoglu and Roberto Sebastiani},
+  title =      {Software Model Checking via Large-Block Encoding},
+  booktitle =  {Proceedings of the 9th International Conference on
+                  Formal Methods in Computer-Aided Design
+                  (FMCAD~2009, Austin, TX, November 15-18)},
+  publisher =  {IEEE Computer Society Press, Los Alamitos~(CA)},
+  pages =      {25-32},
+  year =       {2009},
+  isbn =       {978-1-4244-4966-8},
+  keyword =    {CPAchecker,Software Model Checking},
+  pdf =        {https://www.sosy-lab.org/research/pub/2009-FMCAD.Software_Model_Checking_via_Large-Block_Encoding.pdf},
+  url =        {},
+  abstract =   {
+                Several successful approaches to software verification
+                are based on the construction and analysis of an
+                abstract reachability tree (ART).  The ART represents
+                unwindings of the control-flow graph of the program.
+                Traditionally, a transition of the ART represents a
+                single block of the program, and therefore, we call
+                this approach single-block encoding (SBE).  SBE may
+                result in a huge number of program paths to be
+                explored, which constitutes a fundamental source of
+                inefficiency.  We propose a generalization of the
+                approach, in which transitions of the ART represent
+                larger portions of the program; we call this approach
+                large-block encoding (LBE).  LBE may reduce the number
+                of paths to be explored up to exponentially.  Within
+                this framework, we also investigate symbolic
+                representations: for representing abstract states, in
+                addition to conjunctions as used in SBE, we
+                investigate the use of arbitrary Boolean formulas; for
+                computing abstract-successor states, in addition to
+                Cartesian predicate abstraction as used in SBE, we
+                investigate the use of Boolean predicate abstraction.
+                The new encoding leverages the efficiency of
+                state-of-the-art SMT solvers, which can symbolically
+                compute abstract large-block successors.  Our
+                experiments on benchmark C programs show that the
+                large-block encoding outperforms the single-block
+                encoding.
+               },
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% 2008
+
+%%58
+@InProceedings{ASE08,
+  author =     {Dirk Beyer and Thomas A.~Henzinger and 
+                Gr{\'e}gory Th{\'e}oduloz},
+  title =      {Program Analysis with Dynamic Precision Adjustment},
+  booktitle =  {Proceedings of the 23rd IEEE/ACM International Conference on
+                  Automated Software Engineering
+                  (ASE~2008, L'Aquila, September 15-19)},
+  publisher =  {IEEE Computer Society Press, Los Alamitos~(CA)},
+  pages =      {29-38},
+  year =       {2008},
+  isbn =       {978-1-4244-2187-9},
+  keyword   =  {BLAST,Software Model Checking},
+  pdf =        {https://www.sosy-lab.org/research/pub/2008-ASE.Program_Analysis_with_Dynamic_Precision_Adjustment.pdf},
+  postscript = {https://www.sosy-lab.org/research/prs/2009-04-16_UCB_CPAplus.pdf},
+  url =        {},
+  abstract =   {
+                We present and evaluate a framework and tool for
+                combining multiple program analyses which allows the
+                dynamic (on-line) adjustment of the precision of each
+                analysis depending on the accumulated results. For
+                example, the explicit tracking of the values of a
+                variable may be switched off in favor of a predicate
+                abstraction when and where the number of different
+                variable values that have been encountered has
+                exceeded a specified threshold. The method is
+                evaluated on verifying the SSH client/server software
+                and shows significant gains compared with predicate
+                abstraction-based model checking.
+               },
+  annote =     {
+                ASE 2008, L'Aquila, September 15-19.<BR>
+                &#169; 2008 <a href="http://www.ieee.org/">IEEE</a> <BR>
+                Online:
+                <a href="https://doi.org/10.1109/ASE.2008.13">
+                https://doi.org/10.1109/ASE.2008.13 </a>
+               },
+}
+
+%%57
+@InProceedings{CAV08,
+  author =     {Dirk Beyer and Damien Zufferey and Rupak Majumdar},
+  title =      {{{\sc CSIsat}}: Interpolation for {LA+EUF}},
+  booktitle =  {Proceedings of the 20th International Conference on
+                  Computer Aided Verification 
+                  (CAV~2008, Princeton, NY, July 7-14)},
+  publisher =  {Springer-Verlag, Heidelberg},
+  editor =     {A.~Gupta and S.~Malik},
+  series =     {LNCS~5123},
+  pages =      {304-308},
+  year =       {2008},
+  isbn =       {978-3-540-70543-7},
+  keyword =    {Software Model Checking},
+  pdf =        {https://www.sosy-lab.org/research/pub/2008-CAV.CSIsat_Interpolation_for_LA_EUF.pdf},
+  url =        {http://www.sosy-lab.org/~dbeyer/CSIsat/},
+  abstract =   {
+                We present CSIsat, an interpolating decision procedure
+                for the quantifier-free theory of rational linear
+                arithmetic and equality with uninterpreted function
+                symbols. Our implementation combines the efficiency of
+                linear programming for solving the arithmetic part
+                with the efficiency of a SAT solver to reason about
+                the boolean structure. We evaluate the efficiency of
+                our tool on benchmarks from software
+                verification. Binaries and the source code of CSIsat
+                are publicly available as free software.
+               },
+  annote =     {
+                CAV 2008, Princeton (NY), July 7-14,<BR>
+                Aarti Gupta, Sharad Malik, editors.<BR>
+                &#169; 2008 <a href="http://www.springer.com">Springer-Verlag</a> <BR>
+                Online:
+                <a href="https://doi.org/10.1007/978-3-540-70545-1_29">
+                https://doi.org/10.1007/978-3-540-70545-1_29</a>
+               },
+}
+
+%%56
+@InProceedings{ICSE08,
+  author =     {Dirk Beyer},
+  title =      {{{\sc CCVisu}}: Automatic Visual Software Decomposition},
+  booktitle =  {Proceedings of the 30th ACM/IEEE International Conference on
+                  Software Engineering (ICSE~2008, Leipzig, May 10-18)},
+  publisher =  {ACM Press, New York~(NY)},
+  pages =      {967-968},
+  year =       {2008},
+  isbn =       {978-1-60558-079-1},
+  keyword =    {Structural Analysis and Comprehension},
+  pdf =        {https://www.sosy-lab.org/research/pub/2008-ICSE.CCVisu_Automatic_Visual_Software_Decomposition.pdf},
+  url =        {http://www.sosy-lab.org/~dbeyer/CCVisu/},
+  abstract =   {
+                Understanding the structure of large existing (and
+                evolving) software systems is a major challenge for
+                software engineers.  In reverse engineering, we aim to
+                compute, for a given software system, a decomposition
+                of the system into its subsystems.  CCVisu is a
+                lightweight tool that takes as input a software graph
+                model and computes a visual representation of the
+                system's structure, i.e., it structures the system
+                into separated groups of artifacts that are strongly
+                related, and places them in a 2- or 3-dimensional
+                space.  Besides the decomposition into subsystems, it
+                reveals the relatedness between the subsystems via
+                interpretable distances.  The tool reads a software
+                graph from a simple text file in RSF format, e.g.,
+                call, inheritance, containment, or co-change graphs.
+                The resulting system structure is currently either
+                directly presented on the screen, or written to an
+                output file in SVG, VRML, or plain text format.  The
+                tool is designed as a reusable software component,
+                easy to use, and easy to integrate into other tools;
+                it is based on efficient algorithms and supports
+                several formats for data interchange.
+               },
+  annote =     {
+                ICSE 2008, Leipzig, May 10-18,<BR>
+                &#169; 2008 <a href="http://www.acm.org">ACM</a> <BR>
+                Online:
+                <a href="https://doi.org/10.1145/1370175.1370211">
+                https://doi.org/10.1145/1370175.1370211</a> <BR>
+               },
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% 2007
+
+%%53
+@InProceedings{ICWS07,
+  author =     {Dirk Beyer and Arindam Chakrabarti and
+                Thomas A.~Henzinger and Sanjit A. Seshia},
+  title =      {An Application of Web-Service Interfaces},
+  booktitle =  {Proceedings of the 2007 IEEE International Conference on 
+                  Web Services
+                  (ICWS~2007, Salt Lake City, UT, July 9-13)},
+  publisher =  {IEEE Computer Society Press, Los Alamitos~(CA)},
+  pages =      {831-838},
+  year =       {2007},
+  isbn =       {0-7695-2924-0},
+  keyword =    {Interfaces for Component-Based Design},
+  pdf =        {https://www.sosy-lab.org/research/pub/2007-ICWS.An_Application_of_Web-Service_Interfaces.pdf},
+  url =        {},
+  abstract =   {
+                We present a case study to illustrate our formalism
+                for the specification and verification of the
+                method-invocation behavior of web-service applications
+                constructed from asynchronously interacting
+                multi-threaded distributed components.  Our model is
+                expressive enough to allow the representation of
+                recursion and dynamic thread creation, and yet permits
+                the algorithmic analysis of the following two
+                questions: (1) Does a given service satisfy a safety
+                specification?  (2) Can a given service be substituted
+                by a another service in an arbitrary context?  Our
+                case study is based on the Amazon.com E-Commerce
+                Services (ECS) platform.
+               },
+  annote =     {
+                Online:
+                <a href="https://doi.org/10.1109/ICWS.2007.32">
+                https://doi.org/10.1109/ICWS.2007.32</a>
+               },
+}
+
+%%52
+@InProceedings{CAV07b,
+  author =     {Dirk Beyer and Thomas A.~Henzinger and Vasu Singh},
+  title =      {Algorithms for Interface Synthesis},
+  booktitle =  {Proceedings of the 19th International Conference on
+                  Computer Aided Verification 
+                  (CAV~2007, Berlin, July 3-7)},
+  publisher =  {Springer-Verlag, Heidelberg},
+  editor =     {W.~Damm and H.~Hermanns},
+  series =     {LNCS~4590},
+  pages =      {4-19},
+  year =       {2007},
+  isbn =       {978-3-540-73367-6},
+  keyword =    {Interfaces for Component-Based Design,Software Model Checking},
+  pdf =        {https://www.sosy-lab.org/research/pub/2007-CAV.Algorithms_for_Interface_Synthesis.pdf},
+  url =        {},
+  abstract =   {
+                A temporal interface for a software component is a
+                finite automaton that specifies the legal sequences of
+                calls to functions that are provided by the component.
+                We compare and evaluate three different algorithms for
+                automatically extracting temporal interfaces from
+                program code: (1) a game algorithm that computes the
+                interface as a representation of the most general
+                environment strategy to avoid a safety violation; (2)
+                a learning algorithm that repeatedly queries the
+                program to construct the minimal interface automaton;
+                and (3) a CEGAR algorithm that iteratively refines an
+                abstract interface hypothesis by adding relevant
+                program variables.  For comparison purposes, we
+                present and implement the three algorithms in a
+                unifying formal setting.  While the three algorithms
+                compute the same output and have similar worst-case
+                complexities, their actual running times may differ
+                considerably for a given input program.  On the
+                theoretical side, we provide for each of the three
+                algorithms a family of input programs on which that
+                algorithm outperforms the two alternatives.  On the
+                practical side, we evaluate the three algorithms
+                experimentally on a variety of Java libraries.
+               },
+  annote =     {
+                CAV 2007, Berlin, July 3-7,<BR>
+                Werner Damm, Holger Hermanns, editors.<BR>
+                &#169; 2007 <a href="http://www.springer.com">Springer-Verlag</a> <BR>
+                Online:
+                <a href="https://doi.org/10.1007/978-3-540-73368-3_4">
+                https://doi.org/10.1007/978-3-540-73368-3_4</a>
+               },
+}
+
+%%51
+@InProceedings{CAV07a,
+  author =     {Dirk Beyer and Thomas A.~Henzinger and 
+                Gr{\'e}gory Th{\'e}oduloz},
+  title =      {Configurable Software Verification:
+                Concretizing the Convergence of 
+                Model Checking and Program Analysis},
+  booktitle =  {Proceedings of the 19th International Conference on
+                  Computer Aided Verification 
+                  (CAV~2007, Berlin, July 3-7)},
+  publisher =  {Springer-Verlag, Heidelberg},
+  editor =     {W.~Damm and H.~Hermanns},
+  series =     {LNCS~4590},
+  pages =      {504-518},
+  year =       {2007},
+  isbn =       {978-3-540-73367-6},
+  keyword   =  {BLAST,Software Model Checking},
+  pdf =        {https://www.sosy-lab.org/research/pub/2007-CAV.Configurable_Software_Verification.pdf},
+  postscript = {https://www.sosy-lab.org/research/prs/2007-07-07_CAV07_Configurable-Program-Analysis.pdf},
+  url =        {},
+  abstract =   {
+                In automatic software verification, we have observed a
+                theoretical convergence of model checking and program
+                analysis.  In practice, however, model checkers are
+                still mostly concerned with precision, e.g., the
+                removal of spurious counterexamples; for this purpose
+                they build and refine reachability trees.
+                Lattice-based program analyzers, on the other hand,
+                are primarily concerned with efficiency.  We designed
+                an algorithm and built a tool that can be configured
+                to perform not only a purely tree-based or a purely
+                lattice-based analysis, but offers many intermediate
+                settings that have not been evaluated before.  The
+                algorithm and tool take one or more abstract
+                interpreters, such as a predicate abstraction and a
+                shape analysis, and configure their execution and
+                interaction using several parameters.  Our experiments
+                show that such customization may lead to dramatic
+                improvements in the precision-efficiency spectrum.
+               },
+  annote =     {
+                CAV 2007, Berlin, July 3-7,<BR>
+                Werner Damm, Holger Hermanns, editors.<BR>
+                &#169; 2007 <a href="http://www.springer.com">Springer-Verlag</a> <BR>
+                Online:
+                <a href="https://doi.org/10.1007/978-3-540-73368-3_51">
+                https://doi.org/10.1007/978-3-540-73368-3_51</a>
+               },
+}
+
+%%50
+@InProceedings{PLDI07,
+  author =     {Dirk Beyer and Thomas A.~Henzinger and 
+                Rupak Majumdar and Andrey Rybalchenko},
+  title =      {Path Invariants},
+  booktitle =  {Proceedings of the 2007 ACM Conference on
+                  Programming Language Design and Implementation
+                  (PLDI~2007, San Diego, CA, June 10-13)},
+  publisher =  {ACM Press, New York~(NY)},
+  pages =      {300-309},
+  year =       {2007},
+  isbn =       {978-1-59593-633-2},
+  keyword   =  {BLAST,Software Model Checking},
+  pdf =        {https://www.sosy-lab.org/research/pub/2007-PLDI.Path_Invariants.pdf},
+  url =        {},
+  abstract =   {
+                The success of software verification depends on the
+                ability to find a suitable abstraction of a program
+                automatically.  We propose a method for automated
+                abstraction refinement which overcomes some
+                limitations of current predicate discovery schemes.
+                In current schemes, the cause of a false alarm is
+                identified as an infeasible error path, and the
+                abstraction is refined in order to remove that path.
+                By contrast, we view the cause of a false alarm ---the
+                spurious counterexample--- as a full-fledged program,
+                namely, a fragment of the original program whose
+                control-flow graph may contain loops and represent
+                unbounded computations.  There are two advantages to
+                using such path programs as counterexamples for
+                abstraction refinement.  First, we can bring the whole
+                machinery of program analysis to bear on path
+                programs, which are typically small compared to the
+                original program.  Specifically, we use
+                constraint-based invariant generation to automatically
+                infer invariants of path programs ---so-called path
+                invariants.  Second, we use path invariants for
+                abstraction refinement in order to remove not one
+                infeasibility at a time, but at once all (possibly
+                infinitely many) infeasible error computations that
+                are represented by a path program.  Unlike previous
+                predicate discovery schemes, our method handles loops
+                without unrolling them; it infers abstractions that
+                involve universal quantification and naturally
+                incorporates disjunctive reasoning.
+               },
+  annote =     {
+                PLDI 2007, San Diego, CA, June 10-13,<BR>
+                &#169; 2007 <a href="http://www.acm.org">ACM</a> <BR>
+                Online:
+                <a href="https://doi.org/10.1145/1250734.1250769">
+                https://doi.org/10.1145/1250734.1250769</a><BR>
+                Video:
+                <a href="https://www.youtube.com/watch?v=vUN0n23zVuw">
+                https://www.youtube.com/watch?v=vUN0n23zVuw</a><BR>
+               },
+}
+
+%%49
+@InProceedings{VMCAI07,
+  author =     {Dirk Beyer and Thomas A.~Henzinger and 
+                Rupak Majumdar and Andrey Rybalchenko},
+  title =      {Invariant Synthesis for Combined Theories},
+  booktitle =  {Proceedings of the Eighth International Conference on
+                  Verification, Model Checking, and Abstract Interpretation
+                  (VMCAI~2007, Nice, January 14-16)},
+  publisher =  {Springer-Verlag, Heidelberg},
+  editor =     {B.~Cook and A.~Podelski},
+  series =     {LNCS~4349},
+  pages =      {378-394},
+  year =       {2007},
+  isbn =       {978-3-540-69735-0},
+  keyword   =  {BLAST,Software Model Checking},
+  pdf =        {https://www.sosy-lab.org/research/pub/2007-VMCAI.Invariant_Synthesis_for_Combined_Theories.pdf},
+  url =        {},
+  abstract =   {
+                We present a constraint-based algorithm for the
+                synthesis of invariants expressed in the combined
+                theory of linear arithmetic and uninterpreted function
+                symbols.  Given a set of programmer-specified
+                invariant templates, our algorithm reduces the
+                invariant synthesis problem to a sequence of
+                arithmetic constraint satisfaction queries.  Since the
+                combination of linear arithmetic and uninterpreted
+                functions is a widely applied predicate domain for
+                program verification, our algorithm provides a
+                powerful tool to statically and automatically reason
+                about program correctness.  The algorithm can also be
+                used for the synthesis of invariants over arrays and
+                set data structures, because satisfiability questions
+                for the theories of sets and arrays can be reduced to
+                the theory of linear arithmetic with uninterpreted
+                functions.  We have implemented our algorithm and used
+                it to find invariants for a low-level memory allocator
+                written in C.
+               },
+  annote =     {
+                VMCAI 2007, Nice, January 14-16,<BR>
+                Byron Cook and Andreas Podelski, editors.<BR>
+                &#169; 2007 <a href="http://www.springer.com">Springer-Verlag</a> <BR>
+                Online:
+                <a href="https://doi.org/10.1007/978-3-540-69738-1_27">
+                https://doi.org/10.1007/978-3-540-69738-1_27</a>
+               },
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% 2006
+
+%%46
+@InProceedings{WCRE06,
+  author =     {Dirk Beyer and Ahmed E.~Hassan},
+  title =      {Animated Visualization of Software History 
+                using Evolution Storyboards},
+  booktitle =  {Proceedings of the 13th IEEE Working Conference on 
+                Reverse Engineering (WCRE~2006, Benevento, October 23-27)},
+  publisher =  {IEEE Computer Society Press, Los Alamitos~(CA)},
+  pages =      {199-208},
+  year =       {2006},
+  isbn =       {1095-1350},
+  keyword =    {Structural Analysis and Comprehension},
+  pdf =        {https://www.sosy-lab.org/research/pub/2006-WCRE.Animated_Visualization_of_Software_History_using_Evolution_Storyboards.pdf},
+  url =        {},
+  abstract =   {
+                The understanding of the structure of a software
+                system can be improved by analyzing the system's
+                evolution during development.  Visualizations of
+                software history that provide only static views do not
+                capture the dynamic nature of software evolution.  We
+                present a new visualization technique, the Evolution
+                Storyboard, which provides dynamic views of the
+                evolution of a software's structure.  An evolution
+                storyboard consists of a sequence of animated panels,
+                which highlight the structural changes in the system;
+                one panel for each considered time period.  Using
+                storyboards, engineers can spot good design, signs of
+                structural decay, or the spread of cross cutting
+                concerns in the code.  We implemented our concepts in
+                a tool, which automatically extracts software
+                dependency graphs from version control repositories
+                and computes storyboards based on panels for different
+                time periods.  For applying our approach in practice,
+                we provide a step by step guide that others can follow
+                along the storyboard visualizations, in order to study
+                the evolution of large systems.  We have applied our
+                method to several large open source software
+                systems. In this paper, we demonstrate that our method
+                provides additional information (compared to static
+                views) on the ArgoUML project, an open source UML
+                modeling tool.
+               },
+  annote =     {
+                Online:
+                <a href="https://doi.org/10.1109/WCRE.2006.14">
+                https://doi.org/10.1109/WCRE.2006.14</a>
+               },
+}
+
+%%45
+@InProceedings{CAV06,
+  author =     {Dirk Beyer and Thomas A.~Henzinger and 
+                Gr{\'e}gory Th{\'e}oduloz},
+  title =      {Lazy Shape Analysis},
+  booktitle =  {Proceedings of the 18th International Conference on
+                  Computer Aided Verification 
+                  (CAV~2006, Seattle, WA, August 17-20)},
+  publisher =  {Springer-Verlag, Heidelberg},
+  editor =     {T.~Ball and R.B.~Jones},
+  series =     {LNCS~4144},
+  pages =      {532-546},
+  year =       {2006},
+  isbn =       {3-540-37406-X},
+  keyword   =  {BLAST,Software Model Checking},
+  pdf =        {https://www.sosy-lab.org/research/pub/2006-CAV.Lazy_Shape_Analysis.pdf},
+  url =        {http://www.sosy-lab.org/~dbeyer/blast_sa/},
+  abstract =   {
+                Many software model checkers are based on predicate
+                abstraction.  If the verification goal depends on
+                pointer structures, the approach does not work well,
+                because it is difficult to find adequate predicate
+                abstractions for the heap.  In contrast, shape
+                analysis, which uses graph-based heap abstractions,
+                can provide a compact representation of recursive data
+                structures.  We integrate shape analysis into the
+                software model checker BLAST.  Because shape analysis
+                is expensive, we do not apply it globally.  Instead,
+                we ensure that, like predicates, shape graphs are
+                computed and stored locally, only where necessary for
+                proving the verification goal.  To achieve this, we
+                extend lazy abstraction refinement, which so far has
+                been used only for predicate abstractions, to
+                three-valued logical structures.  This approach does
+                not only increase the precision of model checking, but
+                it also increases the efficiency of shape analysis.
+                We implemented the technique by extending BLAST with
+                calls to TVLA.
+               },
+  annote =     {
+                CAV 2006, Seattle, WA, August 17-20,<BR>
+                Thomas Ball, Robert B. Jones, editors.<BR>
+                &#169; 2006 <a href="http://www.springer.com">Springer-Verlag</a> <BR>
+                Online:
+                <a href="https://doi.org/10.1007/11817963_48">
+                https://doi.org/10.1007/11817963_48</a> <BR>
+                An extended version of this paper appeared in 
+                Proc. Dagstuhl Seminar 06081, IBFI Schloss Dagstuhl, 2006: <BR>
+                <a href="http://drops.dagstuhl.de/portals/06081/">
+                http://drops.dagstuhl.de/portals/06081/</a> <BR>
+                Supplementary material: 
+                <a href="http://www.sosy-lab.org/~dbeyer/blast_sa/">
+                http://www.sosy-lab.org/~dbeyer/blast_sa/</a>
+               },
+}
+
+%%44
+@InProceedings{ICPC06,
+  author =     {Dirk Beyer and Ahmed E.~Hassan},
+  title =      {Evolution Storyboards: 
+                Visualization of Software Structure Dynamics},
+  booktitle =  {Proceedings of the 14th IEEE International Conference on
+                  Program Comprehension (ICPC~2006, Athens, June 14-16)},
+  publisher =  {IEEE Computer Society Press, Los Alamitos~(CA)},
+  pages =      {248-251},
+  year =       {2006},
+  isbn =       {0-7695-2601-2},
+  keyword =    {Structural Analysis and Comprehension},
+  pdf =        {https://www.sosy-lab.org/research/pub/2006-ICPC.Evolution_Storyboards_Visualization_of_Software_Structure_Dynamics.pdf},
+  url =        {},
+  abstract =   {
+                Large software systems have a rich development
+                history.  Mining certain aspects of this rich history
+                can reveal interesting insights into the system and
+                its structure.  Previous approaches to visualize the
+                evolution of software systems provide static views.
+                These static views often do not fully capture the
+                dynamic nature of evolution.  We introduce the
+                Evolution Storyboard, a visualization which provides
+                dynamic views of the evolution of a software's
+                structure.  Our tool implementation takes as input a
+                series of software graphs, e.g., call graphs or
+                co-change graphs, and automatically generates an
+                evolution storyboard.  To illustrate the concept, we
+                present a storyboard for PostgreSQL, as a
+                representative example for large open source systems.
+                Evolution storyboards help to understand a system's
+                structure and to reveal its possible decay over time.
+                The storyboard highlights important changes in the
+                structure during the lifetime of a software system,
+                and how artifacts changed their dependencies over time.
+               },
+  annote =     {
+                Online:
+                <a href="https://doi.org/10.1109/ICPC.2006.21">
+                https://doi.org/10.1109/ICPC.2006.21</a>
+               },
+}
+
+%%42
+@InProceedings{ICSE06b,
+  author =     {Dirk Beyer},
+  title =      {Relational Programming with {{\sc CrocoPat}}},
+  booktitle =  {Proceedings of the 28th ACM/IEEE International Conference on
+                  Software Engineering (ICSE~2006, Shanghai, May 20-28)},
+  publisher =  {ACM Press, New York~(NY)},
+  pages =      {807-810},
+  year =       {2006},
+  isbn =       {1-59593-375-1},
+  keyword =    {Structural Analysis and Comprehension},
+  pdf =        {https://www.sosy-lab.org/research/pub/2006-ICSE.Relational_Programming_with_CrocoPat.pdf},
+  url =        {http://www.sosy-lab.org/~dbeyer/CrocoPat/},
+  abstract =   {
+                Many structural analyses of software systems are
+                naturally formalized as relational queries, for
+                example, the detection of design patterns, patterns of
+                problematic design, code clones, dead code, and
+                differences between the as-built and the as-designed
+                architecture.  This paper describes CrocoPat, an
+                application-independent tool for relational
+                programming.  Through its efficiency and its
+                expressive language, CrocoPat enables practically
+                important analyses of real-world software systems that
+                are not possible with other graph analysis tools, in
+                particular analyses that involve transitive closures
+                and the detection of patterns in graphs.  The language
+                is easy to use, because it is based on the well-known
+                first-order predicate logic.  The tool is easy to
+                integrate into other software systems, because it is a
+                small command-line tool that uses a simple text format
+                for input and output of relations.
+               },
+  annote =     {
+                ICSE 2006, Shanghai, May 20-28,<BR>
+                &#169; 2006 <a href="http://www.acm.org">ACM</a> <BR>
+                CrocoPat is available at:
+                <a href="http://www.sosy-lab.org/~dbeyer/CrocoPat/">
+                http://www.sosy-lab.org/~dbeyer/CrocoPat/</a>
+               },
+}
+
+%%41
+@InProceedings{ICSE06a,
+  author =     {Basil Becker and Dirk Beyer and Holger Giese and 
+                Florian Klein and Daniela Schilling},
+  title =      {Symbolic Invariant Verification for Systems
+                with Dynamic Structural Adaptation},
+  booktitle =  {Proceedings of the 28th ACM/IEEE International Conference on
+                  Software Engineering (ICSE~2006, Shanghai, May 20-28)},
+  publisher =  {ACM Press, New York~(NY)},
+  pages =      {72-81},
+  year =       {2006},
+  isbn =       {1-59593-375-1},
+  keyword =    {Software Model Checking},
+  pdf =        {https://www.sosy-lab.org/research/pub/2006-ICSE.Symbolic_Invariant_Verification_for_Systems_with_Dynamic_Structural_Adaptation.pdf},
+  url =        {},
+  abstract =   {
+                The next generation of networked mechatronic systems
+                will be characterized by complex coordination and
+                structural adaptation at run-time.  Crucial safety
+                properties have to be guaranteed for all potential
+                structural configurations.  Testing cannot provide
+                safety guarantees, while current model checking and
+                theorem proving techniques do not scale for such
+                systems.  We present a verification technique for
+                arbitrarily large multi-agent systems from the
+                mechatronic domain, featuring complex coordination and
+                structural adaptation.  We overcome the limitations of
+                existing techniques by exploiting the local character
+                of structural safety properties.  The system state is
+                modeled as a graph, system transitions are modeled as
+                rule applications in a graph transformation system,
+                and safety properties of the system are encoded as
+                inductive invariants (permitting the verification of
+                infinite state systems).  We developed a symbolic
+                verification procedure that allows us to perform the
+                computation on an efficient BDD-based graph
+                manipulation engine, and we report performance results
+                for several examples.
+               },
+  annote =     {
+                ICSE 2006, Shanghai, May 20-28,<BR>
+                &#169; 2006 <a href="http://www.acm.org">ACM</a> <BR>
+                Online:
+                <a href="https://doi.org/10.1145/1134297">
+                https://doi.org/10.1145/1134297</a> <BR>
+               },
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% 2005
+
+%38
+@InProceedings{ICSM05,
+  author =     {Dirk Beyer},
+  title =      {Co-Change Visualization},
+  booktitle =  {Proceedings of the 21st IEEE International Conference on
+                  Software Maintenance (ICSM~2005, Budapest, September 25-30),
+                  Industrial and Tool volume},
+  address =    {Budapest},
+  pages =      {89-92},
+  year =       {2005},
+  isbn =       {963-460-980-5},
+  keyword =    {Structural Analysis and Comprehension},
+  pdf =        {https://www.sosy-lab.org/research/pub/2005-ICSM.Co-Change_Visualization.pdf},
+  url =        {../../2005-ICSM.Co-Change_Visualization/main.html},
+  abstract =   {
+                Clustering layouts of software systems combine two
+                important aspects: they reveal groups of related
+                artifacts of the software system, and they produce a
+                visualization of the results that is easy to
+                understand.  Co-change visualization is a lightweight
+                method for computing clustering layouts of software
+                systems for which the change history is available.
+                This paper describes CCVisu, a tool that implements
+                co-change visualization.  It extracts the co-change
+                graph from a version repository, and computes a
+                layout, which positions the artifacts of the software
+                system in a two- or three-dimensional space.  Two
+                artifacts are positioned closed together in the layout
+                if they were often changed together.  The tool is
+                designed as a framework, easy to use, and easy to
+                integrate into reengineering environments; several
+                formats for data interchange are already implemented.
+                The graph layout is currently provided in VRML format,
+                in a standard text format, or directly drawn on the
+                screen.
+               },
+  annote =     {
+                ICSM 2005, Budapest, September 25-30 <BR>
+                Tool Paper <BR>
+                CCVisu is available at:
+                <a href="http://www.sosy-lab.org/~dbeyer/CCVisu/">
+                http://www.sosy-lab.org/~dbeyer/CCVisu</a>
+                },
+}
+
+%%36
+@InProceedings{IWPC05,
+  author =     {Dirk Beyer and Andreas Noack},
+  title =      {Clustering Software Artifacts
+                  Based on Frequent Common Changes},
+  booktitle =  {Proceedings of the 13th IEEE International Workshop on
+                  Program Comprehension (IWPC~2005, St. Louis, MO, May 15-16)},
+  publisher =  {IEEE Computer Society Press, Los Alamitos~(CA)},
+  pages =      {259-268},
+  year =       {2005},
+  isbn =       {0-7695-2254-8},
+  keyword =    {Structural Analysis and Comprehension},
+  pdf =        {https://www.sosy-lab.org/research/pub/2005-IWPC.Clustering_Software_Artifacts_Based_on_Frequent_Common_Changes.pdf},
+  url =        {http://www.sosy-lab.org/~dbeyer/co-change},
+  abstract =   {
+                Changes of software systems are less expensive and
+                less error-prone if they affect only one subsystem.
+                Thus, clusters of artifacts that are frequently
+                changed together are subsystem candidates.  We
+                introduce a two-step method for identifying such
+                clusters.  First, a model of common changes of
+                software artifacts, called co-change graph, is
+                extracted from the version control repository of the
+                software system.  Second, a layout of the co-change
+                graph is computed that reveals clusters of frequently
+                co-changed artifacts.  We derive requirements for such
+                layouts, and introduce an energy model for producing
+                layouts that fulfill these requirements.  We evaluate
+                the method by applying it to three example systems,
+                and comparing the resulting layouts to authoritative
+                decompositions.
+               },
+  annote =     {
+                IWPC 2005, St. Louis, MO, May 15-16 <BR>
+                Online:
+                <a href="https://doi.org/10.1109/WPC.2005.12">
+                https://doi.org/10.1109/WPC.2005.12</a> <BR>
+                Supplementary material:
+                <a href="http://www.sosy-lab.org/~dbeyer/co-change/">
+                http://www.sosy-lab.org/~dbeyer/co-change/</a>
+               },
+}
+
+%%35
+@InProceedings{WWW05,
+  author =     {Dirk Beyer and Arindam Chakrabarti and Thomas A. Henzinger},
+  title =      {Web Service Interfaces},
+  booktitle =  {Proceedings of the 14th ACM International
+                  World Wide Web Conference (WWW~2005, Chiba, May 10-14)},
+  pages =      {148-159},
+  publisher =  {ACM Press, New York~(NY)},
+  year =       {2005},
+  isbn =       {1-59593-046-9},
+  keyword =    {Interfaces for Component-Based Design},
+  pdf =        {https://www.sosy-lab.org/research/pub/2005-WWW.Web_Service_Interfaces.pdf},
+  url =        {},
+  abstract =   {
+                We present a language for specifying web service
+                interfaces.  A web service interface puts three kinds
+                of constraints on the users of the service.  First,
+                the interface specifies the methods that can be called
+                by a client, together with types of input and output
+                parameters; these are called signature
+                constraints.  Second, the interface may specify
+                propositional constraints on method calls and output
+                values that may occur in a web service conversation;
+                these are called consistency constraints.
+                Third, the interface may specify temporal constraints
+                on the ordering of method calls; these are called
+                protocol constraints.  The interfaces can be used to
+                check, first, if two or more web services are
+                compatible, and second, if a web service A can be
+                safely substituted for a web service B.  The
+                algorithm for compatibility checking verifies
+                that two or more interfaces fulfill each others'
+                constraints.  The algorithm for substitutivity
+                checking verifies that service A demands fewer and
+                fulfills more constraints than service B.
+               },
+  annote =     {
+                WWW 2005, Chiba, Japan, May 10-14,<BR>
+                &#169; 2006 <a href="http://www.acm.org">ACM</a> <BR>
+                Online:
+                <a href="https://doi.org/10.1145/1060745.1060770">
+                https://doi.org/10.1145/1060745.1060770</a> <BR>
+               },
+}
+
+%%34
+@InProceedings{FASE05,
+  author =     {Dirk Beyer and Thomas A. Henzinger and
+                  Ranjit Jhala and Rupak Majumdar},
+  title =      {Checking Memory Safety with {{\sc Blast}}},
+  booktitle =  {Proceedings of the Eighth International Conference on
+                  Fundamental Approaches to Software Engineering (FASE~2005, Edinburgh, April 2-10)},
+  editor =     {M.~Cerioli},
+  series =     {LNCS~3442},
+  pages =      {2-18},
+  publisher =  {Springer-Verlag, Heidelberg},
+  year =       {2005},
+  isbn =       {3-540-25420-X},
+  keyword   =  {BLAST,Software Model Checking},
+  pdf =        {https://www.sosy-lab.org/research/pub/2005-FASE.Checking_Memory_Safety_with_Blast.pdf},
+  url =        {},
+  abstract =   {
+                BLAST is an automatic verification tool for checking
+                temporal safety properties of C programs.  Given a C
+                program and a temporal safety property, BLAST
+                statically proves that either the program satisfies
+                the safety property or the program has an execution
+                trace that exhibits a violation of the property.
+                BLAST constructs, explores, and refines abstractions
+                of the program state space based on lazy predicate
+                abstraction and interpolation-based predicate
+                discovery.  We show how BLAST can be used to
+                statically prove memory safety for C programs.  We
+                take a two-step approach.  First, we use CCured, a
+                type-based memory safety analyzer, to annotate with
+                run-time checks all program points that cannot be
+                proved memory safe by the type system.  Second, we use
+                BLAST to remove as many of the run-time checks as
+                possible (by proving that these checks never fail),
+                and to generate for the remaining run-time checks
+                execution traces that witness them fail.  Our
+                experience shows that BLAST can remove many of the
+                run-time checks added by CCured and provide useful
+                information to the programmer about many of the
+                remaining checks.
+               },
+  annote =     {
+                FASE 2005, Edinburgh, April 2-10,<BR>
+                Maura Cerioli, editor.<BR>
+                &#169; 2006 <a href="http://www.springer.com">Springer-Verlag</a> <BR>
+                Online:
+                <a href="https://doi.org/10.1007/b107062">
+                https://doi.org/10.1007/b107062</a> <BR>
+               },
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% 2004
+
+%%31
+@InProceedings{SAS04,
+  author =     {Dirk Beyer and Adam J. Chlipala and Thomas A. Henzinger and
+                  Ranjit Jhala and Rupak Majumdar},
+  title =      {The {{\sc Blast}} Query Language for Software Verification},
+  booktitle =  {Proceedings of the 11th International
+                  Static Analysis Symposium (SAS~2004, Verona, August 26-28)},
+  editor =     {R.~Giacobazzi},
+  series =     {LNCS~3148},
+  pages =      {2-18},
+  publisher =  {Springer-Verlag, Heidelberg},
+  year =       {2004},
+  isbn =       {3-540-22791-1},
+  keyword   =  {BLAST,Software Model Checking},
+  pdf =        {https://www.sosy-lab.org/research/pub/2004-SAS.The_Blast_Query_Language_for_Software_Verification.pdf},
+  url =        {},
+  abstract =   {
+                BLAST is an automatic verification tool for checking
+                temporal safety properties of C programs. BLAST is
+                based on lazy predicate abstraction driven by
+                interpolation-based predicate discovery. In this
+                paper, we present the BLAST specification
+                language. The language specifies program properties at
+                two levels of precision. At the lower level, monitor
+                automata are used to specify temporal safety
+                properties of program executions (traces). At the
+                higher level, relational reachability queries over
+                program locations are used to combine lower-level
+                trace properties. The two-level specification language
+                can be used to break down a verification task into
+                several independent calls of the model-checking
+                engine. In this way, each call to the model checker
+                may have to analyze only part of the program, or part
+                of the specification, and may thus succeed in a
+                reduction of the number of predicates needed for the
+                analysis. In addition, the two-level specification
+                language provides a means for structuring and
+                maintaining specifications.
+               },
+  annote =     {
+                SAS 2004, Verona, August 26-28,<BR>
+                Roberto Giacobazzi, editor.<BR>
+                &#169; 2006 <a href="http://www.springer.com">Springer-Verlag</a> <BR>
+                Online:
+                <a href="https://doi.org/10.1007/b99688">
+                https://doi.org/10.1007/b99688</a> <BR>
+               },
+}
+
+%%29
+@InProceedings{IWPC04,
+  author =     {Dirk Beyer and Thomas A. Henzinger and
+                  Ranjit Jhala and Rupak Majumdar},
+  title =      {An {Eclipse} Plug-in for Model Checking},
+  booktitle =  {Proceedings of the 12th IEEE International Workshop on
+                  Program Comprehension (IWPC~2004, Bari, June 24-26)},
+  publisher =  {IEEE Computer Society Press, Los Alamitos~(CA)},
+  pages =      {251-255},
+  year =       {2004},
+  isbn =       {0-7695-2149-5},
+  keyword   =  {BLAST,Software Model Checking},
+  pdf =        {https://www.sosy-lab.org/research/pub/2004-IWPC.An_Eclipse_Plug-in_for_Model_Checking.pdf},
+  url =        {},
+  abstract =   {
+                While model checking has been successful in uncovering
+                subtle bugs in code, its adoption in software
+                engineering practice has been hampered by the absence
+                of a simple interface to the programmer in an
+                integrated development environment. We describe an
+                integration of the software model checker BLAST into
+                the Eclipse development environment. We provide a
+                verification interface for practical solutions for
+                some typical program analysis problems --assertion
+                checking, reachability analysis, dead code analysis,
+                and test generation-- directly on the source code. The
+                analysis is completely automatic, and assumes no
+                knowledge of model checking or formal
+                notation. Moreover, the interface supports incremental
+                program verification to support incremental design and
+                evolution of code.
+               },
+  annote =     {IWPC 2004, Bari, June 24-26<BR>
+                Online:
+                <a href="https://doi.org/10.1109/WPC.2004.1311069">
+                https://doi.org/10.1109/WPC.2004.1311069</a> <BR>
+               },
+}
+
+%%28
+@InProceedings{ICSE04,
+  author =     {Dirk Beyer and Adam J. Chlipala and Thomas A. Henzinger and
+                  Ranjit Jhala and Rupak Majumdar},
+  title =      {Generating Tests from Counterexamples},
+  booktitle =  {Proceedings of the 26th IEEE International Conference on
+                  Software Engineering (ICSE~2004, Edinburgh, May 26-28)},
+  publisher =  {IEEE Computer Society Press, Los Alamitos~(CA)},
+  pages =      {326-335},
+  year =       {2004},
+  isbn =       {0-7695-2163-0},
+  keyword   =  {BLAST,Software Model Checking},
+  pdf =        {https://www.sosy-lab.org/research/pub/2004-ICSE.Generating_Tests_from_Counterexamples.pdf},
+  url =        {},
+  abstract =   {
+                We have extended the software model checker BLAST to
+                automatically generate test suites that guarantee full
+                coverage with respect to a given predicate. More
+                precisely, given a C program and a target predicate p,
+                BLAST determines the set L of program locations which
+                program execution can reach with p true, and
+                automatically generates a set of test vectors that
+                exhibit the truth of p at all locations in L. We have
+                used BLAST to generate test suites and to detect dead
+                code in C programs with up to 30K lines of code. The
+                analysis and test-vector generation is fully automatic
+                (no user intervention) and exact (no false positives).
+               },
+  annote =     {ICSE 2004, Edinburgh, May 26-28},
+  annote =     {
+                Online:
+                <a href="https://doi.org/10.1109/ICSE.2004.1317455">
+                https://doi.org/10.1109/ICSE.2004.1317455</a> <BR>
+               },
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% 2003
+
+%%27
+@InProceedings{WCRE03,
+  author =     {Dirk Beyer and Andreas Noack and Claus Lewerentz},
+  title =      {Simple and Efficient Relational Querying
+                  of Software Structures},
+  booktitle =  {Proceedings of the Tenth IEEE Working Conference on
+                  Reverse Engineering (WCRE~2003, Victoria, BC, November 13-16)},
+  pages =      {216-225},
+  publisher =  {IEEE Computer Society Press, Los Alamitos~(CA)},
+  year =       {2003},
+  isbn =       {0-7695-2027-8},
+  keyword =    {Structural Analysis and Comprehension},
+  pdf =        {https://www.sosy-lab.org/research/pub/2003-WCRE.Simple_and_Efficient_Relational_Querying_of_Software_Structures.pdf},
+  url =        {http://www.sosy-lab.org/~dbeyer/CrocoPat/},
+  abstract =   {
+                Many analyses of software systems can be formalized as
+                relational queries, for example the detection of
+                design patterns, of patterns of problematic design, of
+                code clones, of dead code, and of differences between
+                the as-built and the as-designed architecture.  This
+                paper describes the concepts of CrocoPat, a tool for
+                querying and manipulating relations.  CrocoPat is easy
+                to use, because of its simple query and manipulation
+                language based on predicate calculus, and its simple
+                file format for relations.  CrocoPat is efficient,
+                because it internally represents relations as binary
+                decision diagrams, a data structure that is well-known
+                as a compact representation of large relations in
+                computer-aided verification. CrocoPat is general,
+                because it manipulates not only graphs (i.e. binary
+                relations), but n-ary relations.
+               },
+  annote =     {
+                WCRE 2003, Victoria, BC, November 13-16 <BR>
+                CrocoPat's concepts, an introduction to the
+                  BDD-based implementation, software analysis applications,
+                  and performance measurements.<BR>
+                Online:
+                <a href="https://doi.org/10.1109/WCRE.2003.1287252">
+                https://doi.org/10.1109/WCRE.2003.1287252</a> <BR>
+               },
+}
+
+%%26
+@InProceedings{FORTE03,
+  author =     {Dirk Beyer and Andreas Noack},
+  title =      {Can Decision Diagrams Overcome State Space Explosion
+                in Real-Time Verification?},
+  booktitle =  {Proceedings of the 23rd IFIP International Conference on
+                  Formal Techniques for Networked and Distributed Systems
+                  (FORTE~2003, Berlin, September 29 - October 2)},
+  editor =     {H.~K{\"o}nig and M.~Heiner and A.~Wolisz},
+  series =     {LNCS~2767},
+  pages =      {193-208},
+  publisher =  {Springer-Verlag, Heidelberg},
+  year =       {2003},
+  isbn =       {3-540-20175-0},
+  keyword =    {Formal Verification of Real-Time Systems},
+  pdf =        {https://www.sosy-lab.org/research/pub/2003-FORTE.Can_Decision_Diagrams_Overcome_State_Space_Explosion_in_Real-Time_Verification.pdf},
+  url =        {},
+  abstract =   {
+                In this paper we analyze the efficiency of binary
+                decision diagrams (BDDs) and clock difference diagrams
+                (CDDs) in the verification of timed automata.
+                Therefore we present analytical and empirical
+                complexity results for three communication
+                protocols. The contributions of the analyses are:
+                Firstly, they show that BDDs and CDDs of polynomial
+                size exist for the reachability sets of the three
+                protocols. This is the first evidence that CDDs can
+                grow only polynomially for models with non-trivial
+                state space explosion. Secondly, they show that
+                CDD-based tools, which currently use at least
+                exponential space for two of the protocols, will only
+                find polynomial-size CDDs if they use better variable
+                orders, as the BDD-based tool Rabbit does. Finally,
+                they give insight into the dependency of the BDD and
+                CDD size on properties of the model, in particular the
+                number of automata and the magnitude of the clock
+                values.
+               },
+  annote =     {
+                FORTE 2003, Berlin, September 29 - October 2<BR>
+                Hartmut K&ouml;nig, Monika Heiner, Adam Wolisz, editors.<BR>
+                &#169; 2006 <a href="http://www.springer.com">Springer-Verlag</a> <BR>
+                Online:
+                <a href="https://doi.org/10.1007/11965">
+                https://doi.org/10.1007/11965</a> <BR>
+                Analysis of the efficiency of binary decision diagrams (BDDs)
+                  and clock difference diagrams (CDDs) in the verification
+                  of timed automata. Analytical and empirical complexity
+                  results for three communication protocols.
+               },
+}
+
+%%25
+@InProceedings{CAV03,
+  author =     {Dirk Beyer and Claus Lewerentz and Andreas Noack},
+  title =      {Rabbit: A Tool for {BDD}-Based Verification
+                  of Real-Time Systems},
+  booktitle =  {Proceedings of the 15th International Conference on
+                  Computer Aided Verification (CAV~2003, Boulder, CO, July 8-12)},
+  editor =     {W.~A.~Hunt and F.~Somenzi},
+  series =     {LNCS~2725},
+  pages =      {122-125},
+  publisher =  {Springer-Verlag, Heidelberg},
+  year =       {2003},
+  isbn =       {3-540-40524-0},
+  keyword =    {Formal Verification of Real-Time Systems},
+  pdf =        {https://www.sosy-lab.org/research/pub/2003-CAV.Rabbit_A_Tool_for_BDD-Based_Verification_of_Real-Time_Systems.pdf},
+  url =        {},
+  abstract =   {
+                This paper gives a short overview of a model checking
+                tool for real-time systems. The modeling language are
+                timed automata extended with concepts for modular
+                modeling. The tool provides reachability analysis and
+                refinement checking, both implemented using the data
+                structure BDD. Good variable orderings for the BDDs
+                are computed from the modular structure of the model
+                and an estimate of the BDD size. This leads to a
+                significant performance improvement compared to the
+                tool RED and the BDD-based version of Kronos.
+               },
+  annote =     {
+                CAV 2003, Boulder, CO, July 8-12,<BR>
+                Warren A. Hunt Jr., Fabio Somenzi, editors.<BR>
+                &#169; 2006 <a href="http://www.springer.com">Springer-Verlag</a> <BR>
+                Online:
+                <a href="http://springerlink.metapress.com/openurl.asp?genre=article&issn=0302-9743&volume=2725&spage=122">
+                http://springerlink.metapress.com/openurl.asp?genre=article&issn=0302-9743&volume=2725&spage=122</a> <BR>
+                A description of the BDD-based tool's main features.
+               },
+}
+
+%%24
+@InProceedings{IWPC03,
+  author =     {Dirk Beyer and Claus Lewerentz},
+  title =      {{{\sc CrocoPat}}: Efficient Pattern Analysis
+                  in Object-Oriented Programs},
+  booktitle =  {Proceedings of the 11th IEEE International Workshop on
+                  Program Comprehension (IWPC~2003, Portland, OR, May 10-11)},
+  pages =      {294-295},
+  publisher =  {IEEE Computer Society Press, Los Alamitos~(CA)},
+  year =       {2003},
+  isbn =       {0-7695-1883-4},
+  keyword =    {Structural Analysis and Comprehension},
+  pdf =        {https://www.sosy-lab.org/research/pub/2003-IWPC.CrocoPat_Efficient_Pattern_Analysis_in_Object-Oriented_Programs.pdf},
+  url =        {http://www.sosy-lab.org/~dbeyer/CrocoPat/},
+  abstract =   {
+                Automatic pattern-based recognition of design weakness
+                is a research topic since almost 10 years. Reports
+                about experiments with existing approaches reveal two
+                major problems: A notation for easy and flexible
+                specification of the pattern is missing; only a
+                restricted set of patterns is applicable because of
+                the limitations of the specification language.
+                Performance improvement is needed, because the
+                computation time of existing tools is to high to be
+                acceptable for large real-world systems.
+                <BR>
+                The tool CrocoPat satisfies the following three
+                requirements: (1) The analysis is done automatically
+                by the tool, i.e. without user interaction.  (2) The
+                properties of a system are specified in an easy and
+                flexible way because the patterns are described by
+                relational expressions. On demand the user is able to
+                define new patterns he is interested in, or to change
+                existing patterns to solve specific problems.  (3) The
+                tool is able to analyze large object-oriented programs
+                (1'000 to 10'000~classes) in acceptable time.
+               },
+  annote =     {IWPC 2003, Portland, OR, May 10-11 <BR>
+                Introduction of a BDD-based tool for pattern analysis
+                  and a short overview of the main features of CrocoPat.
+               },
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% 2002
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% 2001
+
+%%20
+@InProceedings{CHARME01,
+  author =     {Dirk Beyer},
+  title =      {Efficient Reachability Analysis and
+                Refinement Checking of Timed Automata using {BDD}s},
+  booktitle =  {Proceedings of the 11th IFIP
+                  Advanced Research Working Conference on
+                  Correct Hardware Design and Verification Methods
+                  (CHARME~2001, Livingston, September 4-7)},
+  editor =     {T.~Margaria and T.~F.~Melham},
+  series =     {LNCS~2144},
+  pages =      {86-91},
+  publisher =  {Springer-Verlag, Heidelberg},
+  year =       {2001},
+  isbn =       {3-540-42541-1},
+  keyword =    {Formal Verification of Real-Time Systems},
+  pdf =        {https://www.sosy-lab.org/research/pub/2001-CHARME.Efficient_Reachability_Analysis_and_Refinement_Checking_of_Timed_Automata_using_BDDs.pdf},
+  url =        {},
+  abstract =   {
+                For the formal specification and verification of
+                real-time systems we use the modular formalism Cottbus
+                Timed Automata (CTA), which is an extension of timed
+                automata [AD94]. Matrix-based algorithms for the
+                reachability analysis of timed automata are
+                implemented in tools like Kronos, Uppaal, HyTech and
+                Rabbit. A new BDD-based version of Rabbit, which
+                supports also refinement checking, is now available.
+               },
+  annote =     {
+                CHARME 2001, Livingston, September 4-7,<BR>
+                Tiziana Margaria, Tom Melham, editors.<BR>
+                &#169; 2006 <a href="http://www.springer.com">Springer-Verlag</a> <BR>
+                Online:
+                <a href="http://link.springer.de/link/service/series/0558/bibs/2144/21440086.htm">
+                http://link.springer.de/link/service/series/0558/bibs/2144/21440086.htm</a> <BR>
+                Decribes how the tool checks refinement via
+                  simulation relation.
+               },
+}
+
+%%13
+@InProceedings{FME01,
+  author =     {Dirk Beyer},
+  title =      {Improvements in {BDD}-Based Reachability Analysis
+                  of Timed Automata},
+  booktitle =  {Proceedings of the Tenth International Symposium of
+                  Formal Methods Europe (FME~2001, Berlin, March 12-16):
+                  Formal Methods for Increasing Software Productivity},
+  editor =     {J.~N.~Oliveira and P.~Zave},
+  series =     {LNCS~2021},
+  pages =      {318-343},
+  publisher =  {Springer-Verlag, Heidelberg},
+  year =       {2001},
+  isbn =       {3-540-41791-5},
+  keyword =    {Formal Verification of Real-Time Systems},
+  pdf =        {https://www.sosy-lab.org/research/pub/2001-FME.Improvements_in_BDD-Based_Reachability_Analysis_of_Timed_Automata.pdf},
+  url =        {},
+  abstract =   {
+                To develop efficient algorithms for the reachability
+                analysis of timed automata, a promising approach is to
+                use binary decision diagrams (BDDs) as data structure
+                for the representation of the explored state
+                space. The size of a BDD is very sensitive to the
+                ordering of the variables. We use the communication
+                structure to deduce an estimation for the BDD size. In
+                our experiments, this guides the choice of good
+                variable orderings, which leads to an efficient
+                reachability analysis. We develop a discrete semantics
+                for closed timed automata to get a finite state space
+                required by the BDD-based representation and we prove
+                the equivalence to the continuous semantics regarding
+                the set of reachable locations. An upper bound for the
+                size of the BDD representing the transition relation
+                and an estimation for the set of reachable
+                configurations based on the communication structure is
+                given. We implemented these concepts in the
+                verification tool Rabbit [BR00]. Different case
+                studies justify our conjecture: Polynomial
+                reachability analysis seems to be possible for some
+                classes of real-time models, which have a good-natured
+                communication structure.
+               },
+  annote =     {
+                FME 2001, Berlin, March 12-16,<BR>
+                Jose Nuno Oliveira, Pamela Zave, editors.<BR>
+                &#169; 2006 <a href="http://www.springer.com">Springer-Verlag</a> <BR>
+                Online:
+                <a href="http://link.springer.de/link/service/series/0558/bibs/2021/20210318.htm">
+                http://link.springer.de/link/service/series/0558/bibs/2021/20210318.htm</a> <BR>
+                Discretization of Timed Automata, BDD-based representation,
+                  proof of an upper bound for the BDD of the transition
+                  relation, BDD variable ordering, heuristics for efficient
+                  verification, contains the proof of the equivalence of
+                  our integer semantics to the continuous semantics
+                  regarding reachable locations.
+               },
+}
+
+%%12
+@InProceedings{IWSM00,
+  author =     {Dirk Beyer and Claus Lewerentz and Frank Simon},
+  title =      {Impact of Inheritance on Metrics for
+                  Size, Coupling, and Cohesion in Object Oriented Systems},
+  booktitle =  {Proceedings of the Tenth International Workshop on
+                  Software Measurement (IWSM~2000, Berlin, October 4-6):
+                  New Approaches in Software Measurement},
+  editor =     {R.~Dumke and A.~Abran},
+  series =     {LNCS~2006},
+  pages =      {1-17},
+  publisher =  {Springer-Verlag, Heidelberg},
+  year =       {2001},
+  isbn =       {3-540-41727-3},
+  keyword =    {Structural Analysis and Comprehension},
+  pdf =        {https://www.sosy-lab.org/research/pub/2000-IWSM.Impact_of_Inheritance_on_Metrics.pdf},
+  url =        {},
+  abstract =   {
+                In today's engineering of object oriented systems many
+                different metrics are used to get feedback about
+                design quality and to automatically identify design
+                weaknesses. While the concept of inheritance is
+                covered by special inheritance metrics its impact on
+                other classical metrics (like size, coupling or
+                cohesion metrics) is not considered; this can yield
+                misleading measurement values and false
+                interpretations. In this paper we present an approach
+                to work the concept of inheritance into classical
+                metrics (and with it the related concepts of
+                overriding, overloading and polymorphism). This is
+                done by some language dependent <i>flattening</i> functions
+                that modify the data on which the measurement will be
+                done. These functions are implemented within our
+                metrics tool <i>Crocodile</i> and are applied for a case
+                study: the comparison of the measurement values of the
+                original data with the measurement values of the
+                flattened data yields interesting results and improves
+                the power of classical measurements for
+                interpretation.
+               },
+  annote =     {IWSM 2000, Berlin, October 4-6,<BR>
+                Reiner Dumke, Alain Abran, editors.<BR>
+                &#169; 2006 <a href="http://www.springer.com">Springer-Verlag</a>},
+  annote =     {
+                Online:
+                <a href="http://link.springer.de/link/service/series/0558/bibs/2006/20060001.htm">
+                http://link.springer.de/link/service/series/0558/bibs/2006/20060001.htm</a> <BR>
+               },
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% 2000
+
+%%07b (Postprint.)
+@InProceedings{WRTP00,
+  author =     {Dirk Beyer and Heinrich Rust},
+  title =      {A Tool for Modular Modelling and Verification
+                  of Hybrid Systems},
+  booktitle =  {Proceedings of the 25th IFAC/IFIP Workshop on
+                  Real-Time Programming (WRTP~2000, Palma, May 17-19)},
+  year =       {2000},
+  editor =     {A.~Crespo and J.~Vila},
+  pages =      {169-174},
+  publisher =  {Elsevier Science, Oxford},
+  isbn =       {0-08-043686-2},
+  url =        {},
+  keyword =    {Formal Verification of Real-Time Systems},
+  annote =     {WRTP 2000, Palma, May 17-19 <BR>
+                Alfons Crespo, Joan Vila, editors <BR>
+                Also as preprint:
+                  Proc. WRTP'00, pages 181-186, Valencia, 2000. <BR>
+                The reference for the first version of the tool using
+                  the double decription method (DDM) for hybrid systems.},
+}
+
+%%07 (Preprint.)
+InProceedings{WRTP00preprint,
+  author =     {Dirk Beyer and Heinrich Rust},
+  title =      {A Tool for Modular Modelling and Verification
+                  of Hybrid Systems},
+  booktitle =  {Proceedings of the 25th IFAC/IFIP Workshop on
+                  Real-Time Programming (WRTP~2000, Palma, May 17-19)},
+  editor =     {A.~Crespo and J.~Vila},
+  pages =      {181-186},
+  address =    {Valencia},
+  year =       {2000},
+  isbn =       {},
+  url =        {},
+  keyword =    {Formal Verification of Real-Time Systems},
+  annote =     {See WRTP00 [07b] for Elsevier version. <BR>
+                WRTP 2000, Palma, May 17-19 <BR>
+                Alfons Crespo, Joan Vila, editors},
+}
+

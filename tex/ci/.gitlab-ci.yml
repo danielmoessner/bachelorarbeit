@@ -1,0 +1,23 @@
+image: ${CI_REGISTRY}/sosy-lab/admin/tex/texlive-full:ubuntu16.04
+
+build:
+  script:
+    # The find|xargs|sort|tail part finds the main.tex file that was modified last
+    - 'TEX_FILE=$(find . -name main.tex
+              | xargs -n1 -I{} -- git log -1 --format="%ai ///{}" {}
+              | sort
+              | tail -n 1
+              | cut -f 4- -d / )'
+    - 'echo "Compiling $TEX_FILE"'
+    - 'cd $(dirname "$TEX_FILE")'
+    - 'latexmk -pdf -cd -time main.tex'
+    - '[ -f main.makefile ] || exit'
+      # More verbose log
+    - 'sed -e "s/interaction=batchmode/interaction=nonstopmode/" -i main.makefile'
+    - 'make -f main.makefile'
+    - 'latexmk -g -pdf -cd -time main.tex'
+  artifacts:
+    paths:
+      - '*/main.pdf'
+      - '*/*/main.pdf'
+    when: always

@@ -1,0 +1,391 @@
+\ProvidesPackage{sosy-paper}[2019/09/18 Package for papers of SoSy-Lab]
+\RequirePackage{sosy-common}
+
+% Load config file to allow local override of \MaterialPath
+\InputIfFileExists{sosy-paper.cfg}{}{}
+\providecommand\MaterialPath{../../material}
+
+% \selectbiburl is called with parameters sha256, doi, ee, and url,
+% define a version that prefers url, then doi, then ee,
+% and another version that creates links using the SHA hash
+% to a local copy of the material repository
+\newcommand\selectbiburl@urlfirst[4]{%
+  \if\relax\detokenize{#4}\relax%
+    \if\relax\detokenize{#2}\relax%
+      #3%
+    \else%
+      https://doi.org/#2%
+    \fi%
+  \else%
+    #4%
+  \fi%
+}
+\newcommand\selectbiburl@hashfirst[4]{%
+  \if\relax\detokenize{#1}\relax%
+    \selectbiburl@urlfirst{#1}{#2}{#3}{#4}%
+  \else%
+    \MaterialPath/sha256/#1.pdf%
+  \fi%
+}
+
+\RequirePackage{kvoptions} % for advanced options handling
+\SetupKeyvalOptions{family=sosypaper, prefix=sosypaper@}
+
+% Option "web" includes text set with \copyrightheader reference on top of paper
+\DeclareVoidOption{web}{
+  \RequirePackage{watermark}
+  \AtEndPreamble{
+    \ifbool{ieee}{
+        \newcommand{\copyrightspacing}{\vspace{0mm}}
+    }{
+        \newcommand{\copyrightspacing}{\vspace{-15mm}}
+    }
+    \thispageheading{\copyrightspacing\centering\color{gray}\small\sffamily\bfseries\@copyrightheader}
+  }
+  % for preprints we prefer url, then doi, then ee in bib links
+  \let\selectbiburl\selectbiburl@urlfirst
+}
+
+\DeclareVoidOption{draft}{
+  \AtEndPreamble{
+    \thispageheading{\vspace{-15mm}\centering\color{red}\large\sffamily\bfseries DRAFT \today}
+  }
+  % for draft we prefer local link with sha256, then url, then doi, then ee
+  \if\relax\MaterialPath\relax
+    \let\selectbiburl\selectbiburl@urlfirst
+  \else
+    \let\selectbiburl\selectbiburl@hashfirst
+  \fi
+}
+
+%\DeclareBoolOption[true]{sloppy} % option for enabling \sloppy, default is true
+
+\ProcessKeyvalOptions*{}
+
+%\ifsosypaper@sloppy
+%  \sloppy
+%\fi
+
+\newbool{springer}
+\newbool{springer-journal}
+\newbool{ieee}
+\@ifclassloaded{svjour}{\booltrue{springer}\booltrue{springer-journal}}{}
+\@ifclassloaded{svjour3}{\booltrue{springer}\booltrue{springer-journal}}{}
+\@ifclassloaded{llncs}{\booltrue{springer}}{}
+\@ifclassloaded{IEEEtran}{\booltrue{ieee}}{}
+
+% Commands for defining content of copyright header
+\newcommand\@copyrightheader{\errmessage{Please use command copyrightheader to define copyright notice}}
+\newcommand\copyrightheader[1]{\gdef\@copyrightheader{#1}}
+
+% If we want to use Times (ugly, but if we really need more space)
+%\RequirePackage{mathptmx}
+
+
+%%%%%%%%%%%%% BIBLIOGRAPHY %%%%%%%%%
+\@ifclassloaded{svjour3}{
+  \newcommand{\orcidID}[1]{{\href{https://orcid.org/#1}{\protect\raisebox{3.25pt}{\protect\includegraphics{orcid_color}}}}}
+  \bibliographystyle{sosy-spmpsci}
+}{
+ \@ifclassloaded{llncs}{
+  \renewcommand{\orcidID}[1]{{\href{https://orcid.org/#1}{\protect\raisebox{3.25pt}{\protect\includegraphics{orcid_color}}}}}
+   \bibliographystyle{sosy-splncs04}
+ }{
+  \@ifclassloaded{acmart}{
+    \newcommand{\showISBNx}[1]{\mbox{ISBN:~\href{https://www.worldcat.org/isbn/#1}{#1}}}
+    \newcommand{\showISBNxiii}[1]{\mbox{ISBN:~\href{https://www.worldcat.org/isbn/#1}{#1}}}
+    \bibliographystyle{ACM-Reference-Format}
+  }{
+    \bibliographystyle{sosy-abbrv}
+    % Our custom sosy-abbrv.bst with link boxes uses minipages,
+    % which breaks the spacing (at least with svjour and llncs), thus add some space:
+    \AtBeginEnvironment{thebibliography}{
+      \BeforeBeginEnvironment{minipage}{\vspace{.3\baselineskip}}
+    }{}
+  }
+ }
+}
+% To have the citation lists ordered by number.
+\@ifclassloaded{acmart}{
+  % acmart wants natbib, which is incompatible with cite
+  \RequirePackage{natbib}
+}{
+  \RequirePackage[nocompress]{cite}
+  % Combine [1], [3] into [1, 3] (from https://tex.stackexchange.com/questions/43993/ieee-latex-style-grouping-references)
+  \renewcommand{\citepunct}{,$\citepunctpenalty$\,}
+}
+
+
+%%%%%%%%%%%%% MATH %%%%%%%%%%
+\ifbool{springer}{
+  % conflict
+}{
+  \RequirePackage{amsthm}
+}
+
+%%%%%%%%%%%%% TEXT %%%%%%%%%%
+% flushend often causes problems (corrupted formtting). Package balance is sometimes better. 
+\RequirePackage{flushend} % automatically balances last page
+\RequirePackage[defblank]{paralist} % Provides new list environments similar to itemize and enumerate
+\RequirePackage{enumitem}
+%\renewcommand{\labelitemi}{$\bullet$} % bullets as list items
+
+\hyphenation{CEGAR Blast Tvla CPAchecker Impact}
+
+\frenchspacing % No wide space between sentences
+
+% Deny widows and orphans.
+\clubpenalty = 10000
+\widowpenalty = 10000
+\displaywidowpenalty = 10000
+
+% Footnotes without marker symbol
+\def\blfootnote{\gdef\@thefnmark{}\@footnotetext}
+
+% Define our own font size between footnotesize and scriptsize
+\newcommand*\halfsmall{\@setfontsize\halfsmall{7.8}{9.4}}
+
+%% Heading formatting for LNCS format
+% Provide lengths that influence the vertical space around headings in LNCS format.
+% The default is 1pt and it can be scaled down to remove vertical space.
+\newlength{\sectionspace}      \setlength{\sectionspace}{\p@}
+\newlength{\subsectionspace}   \setlength{\subsectionspace}{\sectionspace}
+\newlength{\subsubsectionspace}\setlength{\subsubsectionspace}{\subsectionspace}
+\newlength{\paragraphspace}    \setlength{\paragraphspace}{\subsubsectionspace}
+\@ifclassloaded{llncs}{
+% Definitions for being able to add a period after \subsubsection.
+% Also define \nopunct to be able to remove it on case-by-case basis.
+% Example: "\subsubection{Foo\nopunct} does bar."
+\newcommand{\@period}{.}
+\newcommand{\addperiod}[1]{#1\@period{} }
+\newcommand{\nopunct}{\let\@period\relax}
+% The following is a copy of the relevant part of llncs.cls,
+% only with \p@ replaced by \sectionspace, \subsectionspace etc.
+% Prefer to do not change this directly to stay consistent with LNCS.
+\renewcommand\section{\@startsection{section}{1}{\z@}%
+                       {-18\sectionspace \@plus -4\sectionspace \@minus -4\sectionspace}%
+                       {12\sectionspace \@plus 4\sectionspace \@minus 4\sectionspace}%
+                       {\normalfont\large\bfseries\boldmath
+                        \rightskip=\z@ \@plus 8em\pretolerance=10000 }}
+\renewcommand\subsection{\@startsection{subsection}{2}{\z@}%
+                       {-18\subsectionspace \@plus -4\subsectionspace \@minus -4\subsectionspace}%
+                       {8\subsectionspace \@plus 4\subsectionspace \@minus 4\subsectionspace}%
+                       {\normalfont\normalsize\bfseries\boldmath
+                        \rightskip=\z@ \@plus 8em\pretolerance=10000 }}
+\renewcommand\subsubsection{\@startsection{subsubsection}{3}{\z@}%
+                       {-18\subsubsectionspace \@plus -4\subsubsectionspace \@minus -4\subsubsectionspace}%
+                       {-0.5em \@plus -0.22em \@minus -0.1em}%
+                       {\normalfont\normalsize\bfseries\boldmath}}
+\renewcommand\paragraph{\@startsection{paragraph}{4}{\z@}%
+                       {-12\paragraphspace \@plus -4\paragraphspace \@minus -4\paragraphspace}%
+                       {-0.5em \@plus -0.22em \@minus -0.1em}%
+                       {\normalfont\normalsize\itshape}}
+% The following redefines \subsubsection and \paragraph to add a period
+% instead of hspace.
+\renewcommand\subsubsection{\@startsection{subsubsection}{3}{\z@}%
+                       {-18\subsubsectionspace \@plus -4\subsubsectionspace \@minus -4\subsubsectionspace}%
+                       {\z@}%
+                       {\normalfont\normalsize\bfseries\boldmath\addperiod}}
+\renewcommand\paragraph{\@startsection{paragraph}{4}{\z@}%
+                       {-12\paragraphspace \@plus -4\paragraphspace \@minus -4\paragraphspace}%
+                       {\z@}%
+                       {\normalfont\normalsize\itshape\addperiod}}
+}{
+  \ifbool{springer-journal}{\newcommand\nopunct{}}{}
+}
+
+% Definition of special small paragraph or subsection headings
+% that look always the same, independently from the definitions in the main LaTeX class
+\newcommand{\inlineheadingbf}[1]{\medskip\noindent{\bfseries #1.}}
+\newcommand{\inlineheadingit}[1]{\medskip\noindent{\it #1.}}
+
+% For tables with automatic width of columns
+% even in "p" columns.
+\RequirePackage{tabulary}
+\let\@oldfootnote\footnote
+\AtBeginEnvironment{tabulary}{%
+  % Footnotes in tabulary need special casing, otherwise they occur twice.
+  \renewcommand{\footnote}[1]{\ifx\[$\else\@oldfootnote{#1}\fi}
+}
+\AtBeginEnvironment{table}{%
+  \renewcommand\footnoterule{}% no rule below table, table should have \bottomrule
+}
+
+% table columns aligned on decimal point (superseded by siunitx)
+%\RequirePackage{dcolumn}
+%\newcolumntype{d}{D{.}{.}{2.1}}
+%\newcolumntype{e}{D{.}{.}{3.1}}
+%\newcolumntype{f}{D{.}{.}{4.1}}
+%\newcolumntype{g}{D{.}{.}{5.1}}
+%\newcolumntype{h}{D{.}{.}{2.2}}
+%\newcolumntype{i}{D{.}{.}{3.2}}
+%\newcolumntype{j}{D{.}{.}{4.2}}
+%\newcolumntype{k}{D{.}{.}{5.2}}
+%\newcolumntype{m}{D{.}{.}{1.2}}
+
+
+\RequirePackage[]{caption} % justification=centering for centered captions
+
+\RequirePackage{wrapfig}
+% Set the root path for the graphics and figures.
+\graphicspath{{figures/}{images/}}
+
+\newcommand{\figurerule}{\hrule width \hsize height .33pt} %%% rule definition copied from sigplanconf.cls
+
+% Allow more than 70% (default) of a page to be filled by figures (100%).
+\renewcommand\topfraction{1.0}
+\renewcommand\dbltopfraction{1.0}
+\renewcommand\textfraction{0.0}
+
+% Enable this to use the space below semi-large floats (50% - 80% of page) for text
+\renewcommand\floatpagefraction{1.0}
+\renewcommand\dblfloatpagefraction{1.0} % 0.85 to have text only below the smaller explicit-value analysis table
+
+%\RequirePackage{floatflt} % Text around floats
+
+\RequirePackage[labelfont={rm,bf,up}, farskip=0pt,]{subfig} % Intended to replace subfigure
+%\RequirePackage[tight,TABTOPCAP]{subfigure}
+%\renewcommand\thesubtable{\,\alph{subtable})}
+%\RequirePackage{subcaption}
+
+%\RequirePackage[all]{xy}
+
+
+%%%%%%%%%% ALGORITHMS %%%%%%%%%%
+% Fix line counters if multiple algorithms exist
+\@addtoreset{ALC@line}{algorithm}
+\@addtoreset{ALC@unique}{algorithm}
+
+\lstset{
+    basicstyle=\ttfamilywithbold\lstbasicfontsize,
+%    frame=single,
+    numberblanklines=true,
+    columns=fixed,
+%    aboveskip=2pt,
+%    belowskip=1pt,
+    lineskip=-0.5pt,
+    numbers=left,
+    numberstyle=\tiny,
+%    stepnumber=5,
+    numberfirstline=true,
+    firstnumber=1,
+    xleftmargin=15pt,
+    captionpos=b,
+    numberbychapter=false,
+}
+
+% Example environment for mdframed with box
+\ifbool{springer}{
+  % environment example already defined
+  \surroundwithmdframed[style=example]{example}
+}{
+  \theoremstyle{definition}
+  \newmdtheoremenv[style=example, innertopmargin=0pt]{example}{Example}
+}
+
+
+%%%%%%%%%%%%% HYPERREF %%%%%%%%%
+\@ifclassloaded{svjour}{
+  % svjour is double-sided, but references like "on the facing page" do not make sense for papers
+  \renewcommand\reftextfacebefore\reftextbefore
+  \renewcommand\reftextfaceafter\reftextafter
+}
+
+\hypersetup{pdfpagemode=UseNone} % No sidebar in pdf viewer
+\hypersetup{pdfpagelabels=false} % Work if the document has no page numbers
+\hypersetup{plainpages=true} % Work if the document has no page numbers
+\hypersetup{bookmarks=true}
+\hypersetup{bookmarksnumbered=true}
+\hypersetup{draft=false} % links even in draft mode
+
+\definecolor[named]{ACMBlue}{cmyk}{1,0.1,0,0.1}
+\definecolor[named]{ACMYellow}{cmyk}{0,0.16,1,0}
+\definecolor[named]{ACMOrange}{cmyk}{0,0.42,1,0.01}
+\definecolor[named]{ACMRed}{cmyk}{0,0.90,0.86,0}
+\definecolor[named]{ACMLightBlue}{cmyk}{0.49,0.01,0,0}
+\definecolor[named]{ACMGreen}{cmyk}{0.20,0,1,0.19}
+\definecolor[named]{ACMPurple}{cmyk}{0.55,1,0,0.15}
+\definecolor[named]{ACMDarkBlue}{cmyk}{1,0.58,0,0.21}
+
+\hypersetup{
+    colorlinks,
+    linkcolor=ACMPurple,
+    citecolor=ACMPurple,
+    urlcolor=ACMDarkBlue,
+    filecolor=ACMDarkBlue}
+%\hypersetup{
+%    colorlinks,
+%    linkcolor={red!50!black},
+%    citecolor={blue!50!black},
+%    urlcolor={blue!80!black}
+%}
+
+\@ifclassloaded{llncs}{
+  % No bookmarks, else generates wrong table of contents in PDF with LLNCS style
+  \hypersetup{bookmarks=false}
+}{}
+\AtBeginDocument{
+  \hypersetup{
+    pdfauthor={\@ifclassloaded{svjour3}{\the\authorrunning}{\@author}},
+    pdftitle={\@title}
+  }
+  % Prevent setting the title too late to ensure it gets written in PDF metadata
+  \renewcommand\title[1]{\errmessage{Do not use command title in body, move it to preamble, please}}
+}
+
+% For disabling all colored link boxes
+%\hypersetup{hidelinks}
+
+% Avoid short last lines of a paragraph. Only for specific papers because it depends on the :style).
+%\setlength{\parfillskip}{0pt plus 6cm}
+
+% Cleveref helps in some cases like referencing the same footnote twice
+% and needs to come after hyperref.
+% Use \cref instead of \ref and \Cref at beginning of sentence to get automatic names for references.
+\ifbool{springer-journal}{
+  \let\cl@chapter\relax % bugfix for svjour(3) breaking cleveref
+}{}
+\RequirePackage[capitalise,nosort,nameinlink]{cleveref}
+\newcommand{\creflastconjunction}{, and~}
+\crefformat{footnote}{#2\footnotemark[#1]#3}
+\crefname{section}{Sect.}{Sects.}
+\crefname{algorithm}{Alg.}{Algs.}
+% line numbers in algorithms
+\crefname{line}{line}{lines}
+\crefalias{ALC@unique}{line}
+\crefalias{ALC@line}{line}
+
+
+%%%%%%%%%%%%% SPACE SQUEEZING %%%%%%%%%%
+%% Reduce the space after algorithms
+%\renewcommand\fs@ruled{\def\@fs@cfont{\bfseries}\let\@fs@capt\floatc@ruled
+%  \def\@fs@pre{\kern4pt\hrule height.8pt depth0pt \kern2pt}%
+%  \def\@fs@post{\kern0pt\hrule\relax\vspace{-5mm}}%
+%  \def\@fs@mid{\kern2pt\hrule\kern2pt}%
+%  \let\@fs@iftopcapt\iftrue}
+
+% Squeeze vertical space around headings for LNCS.
+%\setlength{\sectionspace}{0.92\sectionspace}
+%\setlength{\subsectionspace}{0.67\subsectionspace}
+%\setlength{\subsubsectionspace}{0.50\subsubsectionspace}
+%\setlength{\paragraphspace}{0.34\paragraphspace}
+
+% Make lower-level sections smaller for IEEE style
+%\renewcommand{\subsection}[1]{\smallskip\noindent{\bfseries{#1.}}}
+%\renewcommand{\subsubsection}[1]{\smallskip\noindent{\em #1.}}
+
+% less whitespace between figures and text
+%\addtolength\textfloatsep{-4mm}
+%\addtolength\floatsep{-1mm}
+
+% Reduce the space around equations
+%\addtolength{\belowdisplayskip}{-0.5mm} \addtolength{\belowdisplayshortskip}{-0.5mm}
+%\addtolength{\abovedisplayskip}{-0.5mm} \addtolength{\abovedisplayshortskip}{-0.5mm}
+
+% Reduce space before and after verbatim environments
+%\preto{\@verbatim}{\topsep=0.4\topsep \partopsep=0.4\partopsep}
+% Smaller font size for verbatim environments
+%\preto{\@verbatim}{\footnotesize}
+
+
+\endinput

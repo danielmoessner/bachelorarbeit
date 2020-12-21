@@ -1,0 +1,869 @@
+
+% Workshop Papers
+
+%% This is db's personal bibliography.
+%% Publication web page is generated from this file.
+
+
+% The 'keyword' field contains always the basic research interest,
+%   which the paper falls into, must be one of the following:
+%   - Interfaces for Component-Based Design
+%   - Software Model Checking
+%   - Structural Analysis and Comprehension
+%   - Formal Verification of Real-Time Systems
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% 2020
+
+%%151 SE20-CoVeriTest
+@inproceedings{SE20,
+  author    = {Dirk Beyer and Marie-Christine Jakobs},
+  editor    = {M.~Felderer and W.~Hasselbring and R.~Rabiser and R.~Jung},
+  title     = {Cooperative Test-Case Generation with Verifiers},
+  booktitle = {Proceedings of the Conference on
+                 Software Engineering (SE~2020, Innsbruck, Austria, February 24-28)},
+  series    = {{LNI}~P-300},
+  pages     = {107--108},
+  publisher = {{GI}},
+  year      = {2020},
+  doi       = {10.18420/SE2020\_31},
+  isbnnote  = {978-3-88579-694-7},
+  pdf       = {},
+  postscript = {},
+  abstract  = {
+  },
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% 2019
+
+%%138 SE19-Reducers
+@inproceedings{SE19,
+  author    = {Dirk Beyer and Marie-Christine Jakobs and Thomas Lemberger and Heike Wehrheim},
+  editor    = {S.~Becker and I.~Bogicevic and G.~Herzwurm and S.~Wagner},
+  title     = {Combining Verifiers in Conditional Model Checking via Reducers},
+  booktitle = {Proceedings of the Conference on
+                 Software Engineering and Software Management (SE/SWM~2019, Stuttgart, Germany, February 18-22)},
+  series    = {{LNI}~P-292},
+  pages     = {151--152},
+  publisher = {{GI}},
+  year      = {2019},
+  doi       = {10.18420/se2019-46},
+  pdf       = {https://www.sosy-lab.org/research/pub/2019-SE.Combining_Verifiers_in_Conditional_Model_Checking_via_Reducers.pdf},
+  postscript = {https://www.sosy-lab.org/research/prs/2019-02-22_SE19_CombiningVerifiersInConditionalModelChecking_Marie.pdf},
+  abstract  = {
+    Software verification received lots of attention in the past two decades.
+    Nonetheless, it remains an extremely difficult problem.
+    Some verification tasks cannot be solved automatically by any of today’s verifiers.
+    To still verify such tasks, one can combine the strengths of different verifiers.
+    A promising approach to create combinations is conditional model checking (CMC).
+    In CMC, the first verifier outputs a condition that describes
+    the parts of the program state space that it successfully verified,
+    and the next verifier uses that condition to steer its exploration towards
+    the unverified state space.
+    Despite the benefits of CMC, only few verifiers can handle conditions.
+    To overcome this problem, we propose an automatic plug-and-play extension
+    for verifiers. Instead of modifying verifiers, we suggest to add a preprocessor:
+    the reducer.
+    The reducer takes the condition and the original program and computes
+    a residual program that encodes the unverified state space in program code.
+    We developed one such reducer and use it to integrate existing verifiers
+    and test-case generators into the CMC process.
+    Our experiments show that we can solve many additional verification tasks
+    with this reducer-based construction.
+  },
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% 2018
+
+%%135 ISOLA18-TrackIntro
+@inproceedings{ISOLA18-TrackIntro,
+  author    = {Markus Schordan and Dirk Beyer and Stephen F. Siegel},
+  title     = {Evaluating Tools for Software Verification (Track Introduction)},
+  booktitle = {Proceedings of the 8th International Symposium on
+                Leveraging Applications of Formal Methods, Verification, and Validation
+                (ISoLA~2018, Limassol, Cyprus, November 5--9), Part 2},
+  publisher = {Springer-Verlag, Heidelberg},
+  editor    = {T.~Margaria and B.~Steffen},
+  series    = {LNCS~11245},
+  pages     = {139-143},
+  year      = {2018},
+  isbn      = {978-3-030-03420-7},
+  doi       = {10.1007/978-3-030-03421-4_10},
+  url       = {},
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% 2017
+
+%%122 Witnesses
+@inproceedings{SE17-Witnesses,
+  author    = {Dirk Beyer and Matthias Dangl and Daniel Dietsch and Matthias Heizmann},
+  title     = {Exchanging Verification Witnesses between Verifiers},
+  booktitle = {Tagungsband Software Engineering 2017, Fachtagung des GI-Fachbereichs Softwaretechnik
+               (21.-24. Februar 2017, Hannover, Deutschland)},
+  publisher = {Gesellschaft f{\"{u}}r Informatik ({GI})},
+  editor    = {J.~J{\"{u}}rjens and K.~Schneider},
+  series    = {{LNI}~P-267},
+  pages     = {93-94},
+  year      = {2017},
+  url       = {},
+  keyword   = {CPAchecker,Software Model Checking,Witness-Based Validation},
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% 2016
+
+%%121 Multi-Threaded
+@inproceedings{MEMICS16-Multi-Threaded,
+  author    = {Dirk Beyer and Karlheinz Friedberger},
+  title     = {A Light-Weight Approach for Verifying Multi-Threaded Programs with CPAchecker},
+  booktitle = {Proceedings of the 11th Doctoral Workshop on
+               Mathematical and Engineering Methods in Computer Science (MEMICS~2016, Tel\v{c}, Czechia, October 21-23)},
+  publisher = {ArXiV},
+  editor    = {J.~Bouda and L.~Hol\'ik and J.~Kofro\v{n} and J.~Strej\v{c}ek and A.~Rambousek},
+  series    = {EPTCS~233},
+  pages     = {61-71},
+  year      = {2016},
+  doi       = {10.4204/EPTCS.233.6},
+  pdf       = {https://www.sosy-lab.org/research/pub/2016-MEMICS.A_Light-Weight_Approach_for_Verifying_Multi-Threaded_Programs_with_CPAchecker.pdf},
+  keyword   = {CPAchecker,Software Model Checking},
+}
+
+%%116 TrackIntro
+@inproceedings{ISOLA16-TrackIntro,
+  author    = {Markus Schordan and Dirk Beyer and Jonas Lundberg},
+  title     = {Evaluation and Reproducibility of Program Analysis and Verification (Track Introduction)},
+  booktitle = {Proceedings of the 7th International Symposium on
+                Leveraging Applications of Formal Methods, Verification, and Validation
+                (ISoLA~2016, Corfu, Greece, October 10--14)},
+  publisher = {Springer-Verlag, Heidelberg},
+  editor    = {T.~Margaria and B.~Steffen},
+  series    = {LNCS~9952},
+  pages     = {191-194},
+  year      = {2016},
+  isbn      = {978-3-319-47165-5},
+  doi       = {10.1007/978-3-319-47166-2_13},
+  url       = {},
+}
+
+%%114 k-ind-compare
+@InProceedings{VSTTE16b-AlgorithmComparison,
+  author    = {Dirk Beyer and Matthias Dangl},
+  title     = {{SMT}-based Software Model Checking: {A}n Experimental Comparison of Four Algorithms},
+  booktitle = {Proc.\ VSTTE},
+  publisher = {Springer},
+  series    = {LNCS~9971},
+  pages     = {181--198},
+  year      = {2016},
+  doi       = {10.1007/978-3-319-48869-1_14},
+  pdf       = {https://www.sosy-lab.org/research/pub/2016-VSTTE.SMT-based_Software_Model_Checking_An_Experimental_Comparison_of_Four_Algorithms.pdf},
+  url       = {https://www.sosy-lab.org/research/k-ind-compare/index-vstte.html},
+  keyword   = {CPAchecker,Software Model Checking},
+  annote    = {An <a href="https://www.sosy-lab.org/research/bib/Year/2018.complete.html#AlgorithmComparison-JAR">extended version</a> of this article appeared in JAR.},
+}
+
+%%113 JavaSMT
+@inproceedings{VSTTE16a-JavaSMT,
+  author    = {Egor George Karpenkov and Karlheinz Friedberger and Dirk Beyer},
+  title     = {{{\sc JavaSMT}}: {A} Unified Interface for {SMT} Solvers in {Java}},
+  booktitle = {Proc.\ VSTTE},
+  series    = {LNCS~9971},
+  pages     = {139--148},
+  year      = {2016},
+  publisher = {Springer},
+  doi       = {10.1007/978-3-319-48869-1_11},
+  pdf       = {https://www.sosy-lab.org/research/pub/2016-VSTTE.JavaSMT_A_Unified_Interface_For_SMT_Solvers_in_Java.pdf},
+  url       = {https://github.com/sosy-lab/java-smt/},
+}
+
+%%111 VerificationWitnesses
+@inproceedings{SE16b-VerificationWitnesses,
+  author    = {Dirk Beyer and Matthias Dangl and Daniel Dietsch and Matthias Heizmann and
+               Andreas Stahlbauer},
+  title     = {Witness Validation and Stepwise Testification across Software Verifiers},
+  booktitle = {Tagungsband Software Engineering 2016, Fachtagung des GI-Fachbereichs Softwaretechnik
+               (23.-26. Februar 2016, Wien, {\"O}sterreich)},
+  publisher = {Gesellschaft f{\"{u}}r Informatik ({GI})},
+  editor    = {J.~Knoop and U.~Zdun},
+  series    = {{LNI}~252},
+  pages     = {105-106},
+  year      = {2016},
+  url       = {},
+  keyword   = {CPAchecker,Software Model Checking,Witness-Based Validation},
+}
+
+%%110 Test-SPL
+@inproceedings{SE16a-Test-SPL,
+  author    = {Malte Lochau and Johannes B{\"u}rdek and Stefan Bauregger and Andreas Holzer and
+               Alexander von Rhein and Sven Apel and Dirk Beyer},
+  title     = {On Facilitating Reuse in Multi-goal Test-Suite Generation for Software Product Lines},
+  booktitle = {Tagungsband Software Engineering 2016, Fachtagung des GI-Fachbereichs Softwaretechnik
+               (23.-26. Februar 2016, Wien, {\"O}sterreich)},
+  publisher = {Gesellschaft f{\"{u}}r Informatik ({GI})},
+  editor    = {J.~Knoop and U.~Zdun},
+  series    = {{LNI}~252},
+  pages     = {81-82},
+  year      = {2016},
+  url       = {},
+  keyword   = {CPAchecker,Software Model Checking},
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% 2015
+
+%%101  SE
+@inproceedings{SE15-ExplicitCEGAR,
+  author    = {Dirk Beyer and Stefan L{\"{o}}we},
+  title     = {Interpolation for Value Analysis},
+  booktitle = {Tagungsband Software Engineering 2015, Fachtagung des GI-Fachbereichs Softwaretechnik
+               (17. M{\"{a}}rz - 20. M{\"{a}}rz 2015, Dresden, Deutschland)},
+  publisher = {Gesellschaft f{\"{u}}r Informatik ({GI})},
+  editor    = {U.~A{\ss}mann and B.~Demuth and T.~Spitta and G.~P{\"{u}}schel and R.~Kaiser},
+  series    = {{LNI}~239},
+  pages     = {73-74},
+  year      = {2015},
+  url       = {},
+  keyword   = {CPAchecker,Software Model Checking},
+}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% 2014
+
+
+%%98
+@inproceedings{ISOLA14-TrackIntro,
+  author    = {Markus Schordan and Welf L{\"{o}}we and Dirk Beyer},
+  title     = {Evaluation and Reproducibility of Program Analysis (Track Introduction)},
+  booktitle = {Proceedings of the 6th International Symposium on
+                Leveraging Applications of Formal Methods, Verification, and Validation (ISoLA~2014, Corfu, Greece, October 8-11)},
+  publisher = {Springer-Verlag, Heidelberg},
+  editor    = {T.~Margaria and B.~Steffen},
+  series    = {LNCS~8803},
+  pages     = {479-481},
+  year      = {2014},
+  url       = {https://doi.org/10.1007/978-3-662-45231-8_37},
+  doi       = {10.1007/978-3-662-45231-8_37},
+}
+
+%%95
+@article{Dagstuhl14,
+  author    = {Dirk Beyer and Marieke Huisman and Vladimir Klebanov and Rosemary Monahan},
+  title     = {Evaluating Software Verification Systems: Benchmarks and Competitions
+               (Dagstuhl Reports 14171)},
+  journal   = {Dagstuhl Reports},
+  volume    = {4},
+  number    = {4},
+  pages     = {1-19},
+  year      = {2014},
+  url       = {https://doi.org/10.4230/DagRep.4.4.1},
+  doi       = {10.4230/DagRep.4.4.1},
+}
+
+%%91  SE
+@inproceedings{SE14-MultiGoal,
+  author    = {Dirk Beyer and Andreas Holzer and Michael Tautschnig and Helmut Veith},
+  title     = {Reusing Information in Multi-Goal Reachability Analyses},
+  booktitle = {Tagungsband Software Engineering 2014, Fachtagung des GI-Fachbereichs Softwaretechnik
+               (25. Februar - 28. Februar 2014, Kiel, Deutschland)},
+  publisher = {Gesellschaft f{\"{u}}r Informatik ({GI})},
+  editor    = {W.~Hasselbring and N.~C.~Ehmke},
+  series    = {{LNI}~227},
+  pages     = {97--98},
+  year      = {2014},
+  url       = {http://eprints.uni-kiel.de/23752/},
+  keyword   = {CPAchecker,Software Model Checking},
+}
+
+%%90  SE
+@inproceedings{SE14-Reuse,
+  author    = {Dirk Beyer and Stefan L{\"{o}}we and Evgeny Novikov and Andreas Stahlbauer and Philipp Wendler},
+  title     = {Precision Reuse in CPAchecker},
+  booktitle = {Tagungsband Software Engineering 2014, Fachtagung des GI-Fachbereichs Softwaretechnik
+               (25. Februar - 28. Februar 2014, Kiel, Deutschland)},
+  publisher = {Gesellschaft f{\"{u}}r Informatik ({GI})},
+  editor    = {W.~Hasselbring and N.~C.~Ehmke},
+  series    = {{LNI}~227},
+  pages     = {41--42},
+  year      = {2014},
+  url       = {http://eprints.uni-kiel.de/23752/},
+  keyword   = {CPAchecker,Software Model Checking},
+  annote    = {This is a summary of a <a href="https://www.sosy-lab.org/research/bib/Year/2013.complete.html#FSE13">full article on this topic</a> that appeared in Proc. ESEC/FSE 2013.},
+  abstract  = {
+    Continuous testing during development is a well-established technique
+    for software-quality assurance.
+    Continuous model checking from revision to revision is not yet established
+    as a standard practice,
+    because the enormous resource consumption makes its application impractical.
+    Model checkers compute a large number of verification facts that
+    are necessary for verifying if a given specification holds.
+    We have identified a category of such intermediate results that are
+    easy to store and efficient to reuse: abstraction precisions.
+    The precision of an abstract domain specifies the level of abstraction
+    that the analysis works on.
+    Precisions are thus a precious result of the verification effort and
+    it is a waste of resources to throw them away after each verification run.
+    In particular, precisions are reasonably small and thus easy to store;
+    they are easy to process and have a large impact on resource consumption.
+    We experimentally show the impact of precision reuse
+    on industrial verification problems created from
+    62 Linux kernel device drivers
+    with 1119 revisions.
+  },
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% 2012
+
+%%77 MEMICS
+@InProceedings{MEMICS12,
+  author =     {Dirk Beyer and Andreas Stahlbauer},
+  title =      {{BDD}-Based Software Model Checking with {{\sc CPAchecker}}},
+  booktitle =  {Proceedings of the Annual Doctoral Workshop on 
+                Mathematical and Engineering Methods in Computer Science
+                (MEMICS~2012, Znojmo, Czech Republic, October 26-28)},
+  publisher =  {Springer-Verlag, Heidelberg},
+  editor =     {A.~Kucera~et~al.},
+  series =     {LNCS~7721},
+  pages =      {1-11},
+  year =       {2013},
+  isbn =       {978-3-642-36044-2},
+  keyword =    {CPAchecker,Software Model Checking},
+  pdf =        {https://www.sosy-lab.org/research/pub/2013-MEMICS.BDD-Based_Software_Model_Checking_with_CPAchecker.pdf},
+  url =        {},
+}
+
+%%75 LDV-Intro
+@InProceedings{LDV12,
+  author =     {Dirk Beyer and Alexander K. Petrenko},
+  title =      {{Linux} Driver Verification},
+  booktitle =  {Proceedings of the 5th International Symposium on
+                Leveraging Applications of Formal Methods, Verification, and Validation (ISoLA~2012, Part II, Heraklion, Crete, October 15-18)},
+  publisher =  {Springer-Verlag, Heidelberg},
+  editor =     {T.~Margaria and B.~Steffen},
+  series =     {LNCS~7610},
+  pages =      {1-6},
+  year =       {2012},
+  isbn =       {},
+  keyword =    {Software Model Checking},
+  pdf =        {https://www.sosy-lab.org/research/pub/2012-ISOLA.Linux_Driver_Verification.pdf},
+  url =        {},
+}
+
+%%74 RERS-Challenge
+@InProceedings{RERS12,
+  author =     {Falk Howar and Malte Isberner and Maik Merten and Bernhard Steffen and Dirk Beyer},
+  title =      {The {RERS} Grey-Box Challenge 2012: Analysis of Event-Condition-Action Systems},
+  booktitle =  {Proceedings of the 5th International Symposium on
+                Leveraging Applications of Formal Methods, Verification, and Validation (ISoLA~2012, Part I, Heraklion, Crete, October 15-18)},
+  publisher =  {Springer-Verlag, Heidelberg},
+  editor =     {T.~Margaria and B.~Steffen},
+  series =     {LNCS~7609},
+  pages =      {608-614},
+  year =       {2012},
+  isbn =       {},
+  keyword =    {Software Model Checking},
+  pdf =        {https://www.sosy-lab.org/research/pub/2012-ISOLA.The_RERS_Grey-Box_Challenge_2012_Analysis_of_Event-Condition-Action_Systems.pdf},
+  url =        {},
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% 2009
+
+%%59b KPS'09 http://www.complang.tuwien.ac.at/kps09/pdfs/tr2009_X_2.pdf
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% 2006
+
+%%47
+@InProceedings{ALLOY06,
+  author =     {Alain Wegmann and Lam-Son Le and Lotfi Hussami and Dirk Beyer},
+  title =      {A Tool for Verified Design using
+                {Alloy} for Specification and {CrocoPat} for Verification},
+  booktitle =  {Proceedings of the First Alloy Workshop
+                  (ALLOY~2006, Portland, OR, November 6)},
+  editor =     {D.~Jackson and P.~Zave},
+  publisher =  {},
+  pages =      {},
+  year =       {2006},
+  isbn =       {},
+  keyword =    {Structural Analysis and Comprehension},
+  pdf =        {https://www.sosy-lab.org/research/pub/2006-ALLOY.A_Tool_for_Verified_Design_using_Alloy_for_Specification_and_CrocoPat_for_Verification.pdf},
+  url =        {},
+  abstract =   {
+                The context of our work is a project that focuses on
+                methods and tools for modeling enterprise
+                architectures. An enterprise architecture model
+                represents the structure of an enterprise across
+                multiple levels, from the markets in which it operates
+                down to the implementation of the technical systems
+                that support its operation. These models are based on
+                an ontology that defines the model elements and their
+                relations. In this paper, we describe an efficient
+                method to fully automatically verify the design that
+                our modeling tool manages. We specify the ontology in
+                Alloy, and use the efficient interpreter for
+                relational programs CrocoPat to verify that the design
+                fulfills all constraints specified in the
+                ontology. Technically, we transform all constraints
+                from Alloy into a relational program in CrocoPat's
+                programming language. Then, we execute the relational
+                program and feed it with a relational representation
+                of the design as input, in order to check that the
+                design element instances fulfill all constraints of
+                the Alloy representation of the ontology. We also
+                present the current limitations of our approach and
+                how -by overcoming these limitations- we can develop
+                an Alloy-based parameterized modeling tool.
+               },
+}
+
+%%45b
+InProceedings{Dagstuhl-06081,
+  author =     {Dirk Beyer and Thomas A.~Henzinger and 
+                Gr{\'e}gory Th{\'e}oduloz},
+  title =      {Lazy Shape Analysis},
+  booktitle =  {Proceedings of the Dagstuhl Seminar 06081 on
+                  Software Verification: Infinite-State Model Checking 
+                  and Static Program Analysis
+                  (Schloss Dagstuhl, Wadern, Germany, February 19-24)},
+  publisher =  {IBFI, Saarbr\"ucken},
+  editor =     {P.A.~Abdulla and A.~Bouajjani and M.~M\"uller-Olm},
+  series =     {Seminar~06081},
+  year =       {2006},
+  isbn =       {1862-4405},
+  keyword =    {Software Model Checking},
+  pdf =        {https://www.sosy-lab.org/research/pub/2006-Dagstuhl-06081.Lazy_Shape_Analysis.pdf},
+  url =        {http://www.sosy-lab.org/~dbeyer/blast_sa/},
+  abstract =   {
+                Many software model checkers are based on predicate
+                abstraction.  If the verification goal depends on
+                pointer structures, the approach does not work well,
+                because it is difficult to find adequate predicate
+                abstractions for the heap.  In contrast, shape
+                analysis, which uses graph-based heap abstractions,
+                can provide a compact representation of recursive data
+                structures.  We integrate shape analysis into the
+                software model checker BLAST.  Because shape analysis
+                is expensive, we do not apply it globally.  Instead,
+                we ensure that, like predicates, shape graphs are
+                computed and stored locally, only where necessary for
+                proving the verification goal.  To achieve this, we
+                extend lazy abstraction refinement, which so far has
+                been used only for predicate abstractions, to
+                three-valued logical structures.  This approach does
+                not only increase the precision of model checking, but
+                it also increases the efficiency of shape analysis.
+                We implemented the technique by extending BLAST with
+                calls to TVLA.
+               },
+  annote =     {
+                An abbreviated version of this paper appeared in 
+                Proc. CAV, LNCS 4144, pages 532-546, Springer, 2006. <BR>
+                Online:
+                <a href="http://drops.dagstuhl.de/portals/06081/">
+                http://drops.dagstuhl.de/portals/06081/</a> <BR>
+                Supplementary material: 
+                <a href="http://www.sosy-lab.org/~dbeyer/blast_sa/">
+                http://www.sosy-lab.org/~dbeyer/blast_sa/</a>
+               },
+}
+
+%%43
+@InProceedings{MSR06,
+  author =     {Dirk Beyer},
+  title =      {Co-Change Visualization Applied to {PostgreSQL} and {ArgoUML}},
+  booktitle =  {Proceedings of the Third International Workshop on
+                  Mining Software Repositories 
+                  (MSR~2006, Shanghai, May 22-23)},
+  publisher =  {ACM Press},
+  pages =      {165-166},
+  year =       {2006},
+  isbn =       {1-59593-397-2},
+  keyword =    {Structural Analysis and Comprehension},
+  pdf =        {https://www.sosy-lab.org/research/pub/2006-MSR.Co-Change_Visualization_Applied_to_PostgreSQL_and_ArgoUML.pdf},
+  url =        {http://www.sosy-lab.org/~dbeyer/ccvisu_msr},
+  abstract =   {
+                Co-change visualization is a method to recover the
+                subsystem structure of a software system from the
+                version history, based on common changes and visual
+                clustering.  This paper presents the results of
+                applying the tool CCVisu, which implements co-change
+                visualization, to the two open-source software systems
+                PostgreSQL and ArgoUML.  The input of the method is
+                the co-change graph, which can be easily extracted by
+                CCVisu from a CVS version repository.  The output is a
+                graph layout that places software artifacts that were
+                often commonly changed at close positions, and
+                artifacts that were rarely co-changed at distant
+                positions.  This property of the layout is due to the
+                clustering property of the underlying energy model,
+                which evaluates the quality of a produced layout.  The
+                layout can be displayed on the screen, or saved to a
+                file in SVG or VRML format.
+               },
+  annote =     {},
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% 2005
+
+%%37
+@InProceedings{FIT05,
+  author =     {Dirk Beyer and Arindam Chakrabarti and Thomas A. Henzinger},
+  title =      {An Interface Formalism for Web Services},
+  booktitle =  {Proceedings of the First International Workshop on
+                  Foundations of Interface Technologies (FIT~2005, San Francisco, CA, August 21)},
+  pages =      {},
+  year =       {2005},
+  isbn =       {},
+  keyword =    {Interfaces for Component-Based Design},
+  pdf =        {https://www.sosy-lab.org/research/pub/2007-EPFL-TR002.An_Interface_Formalism_for_Web_Services.pdf},
+  url =        {http://infoscience.epfl.ch/search?recid=114605&ln=en},
+  abstract =   {
+                Web application development using distributed
+                components and web services presents new software
+                integration challenges, because solutions often cross
+                vendor, administrative, and other boundaries across
+                which neither binary nor source code can be shared.
+                We present a methodology that addresses this problem
+                through a formalism for specifying and manipulating
+                behavioral interfaces of multi-threaded open software
+                components that communicate with each other through
+                method calls.  An interface constrains both the
+                implementation and the user of a web service to
+                fulfill certain assumptions that are specified by the
+                interface.  Our methodology consists of three
+                increasingly expressive classes of interfaces.
+                Signature interfaces specify the methods that can be
+                invoked by the user, together with parameters.
+                Consistency interfaces add propositional constraints,
+                enhancing signature interfaces with the ability to
+                specify choice and causality.  Protocol interfaces
+                specify, in addition, temporal ordering constraints on
+                method invocations.  We provide approaches to check if
+                two or more interfaces are compatible; if a web
+                service can be safely substituted for another one; and
+                if a web service satisfies a specification that
+                represents a desired behavioral property.
+               },
+  annote =     {FIT 2005, San Francisco, CA, August 21},
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% 2001
+
+%%19
+@InProceedings{RT-TOOLS01,
+  author =     {Dirk Beyer},
+  title =      {Rabbit: Verification of Real-Time Systems},
+  booktitle =  {Proceedings of the Workshop on Real-Time Tools
+                  (RT-TOOLS~2001, Aalborg, August 20)},
+  editor =     {P.~Pettersson and S.~Yovine},
+  pages =      {13-21},
+  address =    {Uppsala},
+  year =       {2001},
+  isbn =       {},
+  keyword =    {Formal Verification of Real-Time Systems},
+  pdf =        {https://www.sosy-lab.org/research/pub/2001-RT-TOOLS.Rabbit_Verification_of_Real-Time_Systems.pdf},
+  abstract =   {
+                This paper gives a short overview of a model checking
+                tool for Cottbus Timed Automata, which is a modular
+                modeling language based on timed and hybrid automata.
+                For timed automata, the current version of the tool
+                provides BDD-based verification using an integer
+                semantics. Reachability analysis as well as refinement
+                checking is possible.  To find good variable orderings
+                it uses the component structure of the model and an
+                upper bound for the BDD size.  For hybrid automata,
+                reachability analysis based on the double description
+                method is implemented.
+               },
+  annote =     {RT-TOOLS 2001, Aalborg, August 20 <BR>
+                Paul Pettersson, Sergio Yovine, editors},
+}
+
+%%18
+@InProceedings{FMICS01,
+  author =     {Dirk Beyer and Andreas Noack},
+  title =      {Efficient Verification of Timed Automata using {BDD}s},
+  booktitle =  {Proceedings of the Sixth International ERCIM Workshop on
+                  Formal Methods for Industrial Critical Systems
+                  (FMICS~2001, Paris, July 16-17)},
+  editor =     {S.~Gnesi and U.~Ultes-Nitsche},
+  pages =      {95-113},
+  publisher =  {INRIA, Paris},
+  year =       {2001},
+  isbn =       {},
+  keyword =    {Formal Verification of Real-Time Systems},
+  ps =         {https://www.sosy-lab.org/research/pub/2001-FMICS.Efficient_Verification_of_Timed_Automata_using_BDDs.ps},
+  pdf =        {https://www.sosy-lab.org/research/pub/2001-FMICS.Efficient_Verification_of_Timed_Automata_using_BDDs.pdf},
+  abstract =   {
+                This paper investigates the efficient reachability
+                analysis of timed automata. It describes a
+                discretization of time which preserves the
+                reachability properties. The discretization allows to
+                represent sets of configurations of timed automata as
+                binary decision diagrams (BDDs). Further techniques,
+                like computing good variable orderings, are applied to
+                use the full potential of BDDs as compact and
+                canonical representation of large sets.  We
+                implemented these concepts within the tool Rabbit.
+                The highly improved performance is shown for some
+                example models. For additional speedup we used an
+                on-the-fly algorithm and refinement checking for large
+                models.
+               },
+  annote =     {FMICS 2001, Paris, July 16-17 <BR>
+                Stefania Gnesi, Ulrich Ultes-Nitsche, editors},
+}
+
+%%17
+@InProceedings{FSCBS01b,
+  author =     {Dirk Beyer and Andy Heinig},
+  title =      {Different Strategies for
+                  {BDD}-Based Reachability Analysis of Timed Automata},
+  booktitle =  {Proceedings of the Second IEEE/IFIP Joint Workshop on
+                  Formal Specifications of
+                  Computer-Based Systems (FSCBS~2001, Washington, D.C., April 20)},
+  editor =     {C.~Rattray and M.~Sveda and J.~Rozenblit},
+  pages =      {89-98},
+  address =    {Stirling},
+  year =       {2001},
+  isbn =       {},
+  keyword =    {Formal Verification of Real-Time Systems},
+  annote =     {FSCBS 2001, Washington, D.C., April 20 <BR>
+                Charles Rattray, Miroslav Sveda, Jerzy Rozenblit, editors},
+}
+
+%%16
+@InProceedings{FSCBS01a,
+  author =     {Dirk Beyer and Heinrich Rust},
+  title =      {{C}ottbus {T}imed {A}utomata: Formal Definition and Semantics},
+  booktitle =  {Proceedings of the Second IEEE/IFIP Joint Workshop on
+                  Formal Specifications of
+                  Computer-Based Systems (FSCBS~2001, Washington, D.C., April 20)},
+  editor =     {C.~Rattray and M.~Sveda and J.~Rozenblit},
+  pages =      {75-87},
+  address =    {Stirling},
+  year =       {2001},
+  isbn =       {},
+  keyword =    {Formal Verification of Real-Time Systems},
+  ps =         {https://www.sosy-lab.org/research/pub/2001-FSCBS.Cottbus_Timed_Automata_Formal_Definition_and_Compositional_Semantics.revised.ps},
+  pdf =        {https://www.sosy-lab.org/research/pub/2001-FSCBS.Cottbus_Timed_Automata_Formal_Definition_and_Compositional_Semantics.revised.pdf},
+  abstract =   {
+                We present a formalism for modular modelling of hybrid
+                systems, the Cottbus Timed Automata. For the
+                theoretical basis, we build on work about timed and
+                hybrid automata. We use concepts from concurrency
+                theory to model communication of separately defined
+                modules, but we extend these concepts to be able to
+                express explicitly read- and write-access to signals
+                and variables.
+               },
+  annote =     {FSCBS 2001, Washington, D.C., April 20 <BR>
+                Charles Rattray, Miroslav Sveda, Jerzy Rozenblit, editors <BR>
+                The pdf is a revised version of the original paper. <BR>
+                The full formal definition and semantics of CTA.},
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% 2000
+
+%%09
+@InProceedings{FBT00,
+  author =     {Dirk Beyer and Andreas Noack},
+  title =      {{BDD}-basierte {V}erifikation von {R}ealzeit-{S}ystemen},
+  booktitle =  {Tagungsband Formale Beschreibungstechniken f{\"u}r
+                  verteilte Systeme (FBT~2000, L{\"u}beck, June 22-23)},
+  editor =     {J.~Grabowski and S.~Heymer},
+  pages =      {79-89},
+  year =       {2000},
+  publisher =  {Shaker Verlag, Aachen},
+  isbn =       {},
+  keyword =    {Formal Verification of Real-Time Systems},
+  pdf =        {https://www.sosy-lab.org/research/pub/2000-FBT.BDD-basierte_Verifikation_von_Realzeit-Systemen.pdf},
+  abstract =   {
+                Diese Arbeit behandelt die effiziente
+                Erreichbarkeitsanalyse von Timed Automata. Wir
+                beschreiben eine Erreichbarkeitseigenschaften
+                erhaltende Diskretisierung der Zeit. Diese ermöglicht
+                es, Konfigurationsmengen von Timed Automata als Binary
+                Decision Diagrams (BDDs) darzustellen. Die kompakte
+                BDD-Repräsentation großer Mengen erfordert geeignete
+                Variablenordnungen. Zur deren Bestimmung nutzen wir
+                Strukturinformationen aus der Modellierungsnotation
+                Cottbus Timed Automaton. Wir belegen die erzielten
+                Effizienzverbesserungen durch Meßwerte.
+               },
+  annote =     {FBT 2000, L&uuml;beck, June 22-23 <BR>
+                Jens Grabowski, Stefan Heymer, editors},
+}
+
+%%06
+@InProceedings{FSCBS00,
+  author =     {Dirk Beyer and Heinrich Rust},
+  title =      {Modular Modelling and Verification with
+                  {C}ottbus {T}imed {A}utomata},
+  booktitle =  {Proceedings of the IEEE/IFIP Joint Workshop on
+                  Formal Specifications of
+                  Computer-Based Systems (FSCBS~2000, Edinburgh, April 6-7)},
+  year =       {2000},
+  pages =      {17-24},
+  address =    {Stirling},
+  editor =     {C.~Rattray and M.~Sveda},
+  isbn =       {},
+  keyword =    {Formal Verification of Real-Time Systems},
+  abstract =   {
+                A new modelling notation and a verification tool for
+                hybrid systems is introduced: The Cottbus Timed
+                Automaton (CTA). In contrast to existing modelling
+                concepts, the new formalism has the advantage to be
+                capable of modelling hybrid systems as a modular
+                structure of components which communicate through the
+                elements of an explicitly defined interface. The
+                interface consists of signals and variables declared
+                with different access modes. This paper describes how
+                to model a system and how to verify it. The current
+                version of the tool using the double description
+                method to represent the regions is presented.
+               },
+  annote =     {FSCBS 2000, Edinburgh, April 6-7 <BR>
+                Charles Rattray, Miroslav Sveda, editors},
+}
+
+%%05
+@InProceedings{FMICS00,
+  author =     {Dirk Beyer and Claus Lewerentz and Heinrich Rust},
+  title =      {Modelling and Analysing a Railroad Crossing in a Modular Way},
+  booktitle =  {Proceedings of the Fifth International ERCIM Workshop on
+                  Formal Methods for Industrial Critical Systems
+                  (FMICS~2000, Berlin, April 3-4)},
+  editor =     {S.~Gnesi and I.~Schieferdecker and A.~Rennoch},
+  year =       {2000},
+  pages =      {287-303},
+  address =    {Berlin},
+  isbn =       {},
+  keyword =    {Formal Verification of Real-Time Systems},
+  ps =         {https://www.sosy-lab.org/research/pub/2000-FMICS.Modelling_and_Analysing_a_Railroad_Crossing_in_a_Modular_Way.ps},
+  pdf =        {https://www.sosy-lab.org/research/pub/2000-FMICS.Modelling_and_Analysing_a_Railroad_Crossing_in_a_Modular_Way.pdf},
+  abstract =   {
+                One problem of modelling hybrid systems with existing
+                notations of hybrid automata is that there is no
+                modular structure in the model. We introduce an
+                extended modelling notation which allows the modelling
+                of a system as a hierarchical structure of
+                modules. The modules are capable of communicating
+                through the elements of an explicitly defined
+                interface. The interface consists of signals and
+                variables declared with different access modes. This
+                paper describes a model of the railroad crossing
+                example and how to verify it. The current version of a
+                tool for reachability analysis using the double
+                description method to represent symbolically the sets
+                of reachable configurations is presented.
+               },
+  annote =     {FMICS 2000, Berlin, April 3-4 <BR>
+                Stefania Gnesi, Ina Schieferdecker, Axel Rennoch, editors <BR>
+                Describes a case study for modeling and analysis using
+                  the DDM-based representation.},
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% 1999
+
+%%03
+@InProceedings{FBT99,
+  author =     {Dirk Beyer and Heinrich Rust},
+  title =      {Concepts of {C}ottbus {T}imed {A}utomata},
+  booktitle =  {Tagungsband Formale Beschreibungstechniken f{\"u}r
+                  verteilte Systeme (FBT~1999, M{\"u}nchen, June 17-18)},
+  year =       {1999},
+  pages =      {27-34},
+  editor =     {K.~Spies and B.~Sch{\"a}tz},
+  publisher =  {Herbert Utz Verlag, M{\"u}nchen},
+  isbn =       {},
+  keyword =    {Formal Verification of Real-Time Systems},
+  pdf =        {https://www.sosy-lab.org/research/pub/1999-FBT.Concepts_of_Cottbus_Timed_Automata.pdf},
+  abstract =   {
+                Today, many industrial production cells are controlled
+                by software. Many such systems have to deal with
+                requirements which the developer has to
+                guarantee. Because of the complexity of the
+                implementation one of the main problems for developing
+                the software for reactive systems is to be sure that
+                such properties are fulfilled. One way to handle the
+                problems is to use formal methods: This means to
+                develop a formal model which is used to prove the
+                properties of the specification with tool support.
+                <BR>
+                There are many different methods to model such
+                reactive systems. Some of these abstract from
+                real-time aspects of the system. We chose a problem
+                area where we have real-time requirements, for example
+                the throughput of the modelled production cell. So we
+                have to use formal methods which support models of
+                real-time systems.
+               },
+  annote =     {FBT 1999, M&uuml;nchen, June 17-18 <BR>
+                Katharina Spies and Bernhard Sch&auml;tz, editors},
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% 1998
+
+%%01
+@InProceedings{FBT98,
+  author =     {Dirk Beyer and Heinrich Rust},
+  title =      {Modeling a Production Cell as a Distributed
+                  Real-Time System with {C}ottbus {T}imed {A}utomata},
+  booktitle =  {Tagungsband Formale Beschreibungstechniken f{\"u}r
+                  verteilte Systeme (FBT~1998, Cottbus, June 4-5)},
+  year =       {1998},
+  pages =      {148-159},
+  editor =     {H.~K{\"o}nig and P.~Langend{\"o}rfer},
+  publisher =  {Shaker Verlag, Aachen},
+  isbn =       {},
+  keyword =    {Formal Verification of Real-Time Systems},
+  ps =         {https://www.sosy-lab.org/research/pub/1998-FBT.Modeling_a_Production_Cell_as_a_Distributed_Real-Time_System_with.Cottbus_Timed_Automata.ps},
+  pdf =        {https://www.sosy-lab.org/research/pub/1998-FBT.Modeling_a_Production_Cell_as_a_Distributed_Real-Time_System_with.Cottbus_Timed_Automata.pdf},
+  abstract =   {
+                We build on work in designing modeling languages for
+                hybrid systems in the development of CTA, the Cottbus
+                Timed Automata. Our design features a facility to
+                specify a hybrid system modulary and hierarchically,
+                communication through CSP-like synchronizations but
+                with special support to specify explicitly different
+                roles which the interface signals and variables of a
+                module play, and to instantiate recurring elements
+                serveral times from a template. Continuous system
+                components are modeled with analogue variables having
+                piecewise constant derivatives. Discrete system
+                aspects like control modes are modeled with the
+                discrete variables and the states of a finite
+                automaton. Our approach to specifying distributed
+                hybrid systems is illustrated with the specification
+                of a component of a production cell, a transport belt.
+               },
+  annote =     {FBT 1998, Cottbus, June 4-5 <BR>
+                Hartmut K&ouml;nig, Peter Langend&ouml;rfer, editors <BR>
+                The first published paper where we introduce the concepts of
+                  Cottbus Timed Automata, i.e. modules, interfaces and
+                  a modeling example.},
+}

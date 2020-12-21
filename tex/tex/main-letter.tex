@@ -1,0 +1,49 @@
+\documentclass[a4paper,12pt]{sosy-letter}
+
+% Keine Faltmarkierungen drucken.
+\nowindowtics
+
+\sloppy
+
+% Correction to fit the address window of the envelope.
+\newcommand{\envelopeextraspace}{\vspace{12mm}}
+
+% Comment this if you have Dirk's signature file
+\renewcommand{\setsignature}{}
+
+\begin{document}
+  \sosyletterdef{\logo}{
+    \begin{letter} {\\[5mm] #1 \\ #2 \\ #3 \par #4 \envelopeextraspace}
+\datum{\isotoday}
+\subject{\bf Example Letter}
+
+% Problemstellung / Thema
+% Gliederung / Struktur / Kapitel
+% Bewertung / Beurteilung
+
+\opening{Dear ,}
+
+Text comes here.
+
+
+
+
+\closing[\setsignature]{Sincerely,}
+%\closing[]{Best regards,}
+%\closing[]{}
+
+%\encl{Die Anlage}
+    \end{letter}
+%\newpage
+%\phantom{.}
+%\newpage
+  }
+
+\sosyletter{Addressee}
+           {Organization}
+           {Street}
+           {Postcode, City}
+
+\end{document}
+   
+
