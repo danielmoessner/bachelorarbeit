@@ -29,7 +29,7 @@ SETTINGS = {
     },
     'HESSE_FORM_MULTIPLIER': 10,
     'PRINT': True, 
-    'PLOT': True
+    'PLOT': False
 }
 
 
@@ -43,7 +43,8 @@ def get_mirror_point(a, b, c, x1, y1):
         temp = -2 * (a * x1 + b * y1 + c) / (a * a + b * b) 
     except ZeroDivisionError:
         print(a, b, c, x1, y1)
-        raise ZeroDivisionError
+        temp = 10
+        # raise ZeroDivisionError
     x = temp * a + x1
     y = temp * b + y1
     x = math.ceil(x) if x > x1 else math.floor(x)
