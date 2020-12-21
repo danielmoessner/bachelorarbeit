@@ -5,6 +5,7 @@ from pysmt.typing import INT, STRING, BOOL, REAL
 from sklearn import svm
 import matplotlib.pyplot as plt
 import numpy as np
+import math
 
 
 ###
@@ -13,8 +14,8 @@ import numpy as np
 SETTINGS = {
     'POINTS': {
         'GENERATE': {
-            'START': 50,
-            'ZONE': 20
+            'START': 80,
+            'ZONE': 100
         },
         'X': {
             'START': -10,
@@ -24,14 +25,65 @@ SETTINGS = {
             'START': -10,
             'END': 10
         },
-        'MARGIN_MULTIPLIER': 10
-    }
+        'MARGIN_MULTIPLIER': 10,
+    },
+    'HESSE_FORM_MULTIPLIER': 10,
+    'PRINT': True, 
+    'PLOT': True
 }
 
 
 ###
 # Helper functions
 ###
+def get_mirror_point(a, b, c, x1, y1): 
+    x1 -= 5
+    y1 -= 5
+    try:
+        temp = -2 * (a * x1 + b * y1 + c) / (a * a + b * b) 
+    except ZeroDivisionError:
+        print(a, b, c, x1, y1)
+        raise ZeroDivisionError
+    x = temp * a + x1
+    y = temp * b + y1
+    x = math.ceil(x) if x > x1 else math.floor(x)
+    y = math.ceil(y) if y > y1 else math.floor(y)
+    x = int(x)
+    y = int(y)
+    return (x, y)
+
+
+def plot_sp(SP, clf=None):
+    # draw a plot of the data; helps visualizing what is happening
+    POSITIVE = np.array(SP['POSITIVE'])
+    NEGATIVE = np.array(SP['NEGATIVE'])
+    NP = np.array(SP['NP'])
+    plt.scatter(NP[:, 0], NP[:, 1], s=30)
+    plt.scatter(NEGATIVE[:, 0], NEGATIVE[:, 1], s=30)
+    plt.scatter(POSITIVE[:, 0], POSITIVE[:, 1], s=30)
+    # plot the` decision function
+    ax = plt.gca()
+    xlim = ax.get_xlim()
+    ylim = ax.get_ylim()
+    # plot margin if clf exists
+    if clf is not None:
+        # create grid to evaluate model
+        xx = np.linspace(xlim[0], xlim[1], 30)
+        yy = np.linspace(ylim[0], ylim[1], 30)
+        YY, XX = np.meshgrid(yy, xx)
+        xy = np.vstack([XX.ravel(), YY.ravel()]).T
+        Z = clf.decision_function(xy).reshape(XX.shape)
+        # plot decision boundary and margins
+        ax.contour(XX, YY, Z, colors='k', levels=[-1, 0, 1], alpha=0.5,
+                    linestyles=['--', '-', '--'])
+        # plot support vectors
+        ax.scatter(clf.support_vectors_[:, 0], clf.support_vectors_[:, 1], s=100,
+                    linewidth=1, facecolors='none', edgecolors='k')
+        # my special line
+        # plt.plot([0, -clf.intercept_ / clf.coef_[0][0]], [-clf.intercept_ / clf.coef_[0][1], 0])
+    plt.show()
+
+
 def get_var(name, index=None):
     if index is None:
         return Symbol(name, INT)
@@ -59,6 +111,14 @@ def get_variables_from_formula(formula, index='lowest'):
     for key, value in values.items():
         variables[key] = value['value']
     return variables
+
+
+def find_points_from_formula(formula, n_points=20):
+    points = []
+    while (len(points) < n_points):
+        print(get_model(formula))
+        raise Exception()
+    return points
 
 
 ###
@@ -91,6 +151,11 @@ code_1 = {
             ),
         )
     ),
+    # 'paths': [
+    #     x < y + 5,
+    #     y > 0,
+    #     x == 0
+    # ],
     'post': And(
         LE(get_var('y', 2), get_var('x', 2)),
         LE(get_var('x', 2), Plus(get_var('y', 2), Int(16)))
@@ -139,6 +204,29 @@ code_2 = {
         'y': {
             'pre': 1,
             'body': 2
+        }
+    }
+}
+
+code_3 = {
+    'pre': And(
+        Equals(get_var('x', 1), Int(1)), 
+        Equals(get_var('y', 1), Int(0))
+    ),
+    'cond': LT(get_var('x', 1), Int(3)),  # while(*)
+    'body': And(
+        Equals(get_var('x', 2), Plus(get_var('x', 1), get_var('y', 1))),
+        Equals(get_var('y', 2), Plus(get_var('y', 1), Int(1)))
+    ),
+    'post': GE(get_var('x', 2), get_var('y', 2)),
+    'map': {
+        'x': {
+            'pre': 1,
+            'body': 2,
+        },
+        'y': {
+            'pre': 1,
+            'body': 2,
         }
     }
 }
@@ -221,10 +309,10 @@ def is_invariant_correct(code, invariant):
     if is_sat(formula):
         return (False, get_variables_from_formula(formula))
 
-    return (True, )
+    return (True, ())
 
 
-def evaluate(code, variables):
+def evaluate_point(code, variables):
     # s := variables
     numbers = And()
     for key, item in variables.items():
@@ -303,7 +391,7 @@ def evaluate(code, variables):
 def verify(code):
     SP = {}
     SP['CE'], SP['NEGATIVE'], SP['NP'], SP['POSITIVE'], SP['UNKNOWN'] = (
-        [], [], [], [], []
+        [], [], [], [], [(1, 0)]
     )
 
     # generate points
@@ -319,100 +407,125 @@ def verify(code):
     while True:
         # evaluate points
         for point in SP['UNKNOWN']:
-            evaluation = evaluate(code, {'x': point[0], 'y': point[1]})
+            evaluation = evaluate_point(code, {'x': point[0], 'y': point[1]})
             SP[evaluation[0]] += list(map(lambda point: (point['x'], point['y']), evaluation[1]))
         SP['UNKNOWN'] = []
 
         # get a possible invariant
-        invariant = activeLearn(SP)
-        if not invariant[0]:
+        disproved, invariant, hesse_normal_forms = find_conjunctive_invariant(SP)
+        
+        # break if disproved
+        if disproved:
             return 'DISPROVED'
 
         # check if the invariant is actually correct
-        correct = is_invariant_correct(code_1, invariant[1])
-        if correct[0]:
-            return invariant[1]
+        invariant_correct, error_point = is_invariant_correct(code, invariant)
+        
+        # return invariant if correct
+        if invariant_correct:
+            return invariant
+        
+        # calculate mirror points to hesse forms and add to sp
+        error_point = (error_point['x'], error_point['y'])
+        error_points = [error_point]
+        for form in hesse_normal_forms:
+            error_points.append(get_mirror_point(*form, *error_point))
+        
+        # print
+        if SETTINGS['PRINT']:
+            print('#################### 432')
+            print('[error_point, mirror_points]:', error_points)
+            print('####################')
+        
+        # add the error points
+        SP['UNKNOWN'] += error_points
+        
 
-        # add points to sp
-        # point with which the invariant failed, this line actually does not have a big impact
-        SP['UNKNOWN'].append((correct[1]['x'], correct[1]['y']))
-        # points which are in the margin zone of the support vector machine
-        SP['UNKNOWN'] = invariant[2]
-
-
-def activeLearn(SP):
-    # safety check
+def find_conjunctive_invariant(SP):
+    # if a counter example is found no invariant can be found
     if len(SP['CE']) != 0:
-        return (False,)
+        return (True, (), ())
 
-    # shape the data for the support vector machine
-    x = SP['POSITIVE'] + SP['NEGATIVE']
-    y = len(SP['POSITIVE']) * [1] + len(SP['NEGATIVE']) * [0]
-    x = np.array(x)
-    y = np.array(y)
-    clf = svm.SVC(kernel='linear', C=1000)
-    clf.fit(x, y)
-    print('POSITIVE', '(yellow)', len(y[y == 1]))
-    print('NEGATIVE', '(purple)', len(y[y == 0]))
-    print('NP      ', '(blue)  ', len(SP['NP']))
+    # print
+    if SETTINGS['PRINT']:
+        print('#################### 447')
+        print('POSITIVE', '(green) ', len(SP['POSITIVE']))
+        print('NEGATIVE', '(orange)', len(SP['NEGATIVE']))
+        print('NP      ', '(blue)  ', len(SP['NP']))
+        print('TOTAL            ', len(SP['POSITIVE']) + len(SP['NEGATIVE']) + len(SP['NP']))
+        print('####################')
+    
+    # plot
+    if SETTINGS['PLOT']:
+        plot_sp(SP)
 
-    # calculate the seperating line
-    W = clf.coef_[0]
-    I = clf.intercept_
-    a = int(round(-W[0] / W[1]))
-    b = int(round(I[0] / W[1]))
-    def line(x): return a*x - b
+    complete_invariant = And()
+    NEGATIVE = np.array(SP['NEGATIVE'])
+    hesse_normal_forms = []
 
-    # margin calculation
-    margin = int(round(1 / np.linalg.norm(clf.coef_)) *
-                 SETTINGS['POINTS']['MARGIN_MULTIPLIER'])
+    while(len(NEGATIVE) != 0):
 
-    # check wheter <= or >= is correct
-    if clf.predict([(1, line(1) - 1)]) == 0:
-        invariant = LE(
-            Minus(Times(Int(a), Symbol('x', INT)), Int(b)),
-            Symbol('y', INT)
+        # shape the data for the support vector machine
+        x = SP['POSITIVE'] + [NEGATIVE[random.randint(0, len(NEGATIVE) - 1)]]
+        y = len(SP['POSITIVE']) * [1] + [0]
+        x = np.array(x)
+        y = np.array(y)
+
+        # run the support vector machine
+        clf = svm.SVC(kernel='linear', C=1000)
+        clf.fit(x, y)
+
+        # print
+        if SETTINGS['PRINT']:
+            print('#################### 476')
+            print('coef', clf.coef_)
+            print('intercept', clf.intercept_)
+            print('####################')
+
+        # calculate the hesse normal form
+        a = int(round(clf.coef_[0][0] * SETTINGS['HESSE_FORM_MULTIPLIER']))
+        b = int(round(clf.coef_[0][1] * SETTINGS['HESSE_FORM_MULTIPLIER']))
+        c = int(round(clf.intercept_[0] * SETTINGS['HESSE_FORM_MULTIPLIER']))
+        
+        # save the hesse normal form for later
+        hesse_normal_forms.append((a, b, c))
+
+        # set the invariant that correctly classifies positive points
+        invariant = GT(
+            Plus(
+                Times(Int(a), get_var('x')),
+                Times(Int(b), get_var('y')), 
+                Int(c)
+            ), 
+            Int(0)
         )
-    else:
-        invariant = GE(
-            Minus(Times(Int(a), Symbol('x', INT)), Int(b)),
-            Symbol('y', INT)
-        )
-    print(invariant, '\n')
 
-    # generate points in the seperation zone
-    points = []
-    for _ in range(0, SETTINGS['POINTS']['GENERATE']['ZONE']):
-        xp = random.randint(SETTINGS['POINTS']['X']['START'],
-                            SETTINGS['POINTS']['Y']['END'])
-        yp = line(xp) + random.randint(-margin, margin)
-        points.append((xp, yp))
+        # remove successfully classified from negative
+        prediction = clf.predict(NEGATIVE)
+        NEGATIVE = NEGATIVE[prediction > 0]
+        
+        # plot
+        if SETTINGS['PLOT']:
+            plot_sp(SP, clf)
+        
+        # combine all invariants
+        complete_invariant = And(complete_invariant, invariant)
 
-    # draw a plot of the data; helps visualizing what is happening
-    z = np.array(SP['NP'])
-    if len(z) != 0:
-        plt.scatter(z[:, 0], z[:, 1])
-    plt.scatter(x[:, 0], x[:, 1], c=y, s=30)
-    # plot the` decision function
-    ax = plt.gca()
-    xlim = ax.get_xlim()
-    ylim = ax.get_ylim()
-    # create grid to evaluate model
-    xx = np.linspace(xlim[0], xlim[1], 30)
-    yy = np.linspace(ylim[0], ylim[1], 30)
-    YY, XX = np.meshgrid(yy, xx)
-    xy = np.vstack([XX.ravel(), YY.ravel()]).T
-    Z = clf.decision_function(xy).reshape(XX.shape)
-    # plot decision boundary and margins
-    ax.contour(XX, YY, Z, colors='k', levels=[-1, 0, 1], alpha=0.5,
-               linestyles=['--', '-', '--'])
-    # plot support vectors
-    ax.scatter(clf.support_vectors_[:, 0], clf.support_vectors_[:, 1], s=100,
-               linewidth=1, facecolors='none', edgecolors='k')
-    plt.show()
-
+    # set the final invariant
+    final_invariant = complete_invariant
+    
+    # print
+    if SETTINGS['PRINT']:
+        print('#################### 528')
+        print('final_invariant', final_invariant.serialize())
+        print('####################')
+    
     # return found invariant and points in the seperation zone
-    return (True, invariant, points)
+    return (False, final_invariant, hesse_normal_forms)
+
+
+def find_disjunctive_invariant(SP):
+    pass
 
 
 ###
@@ -423,7 +536,7 @@ def activeLearn(SP):
 # incorrect_invariant = LE(Symbol('x', INT), Plus(Symbol('y', INT), Int(9)))
 # print(is_invariant_correct(code_1, incorrect_invariant))
 
-print(verify(code_1))
+print(verify(code_3).serialize())
 # print(evaluate(code_2, {'x': 0, 'y': -1}))
 
 # SP = {}
@@ -437,3 +550,11 @@ print(verify(code_1))
 #     SP['UNKNOWN'].append(point)
 
 # print(evaluate(code_1, {'x': -18, 'y': 24}))
+# left = Minus(Times(Int(1), Symbol('x', INT)), Int(18))
+# right = Symbol('y', INT)
+# formula = LE(left, right)
+# find_points_from_formula(formula)
+
+
+# print(mirror_point(1, -1, 0, 0, 0))
+# print(mirror_point(0, 1, -10, 0, 0))
