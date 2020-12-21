@@ -100,6 +100,6 @@ tree = ast.parse(program)
 tree2 = ast.parse('x = 10 + y * 5')
 
 tfv = ToFormulaVisitor(None)
-tfv.visit(tree)
+tfv.visit(tree2)
 print(tfv.lstack)
 print(tfv.rstack)
