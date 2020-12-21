@@ -14,7 +14,7 @@ SETTINGS = {
     'POINTS': {
         'GENERATE': {
             'START': 80,
-            'ZONE': 20
+            'ZONE': 100
         },
         'X': {
             'START': -10,
@@ -32,11 +32,19 @@ SETTINGS = {
 ###
 # Helper functions
 ###
+def mirror_point( a, b, c, x1, y1): 
+    temp = -2 * (a * x1 + b * y1 + c) /(a * a + b * b) 
+    x = temp * a + x1 
+    y = temp * b + y1  
+    return (x, y) 
+
+
 def plot_sp(SP, clf=None):
     # draw a plot of the data; helps visualizing what is happening
     POSITIVE = np.array(SP['POSITIVE'])
     NEGATIVE = np.array(SP['NEGATIVE'])
     NP = np.array(SP['NP'])
+    plt.scatter([17], [0], s=60, c=[9])
     plt.scatter(NP[:, 0], NP[:, 1], s=30)
     plt.scatter(NEGATIVE[:, 0], NEGATIVE[:, 1], s=30)
     plt.scatter(POSITIVE[:, 0], POSITIVE[:, 1], s=30)
@@ -58,6 +66,8 @@ def plot_sp(SP, clf=None):
         # plot support vectors
         ax.scatter(clf.support_vectors_[:, 0], clf.support_vectors_[:, 1], s=100,
                     linewidth=1, facecolors='none', edgecolors='k')
+        # my special line
+        # plt.plot([0, -clf.intercept_ / clf.coef_[0][0]], [-clf.intercept_ / clf.coef_[0][1], 0])
     plt.show()
 
 
@@ -128,6 +138,11 @@ code_1 = {
             ),
         )
     ),
+    # 'paths': [
+    #     x < y + 5,
+    #     y > 0,
+    #     x == 0
+    # ],
     'post': And(
         LE(get_var('y', 2), get_var('x', 2)),
         LE(get_var('x', 2), Plus(get_var('y', 2), Int(16)))
@@ -384,23 +399,28 @@ def verify(code):
         SP['UNKNOWN'] = []
 
         # get a possible invariant
-        invariant = activeLearn(SP)
+        invariant = find_conjunctive_invariant(SP)
         if not invariant[0]:
             return 'DISPROVED'
 
         # check if the invariant is actually correct
-        correct = is_invariant_correct(code_1, invariant[1])
+        correct = is_invariant_correct(code, invariant[1])
+        
         if correct[0]:
             return invariant[1]
-
+        else:
+            print('####################')
+            print('point', correct[1])
+            print('####################')
+        
         # add points to sp
         # point with which the invariant failed, this line actually does not have a big impact
         SP['UNKNOWN'].append((correct[1]['x'], correct[1]['y']))
         # points which are in the margin zone of the support vector machine
-        SP['UNKNOWN'] = invariant[2]
+        SP['UNKNOWN'] += invariant[2]
 
 
-def activeLearn(SP):
+def find_conjunctive_invariant(SP):
     # safety check
     if len(SP['CE']) != 0:
         return (False,)
@@ -412,7 +432,7 @@ def activeLearn(SP):
 
     complete_invariant = And()
     NEGATIVE = np.array(SP['NEGATIVE'])
-    lines = []
+    hesse_normal_forms = []
 
     while(len(NEGATIVE) != 0):
 
@@ -421,35 +441,63 @@ def activeLearn(SP):
         y = len(SP['POSITIVE']) * [1] + [0]
         x = np.array(x)
         y = np.array(y)
-        clf = svm.SVC(kernel='linear', C=1000)
+        clf = svm.SVC(kernel='linear')
         clf.fit(x, y)
 
         # calculate the seperating line
-        W = clf.coef_[0]
-        I = clf.intercept_
-        a = int(round(-W[0] / W[1]))
-        b = int(round(I[0] / W[1]))
-        def line(x): return a * x - b
-        lines.append(line)
+        print(clf.coef_)
+        print(clf.intercept_)
+
+        hesse_normal_forms.append((clf.coef_[0], clf.intercept_[0]))
+        ax = int(round(clf.coef_[0][0] * 10))
+        ay = int(round(clf.coef_[0][1] * 10))
+        b = int(round(clf.intercept_[0] * 10))
+        invariant = GT(
+            Plus(
+                Times(Int(ax), get_var('x')),
+                Times(Int(ay), get_var('y')), 
+                Int(b)
+            ), 
+            Int(0)
+        )
+
+        # W = clf.coef_[0]
+        # I = clf.intercept_
+        # print(W[0], W[1])
+        # try:
+        #     a = int(round(-W[0] / W[1]))
+        # except OverflowError:
+        #     a = 999999999999999999
+        #     print('OVERFLOW A')
+        # try:
+        #     b = int(round(I[0] / W[1]))
+        # except OverflowError:
+        #     b = 999999999999999999
+        #     print('OVERFLOW B')
+        # def line(x): return a * x - b
+        # lines.append(line)
 
         # margin calculation
-        margin = int(round(1 / np.linalg.norm(clf.coef_)) *
-                    SETTINGS['POINTS']['MARGIN_MULTIPLIER'])
+        # margin = int(round(1 / np.linalg.norm(clf.coef_)) *
+        #             SETTINGS['POINTS']['MARGIN_MULTIPLIER'])
 
         # check wheter <= or >= is correct
-        left = Minus(Times(Int(a), Symbol('x', INT)), Int(b))
-        right = Symbol('y', INT)
-        if clf.predict([(1, line(1) - 1)]) == 0:
-            invariant = LE(left, right)
-        else:
-            invariant = GE(left, right)
+        # left: a * x - b
+        # left = Minus(Times(Int(a), Symbol('x', INT)), Int(b))
+        # right: y
+        # right = Symbol('y', INT)
+        # if clf.predict([(1, line(1) - 1)]) == 0:
+        #     invariant = LT(left, right)
+        # else:
+        #     invariant = GT(left, right)
+        # invariant: a * x - b < y
         # print(invariant, '\n')
 
         # remove successfully classified from negative
         prediction = clf.predict(NEGATIVE)
-        print(NEGATIVE[0])
-        print(NEGATIVE)
-        print(prediction)
+        # print(NEGATIVE[0])
+        # print(NEGATIVE)
+        # print(prediction)
         plot_sp(SP, clf)
         NEGATIVE = NEGATIVE[prediction > 0]
         complete_invariant = And(complete_invariant, invariant)
@@ -458,18 +506,22 @@ def activeLearn(SP):
     print(invariant.serialize(), '\n')
     # generate points in the seperation zone
     points = []
-    for _ in range(0, SETTINGS['POINTS']['GENERATE']['ZONE']):
-        xp = random.randint(SETTINGS['POINTS']['X']['START'],
-                            SETTINGS['POINTS']['Y']['END'])
-        yp = lines[random.randint(0, len(lines) - 1)](xp) + random.randint(-margin, margin)
-        points.append((xp, yp))
-    print(points)
+    # for _ in range(0, SETTINGS['POINTS']['GENERATE']['ZONE']):
+    #     xp = random.randint(SETTINGS['POINTS']['X']['START'],
+    #                         SETTINGS['POINTS']['Y']['END'])
+    #     yp = lines[random.randint(0, len(lines) - 1)](xp) + random.randint(-margin, margin)
+    #     points.append((xp, yp))
+    # print(points)
 
     # plot
     # plot_svm(SP, clf)
 
     # return found invariant and points in the seperation zone
     return (True, invariant, points)
+
+
+def find_disjunctive_invariant(SP):
+    pass
 
 
 ###
@@ -480,7 +532,7 @@ def activeLearn(SP):
 # incorrect_invariant = LE(Symbol('x', INT), Plus(Symbol('y', INT), Int(9)))
 # print(is_invariant_correct(code_1, incorrect_invariant))
 
-print(verify(code_1))
+# print(verify(code_1))
 # print(evaluate(code_2, {'x': 0, 'y': -1}))
 
 # SP = {}
