@@ -1,6 +1,6 @@
 import random
 import pysmt
-from pysmt.shortcuts import Symbol, LE, GE, Int, GT, LT, And, Equals, Plus, Solver, is_sat, Or, Not, Minus, Ite, Implies, is_unsat, get_model, Times
+from pysmt.shortcuts import Symbol, LE, GE, Int, GT, LT, And, Equals, Plus, Solver, is_sat, Or, Not, Minus, Ite, Implies, is_unsat, get_model, Times, Not
 from pysmt.typing import INT, STRING, BOOL, REAL
 from sklearn import svm
 import matplotlib.pyplot as plt
@@ -152,11 +152,10 @@ code_1 = {
             ),
         )
     ),
-    # 'paths': [
-    #     x < y + 5,
-    #     y > 0,
-    #     x == 0
-    # ],
+    'paths': [
+        LT(get_var('x', 1), Int(0)),
+        LT(get_var('y', 1), Int(0))
+    ],
     'post': And(
         LE(get_var('y', 2), get_var('x', 2)),
         LE(get_var('x', 2), Plus(get_var('y', 2), Int(16)))
@@ -197,6 +196,9 @@ code_2 = {
         GT(get_var('x', 2), Int(0)), 
         GT(get_var('y', 2), Int(0))
     ),
+    'paths': [
+        GT(get_var('x', 1), Int(0))
+    ],
     'map': {
         'x': {
             'pre': 1,
@@ -413,8 +415,9 @@ def verify(code):
         SP['UNKNOWN'] = []
 
         # get a possible invariant
-        disproved, invariant, hesse_normal_forms = find_conjunctive_invariant(SP)
-        
+        # disproved, invariant, hesse_normal_forms = find_conjunctive_invariant(SP)
+        disproved, invariant, hesse_normal_forms = find_disjunctive_invariant(SP, code)
+
         # break if disproved
         if disproved:
             return 'DISPROVED'
@@ -427,6 +430,7 @@ def verify(code):
             return invariant
         
         # calculate mirror points to hesse forms and add to sp
+        print(invariant.serialize())
         error_point = (error_point['x'], error_point['y'])
         error_points = [error_point]
         for form in hesse_normal_forms:
@@ -525,8 +529,80 @@ def find_conjunctive_invariant(SP):
     return (False, final_invariant, hesse_normal_forms)
 
 
-def find_disjunctive_invariant(SP):
-    pass
+def find_disjunctive_invariant(all_single_points, code):
+    sps = [{},{},{},{}]
+    places = [1, 2]
+    cond = LE(
+        Plus(get_var('x'), get_var('y')), 
+        Int(-2)
+    )
+    path = GT(get_var('x'), Int(0))
+    noname = {
+        0: And(Not(cond), Not(path)),
+        1: And(cond, Not(path)),
+        2: And(Not(cond), path),
+        3: And(cond, path)
+    }
+    for point in all_single_points['POSITIVE']:
+        place = 0
+        
+        if is_sat(And(
+                code['cond'], 
+                Equals(get_var('x', 1), Int(point[0])), 
+                Equals(get_var('y', 1), Int(point[1]))
+            )):
+                place += places[0]
+        
+        for index in range(len(code['paths'])):
+            if is_sat(And(
+                code['paths'][index], 
+                Equals(get_var('x', 1), Int(point[0])), 
+                Equals(get_var('y', 1), Int(point[1]))
+            )):
+                place += places[index + 1]
+
+        if not 'POSITIVE' in sps[place]:
+            sps[place]['POSITIVE'] = []
+
+        sps[place]['POSITIVE'].append(point)
+
+    for point in all_single_points['NEGATIVE']:
+        place = 0
+        
+        if is_sat(And(
+                code['cond'], 
+                Equals(get_var('x', 1), Int(point[0])), 
+                Equals(get_var('y', 1), Int(point[1]))
+            )):
+                place += places[0]
+        
+        for index in range(len(code['paths'])):
+            if is_sat(And(
+                code['paths'][index], 
+                Equals(get_var('x', 1), Int(point[0])), 
+                Equals(get_var('y', 1), Int(point[1]))
+            )):
+                place += places[index + 1]
+
+        if not 'NEGATIVE' in sps[place]:
+            sps[place]['NEGATIVE'] = []
+        sps[place]['NEGATIVE'].append(point)
+
+    all_hesse_normal_forms = []
+    complete_invariant = Or()
+    for index in range(len(sps)):
+        sps[index]['NP'] = all_single_points['NP']
+        sps[index]['CE'] = all_single_points['CE']
+        sps[index]['NEGATIVE'] = sps[index]['NEGATIVE'] if 'NEGATIVE' in sps[index] else []
+        sps[index]['POSITIVE'] = sps[index]['POSITIVE'] if 'POSITIVE' in sps[index] else []
+        if sps[index] == []:
+            continue
+        disproved, invariant, hesse_normal_forms = find_conjunctive_invariant(sps[index])    
+        all_hesse_normal_forms += hesse_normal_forms
+        invariant = And(invariant, noname[index])
+        complete_invariant = Or(complete_invariant, invariant)
+
+    return disproved, complete_invariant, all_hesse_normal_forms
 
 
 ###
@@ -537,7 +613,7 @@ def find_disjunctive_invariant(SP):
 # incorrect_invariant = LE(Symbol('x', INT), Plus(Symbol('y', INT), Int(9)))
 # print(is_invariant_correct(code_1, incorrect_invariant))
 
-print(verify(code_3).serialize())
+print(verify(code_2).serialize())
 # print(evaluate(code_2, {'x': 0, 'y': -1}))
 
 # SP = {}
