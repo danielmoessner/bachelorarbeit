@@ -160,14 +160,14 @@ def verify(code):
             points = np.array(list(map(lambda point: [point['x'], point['y']], points)))
             single_points[evaluation] = np.append(single_points[evaluation], points, axis=0)
         single_points['UNKNOWN'] = np.empty((0,2), int)
+        
+        # break if disproved
+        if len(single_points['CE']) != 0:
+            return 'DISPROVED'
 
         # get a possible invariant
-        disproved, invariant, hesse_normal_forms = find_conjunctive_invariant(single_points)
-        # disproved, invariant, hesse_normal_forms = find_disjunctive_invariant(single_points, code)
-
-        # break if disproved
-        if disproved:
-            return 'DISPROVED'
+        # invariant, hesse_normal_forms = find_conjunctive_invariant(single_points)
+        invariant, hesse_normal_forms = find_disjunctive_invariant(single_points, code)
 
         # check if the invariant is actually correct
         invariant_correct, error_point = is_invariant_correct(code, invariant)
@@ -195,10 +195,6 @@ def verify(code):
         
 
 def find_conjunctive_invariant(single_points):
-    # if a counter example is found no invariant can be found
-    if len(single_points['CE']) != 0:
-        return (True, (), ())
-
     # print
     if SETTINGS['PRINT']:
         print(SETTINGS['#'], 'find_conjunctive_invariant single_points')
@@ -264,83 +260,84 @@ def find_conjunctive_invariant(single_points):
         )
     
     # return found invariant and points in the seperation zone
-    return (False, complete_invariant, hesse_normal_forms)
+    return complete_invariant, hesse_normal_forms
 
 
-def find_disjunctive_invariant(all_single_points, code):
-    sps = [{},{},{},{}]
-    places = [1, 2]
-    cond = LE(
-        Plus(get_var('x'), get_var('y')), 
-        Int(-2)
-    )
-    path = GT(get_var('x'), Int(0))
-    noname = {
-        0: And(Not(cond), Not(path)),
-        1: And(cond, Not(path)),
-        2: And(Not(cond), path),
-        3: And(cond, path)
-    }
-    for point in all_single_points['POSITIVE']:
-        place = 0
-        
-        if is_sat(And(
-                code['cond'], 
-                Equals(get_var('x', 1), Int(point[0])), 
-                Equals(get_var('y', 1), Int(point[1]))
-            )):
-                place += places[0]
-        
-        for index in range(len(code['paths'])):
-            if is_sat(And(
-                code['paths'][index], 
-                Equals(get_var('x', 1), Int(point[0])), 
-                Equals(get_var('y', 1), Int(point[1]))
-            )):
-                place += places[index + 1]
+def find_disjunctive_invariant(single_points, code):
+    path_seperations = 2 ** len(code['paths'])
+    cond_seperation = 1
+    single_points_seperated = (path_seperations + cond_seperation) * [[]]
+    for i in range(path_seperations + cond_seperation):
+        single_points_seperated[i] = {'POSITIVE': np.empty((0,2), int), 'NEGATIVE': np.empty((0,2), int)}
+    path_conditions = path_seperations * [code['cond']] + [Not(code['cond'])]
 
-        if not 'POSITIVE' in sps[place]:
-            sps[place]['POSITIVE'] = []
+    path_allocation = {}
+    for i in range(len(code['paths'])):
+        path_allocation[2**i] = code['paths'][i]
 
-        sps[place]['POSITIVE'].append(point)
+    for i in range(len(path_conditions) - 1):
+        k = i
+        while True:
+            for key, path in path_allocation.items():
+                if key > k:
+                    path_conditions[i] = And(path_conditions[i], Not(path))
+                else:
+                    path_conditions[i] = And(path_conditions[i], path)
+                    k -= key
+            if k == 0:
+                break
 
-    for point in all_single_points['NEGATIVE']:
-        place = 0
-        
-        if is_sat(And(
-                code['cond'], 
-                Equals(get_var('x', 1), Int(point[0])), 
-                Equals(get_var('y', 1), Int(point[1]))
-            )):
-                place += places[0]
-        
-        for index in range(len(code['paths'])):
-            if is_sat(And(
-                code['paths'][index], 
-                Equals(get_var('x', 1), Int(point[0])), 
-                Equals(get_var('y', 1), Int(point[1]))
-            )):
-                place += places[index + 1]
+    # for c in path_conditions:
+        # print(c.serialize())
+    # print(path_conditions)
 
-        if not 'NEGATIVE' in sps[place]:
-            sps[place]['NEGATIVE'] = []
-        sps[place]['NEGATIVE'].append(point)
+    # print(len(single_points_seperated[0]['POSITIVE']))
+    # print(len(single_points_seperated[1]['POSITIVE']))
+    # print(len(single_points_seperated[2]['POSITIVE']))
+
+    for valuation in ['POSITIVE', 'NEGATIVE']:
+        for point in single_points[valuation]:
+            assert_check = False
+            for i in range(len(path_conditions)):
+                sat = is_sat(
+                    And(
+                        path_conditions[i], 
+                        Equals(get_var('x', 1), Int(point[0])), 
+                        Equals(get_var('y', 1), Int(point[1]))
+                    )
+                )
+                assert_check = assert_check or sat
+                # print(i)
+                if sat:
+                    # print(sat)
+                    # print(len(single_points_seperated[0]['POSITIVE']))
+                    # print(len(single_points_seperated[1]['POSITIVE']))
+                    # print(len(single_points_seperated[2]['POSITIVE']))
+                    single_points_seperated[i][valuation] = (
+                        np.vstack([single_points_seperated[i][valuation], point])
+                    )
+                    # print(len(single_points_seperated[0]['POSITIVE']))
+                    # print(len(single_points_seperated[1]['POSITIVE']))
+                    # print(len(single_points_seperated[2]['POSITIVE']))
+            assert assert_check == True
+
+    # print(len(single_points_seperated[0]['POSITIVE']))
+    # print(len(single_points_seperated[1]['POSITIVE']))
+    # print(len(single_points_seperated[2]['POSITIVE']))
 
     all_hesse_normal_forms = []
     complete_invariant = Or()
-    for index in range(len(sps)):
-        sps[index]['NP'] = all_single_points['NP']
-        sps[index]['CE'] = all_single_points['CE']
-        sps[index]['NEGATIVE'] = sps[index]['NEGATIVE'] if 'NEGATIVE' in sps[index] else []
-        sps[index]['POSITIVE'] = sps[index]['POSITIVE'] if 'POSITIVE' in sps[index] else []
-        if sps[index] == []:
+    for i in range(len(single_points_seperated)):
+        single_points_seperated[i]['NP'] = single_points['NP']
+        single_points_seperated[i]['CE'] = single_points['CE']
+        if single_points_seperated[i]['POSITIVE'] == [] or single_points_seperated[i]['NEGATIVE'] == []:
             continue
-        disproved, invariant, hesse_normal_forms = find_conjunctive_invariant(sps[index])    
+        invariant, hesse_normal_forms = find_conjunctive_invariant(single_points_seperated[i])    
         all_hesse_normal_forms += hesse_normal_forms
-        invariant = And(invariant, noname[index])
+        invariant = And(invariant, path_conditions[i])
         complete_invariant = Or(complete_invariant, invariant)
 
-    return disproved, complete_invariant, all_hesse_normal_forms
+    return complete_invariant, all_hesse_normal_forms
 
 
 ###
@@ -351,7 +348,7 @@ def find_disjunctive_invariant(all_single_points, code):
 # incorrect_invariant = LE(Symbol('x', INT), Plus(Symbol('y', INT), Int(9)))
 # print(is_invariant_correct(code_1, incorrect_invariant))
 
-test_code = code_3
+test_code = code_2
 print(SETTINGS['#'], 'final result\n', simplify(verify(test_code)).serialize())
 # print(evaluate(code_2, {'x': 0, 'y': -1}))
 # print(evaluate_point(code_1, {'x': 323, 'y': 324}))

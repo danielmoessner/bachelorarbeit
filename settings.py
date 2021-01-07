@@ -22,6 +22,6 @@ SETTINGS = {
     },
     'HESSE_FORM_MULTIPLIER': 10,
     'PRINT': True, 
-    'PLOT': False,
+    'PLOT': True,
     '#': '#####################'
 }
