@@ -32,14 +32,14 @@ code_1 = {
             ),
         )
     ),
-    'paths': [
-        LT(get_var('x', 1), Int(0)),
-        LT(get_var('y', 1), Int(0))
-    ],
     'post': And(
         LE(get_var('y', 2), get_var('x', 2)),
         LE(get_var('x', 2), Plus(get_var('y', 2), Int(16)))
     ),
+    'paths': [
+        LT(get_var('x', 1), Int(0)),
+        LT(get_var('y', 1), Int(0))
+    ],
     'map': {
         'x': {
             'pre': 1,
@@ -77,7 +77,7 @@ code_2 = {
         GT(get_var('y', 2), Int(0))
     ),
     'paths': [
-        GT(get_var('x', 1), Int(0))
+        GT(get_var('x'), Int(0))
     ],
     'map': {
         'x': {
@@ -102,6 +102,7 @@ code_3 = {
         Equals(get_var('y', 2), Plus(get_var('y', 1), Int(1)))
     ),
     'post': GE(get_var('x', 2), get_var('y', 2)),
+    'paths': [],
     'map': {
         'x': {
             'pre': 1,
@@ -128,6 +129,7 @@ code_4 = {
         )
     ),
     'post': GT(get_var('y', 2), Int(0)),
+    'paths': [],
     'map': {
         'x': {
             'pre': 1,
