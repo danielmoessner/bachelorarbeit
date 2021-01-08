@@ -4,24 +4,16 @@
 SETTINGS = {
     'POINTS': { 
         'GENERATE': {
-            'START': 80,
+            'START': 200,
             'ZONE': 100,
-            'LOW': -10,
-            'HIGH': 10
-        },
-        'X': {
-            'START': -10,
-            'END': 10
-        },
-        'Y': {
-            'START': -10,
-            'END': 10
+            'LOW': -20,
+            'HIGH': 20
         },
         'MARGIN_MULTIPLIER': 10,
         'MIRROR_ADD': 20
     },
     'HESSE_FORM_MULTIPLIER': 10,
     'PRINT': True, 
-    'PLOT': True,
+    'PLOT': False,
     '#': '#####################'
 }

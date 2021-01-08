@@ -169,6 +169,13 @@ def verify(code):
         # invariant, hesse_normal_forms = find_conjunctive_invariant(single_points)
         invariant, hesse_normal_forms = find_disjunctive_invariant(single_points, code)
 
+        # print
+        if SETTINGS['PRINT']:
+            print(
+                SETTINGS['#'], 'testing invariant\n',
+                invariant.serialize()
+            )
+
         # check if the invariant is actually correct
         invariant_correct, error_point = is_invariant_correct(code, invariant)
         
@@ -265,17 +272,20 @@ def find_conjunctive_invariant(single_points):
 
 def find_disjunctive_invariant(single_points, code):
     path_seperations = 2 ** len(code['paths'])
-    cond_seperation = 1
+    # cond_seperation = 1
+    cond_seperation = path_seperations
     single_points_seperated = (path_seperations + cond_seperation) * [[]]
     for i in range(path_seperations + cond_seperation):
         single_points_seperated[i] = {'POSITIVE': np.empty((0,2), int), 'NEGATIVE': np.empty((0,2), int)}
-    path_conditions = path_seperations * [code['cond']] + [Not(code['cond'])]
+    
+    cond = code['cond'].substitute({get_var('x1'): get_var('x'), get_var('y1'): get_var('y')})
+    path_conditions = path_seperations * [cond] + cond_seperation * [Not(cond)]
 
     path_allocation = {}
     for i in range(len(code['paths'])):
         path_allocation[2**i] = code['paths'][i]
 
-    for i in range(len(path_conditions) - 1):
+    for i in range(path_seperations):
         k = i
         while True:
             for key, path in path_allocation.items():
@@ -286,14 +296,19 @@ def find_disjunctive_invariant(single_points, code):
                     k -= key
             if k == 0:
                 break
-
-    # for c in path_conditions:
-        # print(c.serialize())
-    # print(path_conditions)
-
-    # print(len(single_points_seperated[0]['POSITIVE']))
-    # print(len(single_points_seperated[1]['POSITIVE']))
-    # print(len(single_points_seperated[2]['POSITIVE']))
+    
+    if cond_seperation != 1:
+        for i in range(path_seperations):
+            k = i
+            while True:
+                for key, path in path_allocation.items():
+                    if key > k:
+                        path_conditions[i+2] = And(path_conditions[i+2], Not(path))
+                    else:
+                        path_conditions[i+2] = And(path_conditions[i+2], path)
+                        k -= key
+                if k == 0:
+                    break
 
     for valuation in ['POSITIVE', 'NEGATIVE']:
         for point in single_points[valuation]:
@@ -302,41 +317,36 @@ def find_disjunctive_invariant(single_points, code):
                 sat = is_sat(
                     And(
                         path_conditions[i], 
-                        Equals(get_var('x', 1), Int(point[0])), 
-                        Equals(get_var('y', 1), Int(point[1]))
+                        Equals(get_var('x'), Int(point[0])), 
+                        Equals(get_var('y'), Int(point[1]))
                     )
                 )
                 assert_check = assert_check or sat
-                # print(i)
                 if sat:
-                    # print(sat)
-                    # print(len(single_points_seperated[0]['POSITIVE']))
-                    # print(len(single_points_seperated[1]['POSITIVE']))
-                    # print(len(single_points_seperated[2]['POSITIVE']))
                     single_points_seperated[i][valuation] = (
                         np.vstack([single_points_seperated[i][valuation], point])
                     )
-                    # print(len(single_points_seperated[0]['POSITIVE']))
-                    # print(len(single_points_seperated[1]['POSITIVE']))
-                    # print(len(single_points_seperated[2]['POSITIVE']))
             assert assert_check == True
-
-    # print(len(single_points_seperated[0]['POSITIVE']))
-    # print(len(single_points_seperated[1]['POSITIVE']))
-    # print(len(single_points_seperated[2]['POSITIVE']))
 
     all_hesse_normal_forms = []
     complete_invariant = Or()
     for i in range(len(single_points_seperated)):
         single_points_seperated[i]['NP'] = single_points['NP']
         single_points_seperated[i]['CE'] = single_points['CE']
-        if single_points_seperated[i]['POSITIVE'] == [] or single_points_seperated[i]['NEGATIVE'] == []:
-            continue
-        invariant, hesse_normal_forms = find_conjunctive_invariant(single_points_seperated[i])    
+        if len(single_points_seperated[i]['POSITIVE']) == 0 or len(single_points_seperated[i]['NEGATIVE']) == 0:
+            invariant = And()
+            hesse_normal_forms = []
+        else:
+            invariant, hesse_normal_forms = find_conjunctive_invariant(single_points_seperated[i])    
         all_hesse_normal_forms += hesse_normal_forms
+        if SETTINGS['PRINT']:
+            print(
+                SETTINGS['#'], 'find_disjunctive_invariant path_condition\n',
+                path_conditions[i].serialize()
+            )
         invariant = And(invariant, path_conditions[i])
         complete_invariant = Or(complete_invariant, invariant)
-
+    
     return complete_invariant, all_hesse_normal_forms
 
 
@@ -348,8 +358,9 @@ def find_disjunctive_invariant(single_points, code):
 # incorrect_invariant = LE(Symbol('x', INT), Plus(Symbol('y', INT), Int(9)))
 # print(is_invariant_correct(code_1, incorrect_invariant))
 
-test_code = code_2
+test_code = code_1
 print(SETTINGS['#'], 'final result\n', simplify(verify(test_code)).serialize())
+# print(is_invariant_correct(test_code, Or()))
 # print(evaluate(code_2, {'x': 0, 'y': -1}))
 # print(evaluate_point(code_1, {'x': 323, 'y': 324}))
 # single_points = {}
